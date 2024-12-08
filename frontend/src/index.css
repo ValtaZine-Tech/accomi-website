@@ -1,0 +1,32 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+
+  --base-color: #f4f4f4;
+
+  --transition-time: 0.3s;
+}
+
+:is(h1,h2,h3) {
+  line-height: 0;
+}
+:is(p) {
+  margin: 5px 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: var(--base-color);
+  color: #2e2e2e;
+}
+
+a {
+  text-decoration: none;
+  color: #2e2e2e;
+}
+
+
+.btn1 {
+  font-size: 16px;
+}

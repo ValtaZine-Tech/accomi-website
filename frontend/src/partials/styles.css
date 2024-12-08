@@ -1,0 +1,16 @@
+/* Drawer Component Start*/
+.drawer-container {
+    /* border: 1px solid orange; */
+    border-radius: 0 10px 10px 0;
+    width: 300px;
+    height: 100vh;
+    background-color: #111241;
+    position: fixed;
+    left: 0;
+}
+
+/* Drawer Component End */
+
+
+
+
