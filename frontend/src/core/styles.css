@@ -5,6 +5,15 @@
     left: 315px;
     right: 0;
     bottom: 5px;
+    overflow-y: scroll;
     width: calc(100% - 320px);
-    height: calc(100% - 65px);
+    /* height: calc(100% - 65px); */
 }
+
+.container-card::-webkit-scrollbar {
+    width: 8px;
+  }
+.container-card::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+  }
