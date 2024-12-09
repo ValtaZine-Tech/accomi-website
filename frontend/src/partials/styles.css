@@ -2,15 +2,78 @@
 .drawer-container {
     /* border: 1px solid orange; */
     border-radius: 0 10px 10px 0;
-    width: 300px;
+    width: 305px;
     height: 100vh;
     background-color: #111241;
+    color: #ffffff;
     position: fixed;
     left: 0;
+    z-index: 10;
+    padding-top: 10px;
+}
+.drawer-separator {
+    height: 2px;
+    background-color: #fdb10e;
+    border-radius: 10px;
+    margin: auto auto auto 10px;
+    width: 280px;
+}
+.drawer-body {
+    padding: 20px 10px 0;
+    color: #ffffff;
+}
+.drawer-body a {
+    color: #ffffff;
+}
+.drawer-item {
+    /* border: 1px solid orange; */
+    height: 40px;
+    max-width: 270px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 5px;
+    gap: 5px;
+
+}
+.drawer-item div:nth-child(1) {
+    /* border: 1px solid orange; */
+    height: 35px;
+    width: 35px;
+}
+
+.dot {
+    height: 3px;
+    width: 15px;
+    border-radius: 10px;
+    background-color: #fdb10e;
+}
+
+.drawer-item.active {
+    background-color: #fdb10e;
 }
 
 /* Drawer Component End */
 
 
 
-
+.topbar-container {
+    /* border: 1px solid orange; */
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 20px;
+    /* width: 500px; */
+    background-color: #ffffff;
+    min-height: 60px;
+    flex: 1;
+    box-shadow: 0 4px 6px rgb(0, 0, 0, 0.1);
+    padding-left: 320px;
+    padding-right: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}

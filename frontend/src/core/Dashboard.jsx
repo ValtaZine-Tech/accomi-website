@@ -1,15 +1,17 @@
-import Drawer from "../partials/drawer"
-import Topbar from "../partials/topbar"
-
-
+import Drawer from "../partials/drawer";
+import Container from "./Container";
+import { Outlet } from "react-router-dom";
 
 const Dashboard = () => {
-    return (
-        <>
-            <Drawer />
-            <Topbar />
-        </>
-    )
-}
+  return (
+    <>
+      <Drawer />
+      <Container>
+        {/* Render nested routes here */}
+        <Outlet />
+      </Container>
+    </>
+  );
+};
 
-export default Dashboard
+export default Dashboard;

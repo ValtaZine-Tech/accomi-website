@@ -1,0 +1,10 @@
+.container-card {
+    /* border: 1px solid orange; */
+    position: fixed;
+    top: 65px;
+    left: 315px;
+    right: 0;
+    bottom: 5px;
+    width: calc(100% - 320px);
+    height: calc(100% - 65px);
+}
