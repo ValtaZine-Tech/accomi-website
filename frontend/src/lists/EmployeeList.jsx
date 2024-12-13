@@ -1,7 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react'
 import { Button, Divider, Space, Table, Tag } from 'antd'
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import Search from 'antd/es/input/Search';
 
 const columns = [
     {
@@ -131,6 +132,8 @@ const onChange = (pagination, filters, sorter, extra) => {
     console.log('params', pagination, filters, sorter, extra);
 };
 
+const onSearch = (value, _e, info) => console.log(info?.source, value);
+
 
 const EmployeeList = () => {
     return (
@@ -139,8 +142,12 @@ const EmployeeList = () => {
                 <Divider orientation="left" style={{
                     borderColor: '#fdb10e',
                 }} >
-                    <h2>Employee List</h2>
+                    <h2>Employee Profiles</h2>
                 </Divider>
+                <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between',gap:200,marginBottom:30}}>
+                <Search placeholder="search employee..." onSearch={onSearch} enterButton />
+                <Button type='primary' style={{marginRight:20}}> <PlusOutlined/> Add New Employee </Button>
+                </div>
                 <Table columns={columns} dataSource={data} onChange={onChange} />
             </div>
         </>

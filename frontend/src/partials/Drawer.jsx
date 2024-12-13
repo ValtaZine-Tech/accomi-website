@@ -1,19 +1,28 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import './styles.css';
-import { Avatar, Divider } from 'antd';
+import { Avatar, Divider, Modal } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import { asset } from '../assets/assets';
+import { asset, drawer } from '../assets/assets';
 import { Link, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
 
 const Drawer = () => {
     const [activeItem, setActiveItem] = useState('');
+    const [modal2Open, setModal2Open] = useState(false);
     const location = useLocation();
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         // Set the active drawer item based on the current URL
         setActiveItem(location.pathname);
     }, [location]);
+
+    const handleLogout = () => {
+        navigate('/login')
+    }
 
     return (
         <>
@@ -28,23 +37,37 @@ const Drawer = () => {
                 </div>
                 <div className="drawer-separator"></div>
                 <div className="drawer-body">
-                    <div>
-                        <Divider orientation='left' style={{ color: '#ffffff', borderColor: '#fdb10e',borderWidth:3, }}>
-                            Property Section
-                        </Divider>
-                    </div>
-                    {/* Property Form Link */}
-                    <Link to="property-list">
+                    <Link to="/dashboard/">
                         <div
-                            className={`drawer-item ${activeItem === '/dashboard/property-list' ? 'active' : ''}`}
+                            className={`drawer-item ${activeItem === '/dashboard/' ? 'active' : ''}`}
                         >
-                            <div></div>
                             <div>
-                                <p>Property List</p>
+                                <img src={drawer.overview} style={{ width: 20, height: 20 }} alt="drawer item icon" />
+                            </div>
+                            <div>
+                                <p>Overview</p>
                             </div>
                         </div>
                     </Link>
-                    <Link to="property-form">
+                    <div>
+                        <Divider orientation='left' orientationMargin={0} style={{ color: '#ffffff', borderColor: '#fdb10e', borderWidth: 3, }}>
+                            <p style={{ color: '#fdb10e', lineHeight: 0 }}>Properties</p>
+                        </Divider>
+                    </div>
+                    {/* Property Form Link */}
+                    <Link to="properties">
+                        <div
+                            className={`drawer-item ${activeItem === '/dashboard/properties' ? 'active' : ''}`}
+                        >
+                            <div>
+                                <img src={drawer.property} style={{ width: 20, height: 20 }} alt="drawer item icon" />
+                            </div>
+                            <div>
+                                <p>Residencies</p>
+                            </div>
+                        </div>
+                    </Link>
+                    {/* <Link to="property-form">
                         <div
                             className={`drawer-item ${activeItem === '/dashboard/property-form' ? 'active' : ''}`}
                         >
@@ -53,12 +76,12 @@ const Drawer = () => {
                                 <p>Property Form</p>
                             </div>
                         </div>
-                    </Link>
+                    </Link> */}
 
 
                     <div>
-                        <Divider orientation='left' style={{ color: '#ffffff', borderColor: '#fdb10e' }}>
-                            Employee Section
+                        <Divider orientation='left' orientationMargin={0} style={{ color: '#ffffff', borderColor: '#fdb10e', borderWidth: 3, }}>
+                            <p style={{ color: '#fdb10e', lineHeight: 0 }}>Profiles</p>
                         </Divider>
                     </div>
                     {/* Employee Form Link */}
@@ -66,14 +89,28 @@ const Drawer = () => {
                         <div
                             className={`drawer-item ${activeItem === '/dashboard/employee-list' ? 'active' : ''}`}
                         >
-                            <div></div>
                             <div>
-                                <p>Employee List</p>
+                                <img src={drawer.employee} style={{ width: 20, height: 20 }} alt="drawer item icon" />
+                            </div>
+                            <div>
+                                <p>Employees</p>
+                            </div>
+                        </div>
+                    </Link>
+                    <Link to="students">
+                        <div
+                            className={`drawer-item ${activeItem === '/dashboard/students' ? 'active' : ''}`}
+                        >
+                            <div>
+                                <img src={drawer.student} style={{ width: 20, height: 20 }} alt="drawer item icon" />
+                            </div>
+                            <div>
+                                <p>Students</p>
                             </div>
                         </div>
                     </Link>
 
-                    <Link to="employee-form">
+                    {/* <Link to="employee-form">
                         <div
                             className={`drawer-item ${activeItem === '/dashboard/employee-form' ? 'active' : ''}`}
                         >
@@ -82,25 +119,27 @@ const Drawer = () => {
                                 <p>Employee Form</p>
                             </div>
                         </div>
-                    </Link>
+                    </Link> */}
 
                     <div>
-                        <Divider orientation='left' style={{ color: '#ffffff', borderColor: '#fdb10e' }}>
-                            University Section
+                        <Divider orientation='left' orientationMargin={0} style={{ color: '#ffffff', borderColor: '#fdb10e', borderWidth: 3, }}>
+                            <p style={{ color: '#fdb10e', lineHeight: 0 }}>Institutions</p>
                         </Divider>
                     </div>
                     {/* Employee Form Link */}
-                    <Link to="university-list">
+                    <Link to="institutions">
                         <div
                             className={`drawer-item ${activeItem === '/dashboard/university-list' ? 'active' : ''}`}
                         >
-                            <div></div>
                             <div>
-                                <p>University List</p>
+                                <img src={drawer.university} style={{ width: 20, height: 20 }} alt="drawer item icon" />
+                            </div>
+                            <div>
+                                <p>Universities</p>
                             </div>
                         </div>
                     </Link>
-                    <Link to="university-form">
+                    {/* <Link to="university-form">
                         <div
                             className={`drawer-item ${activeItem === '/dashboard/university-form' ? 'active' : ''}`}
                         >
@@ -109,7 +148,14 @@ const Drawer = () => {
                                 <p>University Form</p>
                             </div>
                         </div>
-                    </Link>
+                    </Link> */}
+
+
+                    <div>
+                        <Divider orientation='left' orientationMargin={0} style={{ color: '#ffffff', borderColor: '#fdb10e', borderWidth: 3, }}>
+                            <p style={{ color: '#fdb10e', lineHeight: 0 }}>Other</p>
+                        </Divider>
+                    </div>
 
                 </div>
             </div>
@@ -127,7 +173,22 @@ const Drawer = () => {
                     size="large"
                 >
                     <UserOutlined />
+
                 </Avatar>
+                <div className='logout-btn' onClick={() => setModal2Open(true)}>
+                    <img src={asset.logout} style={{ width: 30, height: 30 }} alt="" />
+                    <p>Logout</p>
+                </div>
+                <Modal
+                    title="Logout"
+                    centered
+                    open={modal2Open}
+                    onOk={() => handleLogout()}
+                    onCancel={() => setModal2Open(false)}
+                >
+                    <p>You are logging out of your account.</p>
+                    
+                </Modal>
             </div>
         </>
     );

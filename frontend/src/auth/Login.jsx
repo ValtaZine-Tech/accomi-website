@@ -33,7 +33,7 @@ const Login = () => {
                             placeholder="Enter your password"
                             iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} />
 
-                        <Button className="auth-btn" style={{marginTop: 20}} onClick={handleLogin}>Sign in</Button>
+                        <Button type='primary' className="auth-btn" style={{marginTop: 20}} onClick={handleLogin}>Sign in</Button>
                     </div>
 
                 </div>

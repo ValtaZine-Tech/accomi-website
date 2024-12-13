@@ -1,7 +1,9 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react'
 import { Button, Divider, Space, Table, Tag } from 'antd'
-import { CheckOutlined, CloseOutlined, DeleteOutlined } from '@ant-design/icons';
+import { CheckOutlined, CloseOutlined, DeleteOutlined, PlusOutlined } from '@ant-design/icons';
+import Search from 'antd/es/input/Search';
+import { Link } from 'react-router-dom';
 
 const columns = [
     {
@@ -140,6 +142,8 @@ const onChange = (pagination, filters, sorter, extra) => {
     console.log('params', pagination, filters, sorter, extra);
 };
 
+const onSearch = (value, _e, info) => console.log(info?.source, value);
+
 
 const PropertyList = () => {
     return (
@@ -148,10 +152,16 @@ const PropertyList = () => {
                 <Divider orientation="left" style={{
                     borderColor: '#fdb10e',
                 }} >
-                    <h2>Property List</h2>
+                    <h2>Residence List</h2>
                 </Divider>
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', gap: 200, marginBottom: 30 }}>
+                    <Search placeholder="search property..." onSearch={onSearch} enterButton />
+                    <Link to="add-new">
+                        <Button type='primary' style={{ padding: "0 30px", marginRight: 20 }}> <PlusOutlined /> Add New Property </Button>
+                    </Link>
+                </div>
                 <Table columns={columns} dataSource={data} onChange={onChange} />
-            </div>
+            </div >
         </>
     )
 }

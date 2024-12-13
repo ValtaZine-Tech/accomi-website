@@ -10,6 +10,7 @@ import EmployeeList from "./lists/EmployeeList";
 import UniversityList from "./lists/UniversityList ";
 import UniversityForm from "./forms/UniversityForm";
 import EmployeeForm from "./forms/EmployeeForm";
+import StudentList from "./lists/StudentList";
 
 function App() {
   return (
@@ -21,12 +22,13 @@ function App() {
         <Route path="/property-owner-signup" element={<SignUp />} />
         <Route path="/dashboard" element={<Dashboard />}>
           {/* Nested route */}
-          <Route path="property-form" element={<PropertyForm />} />
-          <Route path="university-form" element={<UniversityForm />} />
+          <Route path="properties/add-new" element={<PropertyForm />} />
+          <Route path="institutions/add-new" element={<UniversityForm />} />
           <Route path="employee-form" element={<EmployeeForm />} />
-          <Route path="property-list" element={<PropertyList />} />
-          <Route path="university-list" element={<UniversityList />} />
+          <Route path="properties" element={<PropertyList />} />
+          <Route path="institutions" element={<UniversityList />} />
           <Route path="employee-list" element={<EmployeeList />} />
+          <Route path="students" element={<StudentList />} />
           
         </Route>
       </Routes>

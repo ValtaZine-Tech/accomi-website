@@ -42,6 +42,10 @@
     /* border: 1px solid orange; */
     height: 35px;
     width: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .dot {
@@ -76,4 +80,16 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
+}
+
+.logout-btn {
+
+    /* border: 1px solid orange; */
+    border: none;
+    background: transparent;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    cursor: default;
+    margin-left: 20px;
 }

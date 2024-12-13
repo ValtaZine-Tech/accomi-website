@@ -1,4 +1,5 @@
-import Drawer from "../partials/Drawer";
+
+import Drawer from "../partials/drawer";
 import Container from "./Container";
 import { Outlet } from "react-router-dom";
 

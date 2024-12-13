@@ -52,13 +52,15 @@
 
 .auth-btn {
     background: #111241;
-    border: 2px solid #11124180;
+    border: none;
     color: #ffffff;
     font-size: 15px;
     border-radius: 30px;
     margin-top: 5px;
     transition: all 0.2s ease-in-out;
 }
+
+
 .auth-btn2 {
     /* background: #fdb10e; */
     color: #2e2e2e;
@@ -68,11 +70,10 @@
 }
 
 .ant-checkbox-checked .ant-checkbox-inner {
-    background-color: #fdb10e; 
+    background-color: #fdb10e;
     border-color: #fdb10e;
-  }
+}
 
-  .ant-checkbox:hover .ant-checkbox-inner {
+.ant-checkbox:hover .ant-checkbox-inner {
     border-color: #111241;
-  }
-   
+}

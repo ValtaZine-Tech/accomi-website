@@ -398,6 +398,13 @@ const PropertyForm = () => {
                                 </Button>
                             </Form.Item>
                         </Col>
+                        <Col span={24}>
+                            <Form.Item>
+                                <Button type="default" htmlType="reset" block>
+                                    Cancel
+                                </Button>
+                            </Form.Item>
+                        </Col>
                     </Row>
                 </Form>
 
