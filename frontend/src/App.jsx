@@ -11,6 +11,7 @@ import UniversityList from "./lists/UniversityList ";
 import UniversityForm from "./forms/UniversityForm";
 import EmployeeForm from "./forms/EmployeeForm";
 import StudentList from "./lists/StudentList";
+import Overview from "./core/Overview";
 
 function App() {
   return (
@@ -21,7 +22,9 @@ function App() {
         <Route path="/property-owner-login" element={<Login2 />} />
         <Route path="/property-owner-signup" element={<SignUp />} />
         <Route path="/dashboard" element={<Dashboard />}>
+        
           {/* Nested route */}
+          <Route path="" element={<Overview />} />
           <Route path="properties/add-new" element={<PropertyForm />} />
           <Route path="institutions/add-new" element={<UniversityForm />} />
           <Route path="employee-form" element={<EmployeeForm />} />
