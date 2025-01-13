@@ -4,7 +4,7 @@ import Login from "./auth/Login";
 import Login2 from "./auth/Login2";
 import SignUp from "./auth/SignUp";
 import Dashboard from "./core/Dashboard";
-import PropertyForm from "./forms/propertyForm";
+import PropertyForm from "./forms/PropertyForm";
 import PropertyList from "./lists/PropertyList";
 import EmployeeList from "./lists/EmployeeList";
 import UniversityList from "./lists/UniversityList ";
