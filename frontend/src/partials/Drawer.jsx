@@ -21,7 +21,7 @@ const Drawer = () => {
     }, [location]);
 
     const handleLogout = () => {
-        navigate('/login')
+        navigate('/')
     }
 
     return (
@@ -110,16 +110,18 @@ const Drawer = () => {
                         </div>
                     </Link>
 
-                    {/* <Link to="employee-form">
+                    <Link to="landlords">
                         <div
-                            className={`drawer-item ${activeItem === '/dashboard/employee-form' ? 'active' : ''}`}
+                            className={`drawer-item ${activeItem === '/dashboard/landlords' ? 'active' : ''}`}
                         >
-                            <div></div>
                             <div>
-                                <p>Employee Form</p>
+                                <img src={drawer.landlord} style={{ width: 20, height: 20 }} alt="drawer item icon" />
+                            </div>
+                            <div>
+                                <p>Landlords</p>
                             </div>
                         </div>
-                    </Link> */}
+                    </Link>
 
                     <div>
                         <Divider orientation='left' orientationMargin={0} style={{ color: '#ffffff', borderColor: '#fdb10e', borderWidth: 3, }}>
@@ -152,9 +154,9 @@ const Drawer = () => {
 
 
                     <div>
-                        <Divider orientation='left' orientationMargin={0} style={{ color: '#ffffff', borderColor: '#fdb10e', borderWidth: 3, }}>
+                        {/* <Divider orientation='left' orientationMargin={0} style={{ color: '#ffffff', borderColor: '#fdb10e', borderWidth: 3, }}>
                             <p style={{ color: '#fdb10e', lineHeight: 0 }}>Other</p>
-                        </Divider>
+                        </Divider> */}
                     </div>
 
                 </div>
@@ -187,7 +189,7 @@ const Drawer = () => {
                     onCancel={() => setModal2Open(false)}
                 >
                     <p>You are logging out of your account.</p>
-                    
+
                 </Modal>
             </div>
         </>

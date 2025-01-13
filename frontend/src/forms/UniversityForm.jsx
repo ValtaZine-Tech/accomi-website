@@ -186,15 +186,15 @@ const UniversityForm = () => {
                         
 
                         {/* Submit Button */}
-                        <Row justify="center" style={{ marginTop: 20 }}>
-                            <Col span={24}>
+                        <Row justify="center" style={{ marginTop: 20 }} gutter={[50,0]}>
+                            <Col span={12}>
                                 <Form.Item>
-                                    <Button type="primary" htmlType="submit" block>
+                                    <Button type="primary" htmlType="submit" block style={{backgroundColor:"#111241"}}>
                                         Submit
                                     </Button>
                                 </Form.Item>
                             </Col>
-                            <Col span={24}>
+                            <Col span={12}>
                                 <Form.Item>
                                     <Button type="default" htmlType="reset" block>
                                         Cancel

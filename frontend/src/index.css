@@ -12,7 +12,9 @@
 :is(p) {
   margin: 5px 0;
 }
-
+button [type:submit] {
+  background-color: #111241;
+}
 body {
   margin: 0;
   padding: 0;

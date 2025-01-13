@@ -3,13 +3,36 @@ import { Alert, Button, Input, Select } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import './styles.css'
 import { asset } from '../assets/assets';
+import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+import { useState } from 'react';
 
-const Login = () => {
+const Login = ({ onLogin }) => {
     const navigate = useNavigate(); // Initialize the navigate function
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
 
     const handleLogin = () => {
-      navigate('/dashboard'); // Use navigate to redirect
+        // Simple login logic
+        if (email === "" && password === "") {
+            localStorage.setItem("user", "authenticated");
+            onLogin(true);
+            navigate('/');
+        } else if (email === "admin" && password === "admin123") {
+            localStorage.setItem("admin", "authenticated");
+            onLogin(true);
+            navigate('/dashboard');
+        } else {
+            setError("Invalid email or password");
+        }
+    };
+
+    const handleButtonClick = () => {
+        handleLogin();
+        onLogin(true);
     };
 
     return (
@@ -18,22 +41,37 @@ const Login = () => {
                 <div className="auth-container">
                     <div className="card" style={{ width: "400px", backgroundColor: "#111241", color: "#ffffff" }}>
                         <div className='auth-img-card'>
-                            <img src={asset.logo} alt="" style={{ objectFit: "cover", height: "200px", width: "200px" }} />
+                            <LazyLoadImage
+                                src={asset.logo}
+                                alt=""
+                                effect="blur"
+                                style={{ objectFit: "cover", height: "200px", width: "200px" }}
+                            />
                         </div>
                         <h1 style={{fontSize: 20}}>Welcome to Accomi</h1>
                     </div>
                     <div className="card" style={{ width: "350px", padding: "30px" }}>
                         <h2 style={{ padding: "0" }}>Sign in</h2>
-                        <p>Enter Your Credientials to access your workspace</p>
+                        <p>Enter Your Credentials to access your workspace</p>
                         
+                        {error && <Alert message={error} type="error" showIcon />}
                         
-                        <Input type="text" className='inputField' placeholder='Enter your Accomi Email' />
+                        <Input 
+                            type="text" 
+                            className='inputField' 
+                            placeholder='Enter your Accomi Email' 
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
                         <Input.Password
                             className='inputField'
                             placeholder="Enter your password"
-                            iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)} />
+                            iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
 
-                        <Button type='primary' className="auth-btn" style={{marginTop: 20}} onClick={handleLogin}>Sign in</Button>
+                        <Button type='default' className="auth-btn" style={{marginTop: 20}} onClick={handleButtonClick}>Sign in</Button>
                     </div>
 
                 </div>
@@ -41,5 +79,9 @@ const Login = () => {
         </>
     )
 }
+
+Login.propTypes = {
+    onLogin: PropTypes.func.isRequired,
+};
 
 export default Login

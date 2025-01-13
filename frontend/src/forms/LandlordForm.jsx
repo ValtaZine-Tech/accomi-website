@@ -1,85 +1,16 @@
 /* eslint-disable no-unused-vars */
-
 import { useState } from 'react'
 import { Form, Input, InputNumber, Select, DatePicker, Checkbox, Button, Row, Col, Typography, Divider, Upload, Image, message } from "antd";
-import { InboxOutlined, PlusOutlined } from '@ant-design/icons'
 import './styles.css'
-import Dragger from 'antd/es/upload/Dragger';
-
 
 const { Option } = Select;
 const { Title } = Typography;
 
+const LandlordForm = () => {
 
-const PropertyForm = () => {
-
-    const [previewOpen, setPreviewOpen] = useState(false);
-    const [previewImage, setPreviewImage] = useState('');
-
-    // Helper function to read image file as base64
-    const getBase64 = (file) =>
-        new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = (error) => reject(error);
-        });
-
-    const handleImagePreview = async (file) => {
-        if (!file.url && !file.preview) {
-            file.preview = await getBase64(file.originFileObj); // Convert to base64 preview
-        }
-        setPreviewImage(file.url || file.preview);
-        setPreviewOpen(true);
-    };
-
-    const props = {
-        name: 'file',
-        multiple: true,
-        action: 'https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload',
-        onChange(info) {
-            const { status } = info.file;
-            if (status !== 'uploading') {
-                console.log(info.file, info.fileList);
-            }
-            if (status === 'done') {
-                message.success(`${info.file.name} file uploaded successfully.`);
-            } else if (status === 'error') {
-                message.error(`${info.file.name} file upload failed.`);
-            }
-        },
-        onDrop(e) {
-            console.log('Dropped files', e.dataTransfer.files);
-        },
-        onPreview: handleImagePreview,
-    };
-
-    const props2 = {
-        name: 'file',
-        multiple: false,
-        action: 'https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload',
-        onChange(info) {
-            const { status } = info.file;
-            if (status !== 'uploading') {
-                console.log(info.file, info.fileList);
-            }
-            if (status === 'done') {
-                message.success(`${info.file.name} file uploaded successfully.`);
-            } else if (status === 'error') {
-                message.error(`${info.file.name} file upload failed.`);
-            }
-        },
-        onDrop(e) {
-            console.log('Dropped files', e.dataTransfer.files);
-        },
-        onPreview: handleImagePreview,
-    };
-    
     const onFinish = (values) => {
         console.log('Form Values:', values);
     };
-
-
 
     return (
         <>
@@ -87,7 +18,7 @@ const PropertyForm = () => {
                 <Divider orientation="left" style={{
                     borderColor: '#fdb10e',
                 }} >
-                    <h2>Property Form</h2>
+                    <h2>Landlord Form</h2>
                 </Divider>
             </div>
 
@@ -170,110 +101,6 @@ const PropertyForm = () => {
                         </Col>
                     </Row>
 
-                    {/* Property  Section */}
-                    <Title level={4} style={{ marginBottom: 0 }}>
-                        Property Images
-                    </Title>
-                    <Divider />
-                    <Row gutter={[10, 0]}>
-                        <Col span={8} style={{ display: 'flex' }}> {/* Apply flex layout to the column */}
-                            <Form.Item
-                                label="Cover Image"
-                                name="coverImage"
-                                rules={[{ required: true, message: "Please upload at least 1 image!" }]}
-                                style={{ flex: 1 }} // Make the Form.Item fill the available space
-                            >
-                                <div>
-                                <Dragger {...props2}>
-                                    <p className="ant-upload-drag-icon">
-                                        <PlusOutlined style={{ color: "#fdb10e" }} />
-                                    </p>
-                                    <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                                    <p className="ant-upload-hint">
-                                        Support for single uploads. Prohibited from uploading any copyrighted images.
-                                    </p>
-                                </Dragger>
-                                    {previewImage && (
-                                        <Image
-                                            wrapperStyle={{
-                                                display: 'none',
-                                            }}
-                                            preview={{
-                                                visible: previewOpen,
-                                                onVisibleChange: (visible) => setPreviewOpen(visible),
-                                                afterOpenChange: (visible) => !visible && setPreviewImage(''),
-                                            }}
-                                            src={previewImage}
-                                        />
-                                    )}
-                                </div>
-                            </Form.Item>
-                        </Col>
-
-                        <Col span={16}>
-                            <Form.Item
-                                label="Other Image"
-                                name="otherImage"
-                                rules={[{ required: false, message: "Please upload at least 1 image!" }]}
-                            >
-                                <Dragger {...props}>
-                                    <p className="ant-upload-drag-icon">
-                                        <InboxOutlined style={{ color: "#fdb10e" }} />
-                                    </p>
-                                    <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                                    <p className="ant-upload-hint">
-                                        Support for a single or bulk upload. Strictly prohibited from uploading company data or other
-                                        banned files.
-                                    </p>
-                                </Dragger>
-                            </Form.Item>
-                        </Col>
-                    </Row>
-
-
-
-                    {/* Location Details Section */}
-                    <Title level={4} style={{ marginBottom: 0, marginTop: 20 }}>
-                        Location Details
-                    </Title>
-                    <Divider />
-                    <Row gutter={[10, 0]}>
-                        <Col span={8}>
-                            <Form.Item label="Distance from City (km)" name="distanceFromCity" style={{ marginBottom: 10 }}>
-                                <InputNumber min={0} style={{ width: "100%" }} />
-                            </Form.Item>
-                        </Col>
-
-                        <Col span={8}>
-                            <Form.Item label="Distance from Campus (km)" name="distanceFromCampus" style={{ marginBottom: 10 }}>
-                                <InputNumber min={0} style={{ width: "100%" }} />
-                            </Form.Item>
-                        </Col>
-
-                        <Col span={8}>
-                            <Form.Item label="Address" name="address" style={{ marginBottom: 5 }}>
-                                <Input />
-                            </Form.Item>
-                        </Col>
-
-                        <Col span={8}>
-                            <Form.Item label="Location Latitude" name="locationLat" style={{ marginBottom: 5 }}>
-                                <Input />
-                            </Form.Item>
-                        </Col>
-
-                        <Col span={8}>
-                            <Form.Item label="Location Longitude" name="locationLong" style={{ marginBottom: 5 }}>
-                                <Input />
-                            </Form.Item>
-                        </Col>
-
-                        <Col span={8}>
-                            <Form.Item label="Country" name="country" style={{ marginBottom: 5 }}>
-                                <Input />
-                            </Form.Item>
-                        </Col>
-                    </Row>
 
                     {/* Amenities Section */}
                     <Title level={4} style={{ marginBottom: 0, marginTop: 20 }}>
@@ -364,40 +191,17 @@ const PropertyForm = () => {
                         </Col>
                     </Row>
 
-                    {/* Lease Details Section */}
-                    <Title level={4} style={{ marginBottom: 0, marginTop: 20 }}>
-                        Lease Details
-                    </Title>
-                    <Divider />
-                    <Row gutter={[10, 0]}>
-                        <Col span={8}>
-                            <Form.Item label="Move-in Date" name="moveInDate" rules={[{ required: true }]} style={{ marginBottom: 10 }}>
-                                <DatePicker style={{ width: "100%" }} />
-                            </Form.Item>
-                        </Col>
-
-                        <Col span={8}>
-                            <Form.Item label="Security Deposit" name="securityDeposit" rules={[{ required: true }]} style={{ marginBottom: 10 }}>
-                                <InputNumber min={0} style={{ width: "100%" }} prefix="UGX." />
-                            </Form.Item>
-                        </Col>
-
-                        <Col span={8}>
-                            <Form.Item label="Monthly Rent" name="monthlyRent" rules={[{ required: true }]} style={{ marginBottom: 10 }}>
-                                <InputNumber min={0} style={{ width: "100%" }} prefix="UGX." />
-                            </Form.Item>
-                        </Col>
-                    </Row>
 
                     {/* Submit Button */}
-                    <Row justify="center" style={{ marginTop: 20 }} gutter={[50,0]}>
+                    <Row justify="center" style={{ marginTop: 20 }} gutter={[50, 0]}>
                         <Col span={12}>
                             <Form.Item>
-                                <Button type="primary" htmlType="submit" block style={{backgroundColor: '#111241'}}>
+                                <Button type="primary" htmlType="submit" block style={{backgroundColor:"#111241"}}>
                                     Submit
                                 </Button>
                             </Form.Item>
                         </Col>
+
                         <Col span={12}>
                             <Form.Item>
                                 <Button type="default" htmlType="reset" block>
@@ -405,7 +209,17 @@ const PropertyForm = () => {
                                 </Button>
                             </Form.Item>
                         </Col>
+
                     </Row>
+                    {/* <Row justify="center" style={{ marginTop: -10 }}>
+                        <Col span={12}>
+                            <Form.Item>
+                                <Button type="default" htmlType="reset" block>
+                                    Cancel
+                                </Button>
+                            </Form.Item>
+                        </Col>
+                    </Row> */}
                 </Form>
 
             </div>
@@ -413,4 +227,4 @@ const PropertyForm = () => {
     )
 }
 
-export default PropertyForm
+export default LandlordForm

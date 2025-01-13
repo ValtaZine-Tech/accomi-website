@@ -120,7 +120,7 @@ const UniversityList = () => {
                 <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', gap: 200, marginBottom: 30 }}>
                     <Search placeholder="search university..." onSearch={onSearch} enterButton />
                     <Link to="add-new">
-                        <Button type='primary' style={{ padding: "0 30px", marginRight: 20 }}> <PlusOutlined /> Add New University </Button>
+                        <Button type='primary' style={{ padding: "0 30px", marginRight: 20, backgroundColor:'#111241' }}> <PlusOutlined /> Add New University </Button>
                     </Link>
                 </div>
                 <Table columns={columns} dataSource={data} onChange={onChange} />

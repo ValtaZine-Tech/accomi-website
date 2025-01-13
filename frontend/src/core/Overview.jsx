@@ -16,6 +16,16 @@ const Overview = () => {
         const data = [
             { x: 'Jan', net: 100, cogs: 50, gm: 50 },
             { x: 'Feb', net: 120, cogs: 55, gm: 75 },
+            { x: 'Mar', net: 120, cogs: 55, gm: 75 },
+            { x: 'Apr', net: 100, cogs: 50, gm: 50 },
+            { x: 'May', net: 120, cogs: 55, gm: 75 },
+            { x: 'Jun', net: 120, cogs: 55, gm: 75 },
+            { x: 'Jul', net: 100, cogs: 50, gm: 50 },
+            { x: 'Aug', net: 120, cogs: 55, gm: 75 },
+            { x: 'Sep', net: 120, cogs: 55, gm: 75 },
+            { x: 'Oct', net: 100, cogs: 50, gm: 50 },
+            { x: 'Nov', net: 120, cogs: 55, gm: 75 },
+            { x: 'Dec', net: 120, cogs: 55, gm: 75 },
         ];
 
         const barLabels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
@@ -76,6 +86,7 @@ const Overview = () => {
     return (
         <>
             <div className="top-section">
+                <div className="ov-card"></div>
                 <div className="ov-card"></div>
                 <div className="ov-card"></div>
                 <div className="ov-card"></div>

@@ -4,7 +4,7 @@ import Login from "./auth/Login";
 import Login2 from "./auth/Login2";
 import SignUp from "./auth/SignUp";
 import Dashboard from "./core/Dashboard";
-import PropertyForm from "./forms/PropertyForm";
+import PropertyForm from "./forms/propertyForm";
 import PropertyList from "./lists/PropertyList";
 import EmployeeList from "./lists/EmployeeList";
 import UniversityList from "./lists/UniversityList ";
@@ -12,12 +12,19 @@ import UniversityForm from "./forms/UniversityForm";
 import EmployeeForm from "./forms/EmployeeForm";
 import StudentList from "./lists/StudentList";
 import Overview from "./core/Overview";
+import LandlordList from "./lists/LandlordList";
+import LandlordForm from "./forms/LandlordForm";
+import LandingPage from "./website/LandingPage";
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/about" element={<LandingPage />} />
+        <Route path="/services" element={<LandingPage />} />
+        <Route path="/properties" element={<LandingPage />} />
+        <Route path="/contact" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/property-owner-login" element={<Login2 />} />
         <Route path="/property-owner-signup" element={<SignUp />} />
@@ -32,6 +39,8 @@ function App() {
           <Route path="institutions" element={<UniversityList />} />
           <Route path="employee-list" element={<EmployeeList />} />
           <Route path="students" element={<StudentList />} />
+          <Route path="landlords" element={<LandlordList />} />
+          <Route path="landlords/add-new" element={<LandlordForm />} />
           
         </Route>
       </Routes>

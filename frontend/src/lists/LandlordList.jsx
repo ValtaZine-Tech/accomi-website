@@ -3,10 +3,11 @@ import React from 'react'
 import { Button, Divider, Space, Table, Tag } from 'antd'
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import Search from 'antd/es/input/Search';
+import { Link } from 'react-router-dom';
 
 const columns = [
     {
-        title: 'Employee Name',
+        title: 'Name',
         dataIndex: 'name',
         key: 'name',
         render: (text) => <a>{text}</a>,
@@ -26,7 +27,7 @@ const columns = [
         dataIndex: 'address',
         key: 'address',
     },
-    
+
     {
         title: 'Country',
         dataIndex: 'country',
@@ -38,13 +39,6 @@ const columns = [
             { text: 'Germany', value: 'Germany' },
         ],
         onFilter: (value, record) => record.country.indexOf(value) === 0,
-        sorter: (a, b) => a.country.localeCompare(b.country),
-        sortDirections: ['ascend', 'descend'],
-    },
-    {
-        title: 'Role',
-        dataIndex: 'role',
-        key: 'role',
         sorter: (a, b) => a.country.localeCompare(b.country),
         sortDirections: ['ascend', 'descend'],
     },
@@ -125,8 +119,9 @@ const data = [
     // },
 
     // You know the drill by now hehehe
-    
+
 ];
+
 
 const onChange = (pagination, filters, sorter, extra) => {
     console.log('params', pagination, filters, sorter, extra);
@@ -135,18 +130,20 @@ const onChange = (pagination, filters, sorter, extra) => {
 const onSearch = (value, _e, info) => console.log(info?.source, value);
 
 
-const EmployeeList = () => {
+const LandlordList = () => {
     return (
         <>
             <div>
                 <Divider orientation="left" style={{
                     borderColor: '#fdb10e',
                 }} >
-                    <h2>Employee Profiles</h2>
+                    <h2>Landlord Profiles</h2>
                 </Divider>
-                <div style={{display:'flex',flexDirection:'row',justifyContent:'space-between',gap:200,marginBottom:30}}>
-                <Search placeholder="search employee..." onSearch={onSearch} enterButton />
-                <Button type='primary' style={{padding: "0 30px",marginRight:20, backgroundColor:'#111241'}}> <PlusOutlined/> Add New Employee </Button>
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', gap: 200, marginBottom: 30 }}>
+                    <Search placeholder="search employee..." onSearch={onSearch} enterButton />
+                    <Link to="add-new">
+                        <Button type='primary' style={{ padding: "0 30px",marginRight: 20, backgroundColor:'#111241' }}> <PlusOutlined /> Add New Landlord </Button>
+                    </Link>
                 </div>
                 <Table columns={columns} dataSource={data} onChange={onChange} />
             </div>
@@ -154,4 +151,4 @@ const EmployeeList = () => {
     )
 }
 
-export default EmployeeList
+export default LandlordList
