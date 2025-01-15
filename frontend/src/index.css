@@ -6,12 +6,13 @@
   --transition-time: 0.3s;
 }
 
-:is(h1,h2,h3) {
-  line-height: 0;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
-:is(p) {
-  margin: 5px 0;
-}
+
+
 button [type:submit] {
   background-color: #111241;
 }

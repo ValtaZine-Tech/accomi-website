@@ -11,6 +11,8 @@ import landlord from './icons/landlord.png'
 import setting from './icons/setting.png'
 import placeholder from './icons/profile-placeholder.jpg'
 import wishlist from './icons/wishlist.png'
+import header1 from './images/headerIMG1.jpg'
+import header2 from './images/headerIMG2.jpg'
 
 
 export const asset = {
@@ -31,4 +33,9 @@ export const drawer = {
     landlord,
     setting,
     placeholder,
+}
+
+export const images = {
+    header1,
+    header2,
 }

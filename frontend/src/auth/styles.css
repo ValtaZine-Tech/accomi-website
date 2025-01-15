@@ -50,12 +50,12 @@
     overflow: hidden;
 }
 
-.auth-btn {
+.auth-btn1 {
     background: #111241;
     border: none;
     color: #ffffff;
     font-size: 15px;
-    border-radius: 30px;
+    border-radius: 10px;
     margin-top: 5px;
     transition: all 0.2s ease-in-out;
 }
@@ -65,8 +65,13 @@
     /* background: #fdb10e; */
     color: #2e2e2e;
     font-size: 15px;
-    border-radius: 30px;
+    border-radius: 10px;
     transition: all 0.2s ease-in-out;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
 }
 
 .ant-checkbox-checked .ant-checkbox-inner {

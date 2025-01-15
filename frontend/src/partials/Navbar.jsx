@@ -2,7 +2,7 @@ import { asset, drawer } from "../assets/assets"
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Drawer } from 'antd';
-import LoginForm from '../auth/Login';
+import LoginForm from '../auth/Login2';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
@@ -112,19 +112,19 @@ const Navbar = () => {
                         {isAuthenticated ? (
                             <>
                                 <Link to="/wishlist">
-                                    <button type="default" className="auth-btn2" aria-label="My WishList">
+                                    <button type="default" className="nav-auth-btn2" aria-label="My WishList">
                                         <img src={asset.wishlist} alt="" />
                                     </button>
                                 </Link>
-                                <button type="default" className="auth-btn2" onClick={showDrawer} aria-label="My Profile">
+                                <button type="default" className="nav-auth-btn2" onClick={showDrawer} aria-label="My Profile">
                                     <img src={asset.profile} alt=""  />
                                 </button>
-                                <button type="default" className="auth-btn2" onClick={handleLogout} aria-label="Logout">
+                                <button type="default" className="nav-auth-btn2" onClick={handleLogout} aria-label="Logout">
                                     <img src={asset.logout} alt=""  />
                                 </button>
                             </>
                         ) : (
-                            <button className="auth-btn" onClick={showModal}>Sign in</button>
+                            <button className="nav-auth-btn" onClick={showModal}>Sign in</button>
                         )}
                     </div>
                 </div>

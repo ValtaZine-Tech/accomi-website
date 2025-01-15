@@ -1,0 +1,148 @@
+.step-container {
+    /* border: 1px solid orange; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0px 20px 10px;
+    gap: 20px;
+}
+
+.step-card {
+    /* border: 1px solid orange; */
+    min-width: 500px;
+    display: block;
+}
+
+.step-card:nth-of-type(1) h1 {
+    text-align: left;
+    font-size: 3.5rem;
+    line-height: 70px;
+    margin: 0;
+}
+
+.city-container {
+    /* border: 1px solid orange; */
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 30px;
+    margin: 20px 0;
+}
+
+.city-card,
+.university-card,
+.house-type-card {
+    /* border: 1px solid orange; */
+    height: 180px;
+    width: 180px;
+    border-radius: 10px;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    display: block;
+}
+
+.city-card>div:nth-of-type(1),
+.university-card>div:nth-of-type(1),
+.house-type-card>div:nth-of-type(1) {
+    /* border: 1px solid orange; */
+    height: 140px;
+    border-radius: 10px 10px 0 0;
+}
+
+.city-card img,
+.university-card img,
+.house-type-card img {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+}
+
+.city-card>div:nth-of-type(2),
+.university-card>div:nth-of-type(2),
+.house-type-card>div:nth-of-type(2) {
+    /* border: 1px solid orange; */
+    position: absolute;
+    bottom: 0;
+    height: 40px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 0 0 10px 10px;
+
+}
+
+.city-card>div:nth-of-type(2) p,
+.university-card>div:nth-of-type(2) p,
+.house-type-card>div:nth-of-type(2) p {
+    margin-top: -112px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.city-select,
+.university-select,
+.house-type-select {
+    /* border: 1px solid orange; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 40px;
+}
+
+
+.city-card,
+.university-card,
+.house-type-card {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.city-card.selected,
+.university-card.selected,
+.house-type-card.selected {
+    border: 2px solid #fdb10e;
+    /* transform: scale(1.05); */
+}
+
+.university-container,
+.house-type-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 30px;
+    margin: 20px 0;
+}
+
+.university-card,
+.house-type-card {
+    height: 180px;
+    width: 180px;
+    border-radius: 10px;
+    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.university-card.selected,
+.house-type-card.selected {
+    border: 2px solid #fdb10e;
+    /* transform: scale(1.05); */
+}
+
+.university-card,
+.house-type-card {
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.university-card.selected,
+.house-type-card.selected {
+    border: 2px solid #fdb10e;
+    /* transform: scale(1.05); */
+}

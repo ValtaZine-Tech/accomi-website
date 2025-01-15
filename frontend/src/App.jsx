@@ -15,6 +15,7 @@ import Overview from "./core/Overview";
 import LandlordList from "./lists/LandlordList";
 import LandlordForm from "./forms/LandlordForm";
 import LandingPage from "./website/LandingPage";
+import BookingPage from "./website/BookingPage";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/services" element={<LandingPage />} />
         <Route path="/properties" element={<LandingPage />} />
         <Route path="/contact" element={<LandingPage />} />
+        <Route path="/booking" element={<BookingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/property-owner-login" element={<Login2 />} />
         <Route path="/property-owner-signup" element={<SignUp />} />

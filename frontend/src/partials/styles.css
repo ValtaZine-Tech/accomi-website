@@ -107,6 +107,7 @@
     top: 0;
     width: 100%;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
 }
 .nav-card {
     /* border: 1px solid orange; */
@@ -174,7 +175,7 @@
     margin-right: 20px;
 }
 
-.auth-btn {
+.nav-auth-btn {
     border: 2px solid #fdb10e;
     background: none;
     appearance: none;
@@ -184,16 +185,17 @@
     padding: 5px 20px;
     width: 120px;
     height: 40px;
+    border-radius: 10px;
 }
 
-.auth-btn2 {
+.nav-auth-btn2 {
     background: none;
     border: none;
     margin-left: 10px;
 }
 
 
-.auth-btn2 img {
+.nav-auth-btn2 img {
     height: 30px;
     width: 30px;
 }

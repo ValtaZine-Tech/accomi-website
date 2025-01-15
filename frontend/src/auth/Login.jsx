@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import { Alert, Button, Input, Select } from 'antd'
+import { Alert, Button, Input, Select, message } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import './styles.css'
 import { asset } from '../assets/assets';
@@ -13,7 +13,7 @@ const Login = ({ onLogin }) => {
     const navigate = useNavigate(); // Initialize the navigate function
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
+    
 
     const handleLogin = () => {
         // Simple login logic
@@ -21,12 +21,14 @@ const Login = ({ onLogin }) => {
             localStorage.setItem("user", "authenticated");
             onLogin(true);
             navigate('/');
+            message.success("Logged in Successfuly");
+
         } else if (email === "admin" && password === "admin123") {
             localStorage.setItem("admin", "authenticated");
             onLogin(true);
             navigate('/dashboard');
         } else {
-            setError("Invalid email or password");
+            message.error("Invalid email or password");
         }
     };
 
@@ -53,8 +55,7 @@ const Login = ({ onLogin }) => {
                     <div className="card" style={{ width: "350px", padding: "30px" }}>
                         <h2 style={{ padding: "0" }}>Sign in</h2>
                         <p>Enter Your Credentials to access your workspace</p>
-                        
-                        {error && <Alert message={error} type="error" showIcon />}
+                    
                         
                         <Input 
                             type="text" 
