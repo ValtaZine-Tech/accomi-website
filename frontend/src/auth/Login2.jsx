@@ -1,6 +1,6 @@
-import { Button, Checkbox, Input, message } from 'antd'
+import { Button, Checkbox, Input, message } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import './styles.css'
+import './styles.css';
 import { asset } from '../assets/assets';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -10,7 +10,7 @@ const Login2 = ({ onLogin }) => {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    
+
     const handleLogin = () => {
         // Simple login logic
         if (email === "guest" && password === "1234") {
@@ -29,7 +29,7 @@ const Login2 = ({ onLogin }) => {
 
     const handleOAuth = () => {
         console.log("OAuth Authentication");
-    }
+    };
 
     return (
         <>
@@ -44,7 +44,7 @@ const Login2 = ({ onLogin }) => {
                     <div className="card" style={{ width: "350px", padding: " 20px 30px" }}>
                         
                         <h2 style={{ padding: "0" }}>Sign in</h2>
-                        <p>Enter your credentials to access property panel </p>
+                        
                         
                         <Input 
                             type="text" 
@@ -67,19 +67,19 @@ const Login2 = ({ onLogin }) => {
 
                         <button className="auth-btn1" onClick={handleLogin}>Sign in</button>
                         <p style={{margin:"5px 0"}}>Or</p>
-                        <Button className="auth-btn2" onClick={handleOAuth}> <img src={asset.googleIcon} alt="" style={{ width: 25, height: 25 }} /> <p>Sign in with Google</p></Button>
+                        <Button className="auth-btn2" onClick={handleOAuth}> <img src={asset.googleIcon} alt="" style={{ width: 25, height: 25 }} /> <p>Continue with Google</p></Button>
 
-                        <p style={{marginTop: "10px"}}>Don&apos;t have an account? <Link to='/property-owner-signup' style={{color:"#fdb10e"}}>Sign Up</Link></p>
+                        <p style={{marginTop: "10px"}}>Don&apos;t have an account? <Link to='/account-type' style={{color:"#fdb10e"}}>Sign Up</Link></p>
                     </div>
 
                 </div>
             </section>
         </>
-    )
-}
+    );
+};
 
 Login2.propTypes = {
     onLogin: PropTypes.func.isRequired,
 };
 
-export default Login2
+export default Login2;

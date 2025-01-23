@@ -17,11 +17,25 @@ button [type:submit] {
   background-color: #111241;
 }
 body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
   background-color: var(--base-color);
   color: #2e2e2e;
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #111143;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #fdb10e;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #fdb10e #111143;
 }
 
 a {

@@ -1,24 +1,25 @@
+/* eslint-disable no-unused-vars */
 import { images } from "../../assets/assets";
 import { Select, Alert } from 'antd';
 import { useState } from 'react';
 
 const cities = {
   "Central Region": [
-    { name: 'Kampala', image: images.header1 },
-    { name: 'Entebbe', image: images.header1 },
-    { name: 'Jinja', image: images.header1 },
+    { name: 'Kampala', image: images.city1 },
+    { name: 'Entebbe', image: images.city1 },
+    { name: 'Jinja', image: images.city1 },
   ],
   "Western Region": [
-    { name: 'Mbarara', image: images.header1 },
-    { name: 'Kabale', image: images.header1 },
+    { name: 'Mbarara', image: images.city1 },
+    { name: 'Kabale', image: images.city1 },
   ],
   "Eastern Region": [
-    { name: 'Mbale', image: images.header1 },
-    { name: 'Soroti', image: images.header1 },
+    { name: 'Mbale', image: images.city1 },
+    { name: 'Soroti', image: images.city1 },
   ],
   "Northern Region": [
-    { name: 'Gulu', image: images.header1 },
-    { name: 'Lira', image: images.header1 },
+    { name: 'Gulu', image: images.city1 },
+    { name: 'Lira', image: images.city1 },
   ],
 };
 
@@ -50,10 +51,9 @@ const City = () => {
     <>
       <div className="step-container">
         <div className="step-card">
-          <h1>Choose your Destination City</h1>
+          <h1>Choose your desired City Destination</h1>
         </div>
         <div className="step-card">
-          <h3>Popular Cities</h3>
           <div className="city-container">
             {popularCities.map((city) => (
               <div 
@@ -62,7 +62,7 @@ const City = () => {
                 onClick={() => handleCardClick(city.name)}
               >
                 <div>
-                  <img src={city.image} alt={city.name} />
+                  <img src={city.image} alt="" />
                 </div>
                 <div>
                   <p>{city.name}</p>
@@ -70,7 +70,7 @@ const City = () => {
               </div>
             ))}
           </div>
-          <h3>Other Cities</h3>
+          {/* <h3>Other Cities</h3>
           <div className="city-select">
             <Select
               style={{ width: '100%', height: '40px', fontSize: '16px' }}
@@ -78,7 +78,7 @@ const City = () => {
               onChange={handleCityChange}
               options={cityOptions}
             />
-          </div>
+          </div> */}
           {selectedCity && (
             <Alert
               message={`Selected City: ${selectedCity}`}

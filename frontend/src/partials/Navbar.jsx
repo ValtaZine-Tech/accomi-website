@@ -124,7 +124,10 @@ const Navbar = () => {
                                 </button>
                             </>
                         ) : (
-                            <button className="nav-auth-btn" onClick={showModal}>Sign in</button>
+                            <button type="default" className="nav-auth-btn3" onClick={showModal}>
+                                    <img src={asset.login} alt=""  />
+                                    {/* Sign in */}
+                            </button>
                         )}
                     </div>
                 </div>
@@ -177,4 +180,4 @@ const Navbar = () => {
 }
 
 
-export default Navbar
+export default Navbar;

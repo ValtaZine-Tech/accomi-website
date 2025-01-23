@@ -2,12 +2,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Login from "./auth/Login";
 import Login2 from "./auth/Login2";
-import SignUp from "./auth/SignUp";
 import Dashboard from "./core/Dashboard";
 import PropertyForm from "./forms/PropertyForm";
 import PropertyList from "./lists/PropertyList";
 import EmployeeList from "./lists/EmployeeList";
-import UniversityList from "./lists/UniversityList ";
+import UniversityList from "./lists/UniversityList";
 import UniversityForm from "./forms/UniversityForm";
 import EmployeeForm from "./forms/EmployeeForm";
 import StudentList from "./lists/StudentList";
@@ -15,7 +14,11 @@ import Overview from "./core/Overview";
 import LandlordList from "./lists/LandlordList";
 import LandlordForm from "./forms/LandlordForm";
 import LandingPage from "./website/LandingPage";
-import BookingPage from "./website/BookingPage";
+import BookingPage from "./website/StudentSignup";
+import ContactUsPage from "./website/ContactUsPage";
+import AccountType from "./website/steps/AccountType";
+import StudentSignup from "./website/StudentSignup";
+import LandlordSignup from "./website/LandlordSignup";
 
 function App() {
   return (
@@ -25,11 +28,14 @@ function App() {
         <Route path="/about" element={<LandingPage />} />
         <Route path="/services" element={<LandingPage />} />
         <Route path="/properties" element={<LandingPage />} />
-        <Route path="/contact" element={<LandingPage />} />
-        <Route path="/booking" element={<BookingPage />} />
+        <Route path="/contact" element={<ContactUsPage />} />
+        <Route path="/account-type" element={<AccountType />} />
+        <Route path="/student-signup" element={<StudentSignup />} />
+        <Route path="/agent-signup" element={<BookingPage />} />
+        <Route path="/landlord-signup" element={<LandlordSignup />} />
+        
         <Route path="/login" element={<Login />} />
         <Route path="/property-owner-login" element={<Login2 />} />
-        <Route path="/property-owner-signup" element={<SignUp />} />
         <Route path="/dashboard" element={<Dashboard />}>
         
           {/* Nested route */}

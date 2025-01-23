@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { images } from "../assets/assets"
 import Navbar from "../partials/Navbar"
 import './styles.css'
+import Footer from "../partials/Footer"
 
 
 const LandingPage = () => {
@@ -17,9 +18,9 @@ const LandingPage = () => {
 
                         <p>Want to find a home? We are ready to help you find one that suits your lifestyle and needs.</p>
 
-                        <Link to="/booking">
-                            <button className="header-btn"><i className="fa-solid fa-chevron-left" style={{ fontSize: 15 }} ></i>
-                                Find Your Perfect Home <i className="fa-solid fa-chevron-right" style={{ fontSize: 15 }} ></i></button>
+                        <Link to="/account-type">
+                            <button className="header-btn">
+                                Create an account </button>
                         </Link>
 
 
@@ -65,7 +66,57 @@ const LandingPage = () => {
                     </div>
 
                 </header>
+
+                <section className="about-container">
+
+
+
+                    <div className="about-container-card">
+                        <div className="about-card">
+
+                            <div className="section-intro">
+                                <div className="bullet"></div>
+                                <p>ABOUT US</p>
+                            </div>
+
+                            <h1>What is <span style={{ color: '#fdb10e' }}>Accomi</span> all about?</h1>
+
+                            <div>
+                                <div className="bullet"></div>
+                                <p>Accomi is a platform that connects students looking for residencies with property owners. We are dedicated to providing you with the best experience in finding a home that suits your lifestyle and needs.</p>
+                            </div>
+
+                            <Link to="/about">
+                                <button className="about-btn">Learn More</button>
+                            </Link>
+
+                        </div>
+
+                        <div className="about-card-image">
+
+                            <div className="edge1">
+                                <div></div>
+                                <div></div>
+                            </div>
+
+                            <img src={images.about3} alt="About us" />
+
+                            <div className="edge2">
+                                <div></div>
+                                <div></div>
+                            </div>
+
+                            <div className="about-image-overlay"></div>
+
+                        </div>
+                    </div>
+
+
+                </section>
             </>
+
+
+            <Footer />
         </>
     )
 }

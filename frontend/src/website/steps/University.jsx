@@ -1,24 +1,25 @@
+/* eslint-disable no-unused-vars */
 import { Select, Alert } from 'antd';
 import { useState } from 'react';
 import { images } from "../../assets/assets";
 
 const universities = {
   "Central Region": [
-    { name: 'Makerere University', image: images.university1 },
-    { name: 'Kyambogo University', image: images.university2 },
+    { name: 'Makerere', image: images.university1 },
+    { name: 'Kyambogo', image: images.university2 },
     { name: 'UCU', image: images.university3 },
   ],
   "Western Region": [
-    { name: 'Mbarara University', image: images.university4 },
-    { name: 'Kabale University', image: images.university5 },
+    { name: 'MUST', image: images.university4 },
+    { name: 'Kabale Uni', image: images.university5 },
   ],
   "Eastern Region": [
-    { name: 'Busitema University', image: images.university6 },
-    { name: 'Soroti University', image: images.university7 },
+    { name: 'Busitema', image: images.university6 },
+    { name: 'Soroti Uni', image: images.university7 },
   ],
   "Northern Region": [
-    { name: 'Gulu University', image: images.university8 },
-    { name: 'Lira University', image: images.university9 },
+    { name: 'Gulu Uni', image: images.university8 },
+    { name: 'Lira Uni', image: images.university9 },
   ],
 };
 
@@ -48,10 +49,9 @@ const University = () => {
     <>
       <div className="step-container">
         <div className="step-card">
-          <h1>Choose your University</h1>
+          <h1>Choose your current University</h1>
         </div>
         <div className="step-card">
-          <h3>Popular Universities</h3>
           <div className="university-container">
             {popularUniversities.map((university) => (
               <div 
@@ -68,7 +68,7 @@ const University = () => {
               </div>
             ))}
           </div>
-          <h3>Other Universities</h3>
+          {/* <h3>Other Universities</h3>
           <div className="university-select">
             <Select
               style={{ width: '100%', height: '40px', fontSize: '16px' }}
@@ -76,7 +76,7 @@ const University = () => {
               onChange={handleUniversityChange}
               options={universityOptions}
             />
-          </div>
+          </div> */}
           {selectedUniversity && (
             <Alert
               message={`Selected University: ${selectedUniversity}`}

@@ -3,13 +3,12 @@ import { Alert, Button, Input, Select, message } from 'antd'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import './styles.css'
 import { asset } from '../assets/assets';
-import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import { useState } from 'react';
 
-const Login = ({ onLogin }) => {
+const Login = () => {
     const navigate = useNavigate(); // Initialize the navigate function
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -19,13 +18,11 @@ const Login = ({ onLogin }) => {
         // Simple login logic
         if (email === "" && password === "") {
             localStorage.setItem("user", "authenticated");
-            onLogin(true);
             navigate('/');
             message.success("Logged in Successfuly");
 
         } else if (email === "admin" && password === "admin123") {
             localStorage.setItem("admin", "authenticated");
-            onLogin(true);
             navigate('/dashboard');
         } else {
             message.error("Invalid email or password");
@@ -34,7 +31,6 @@ const Login = ({ onLogin }) => {
 
     const handleButtonClick = () => {
         handleLogin();
-        onLogin(true);
     };
 
     return (
@@ -81,8 +77,4 @@ const Login = ({ onLogin }) => {
     )
 }
 
-Login.propTypes = {
-    onLogin: PropTypes.func.isRequired,
-};
-
-export default Login
+export default Login;
