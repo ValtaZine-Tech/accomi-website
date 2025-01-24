@@ -1,6 +1,8 @@
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import './styles.css'
 import { asset } from '../assets/assets'
+import { Link } from 'react-router-dom'
+
 
 const Footer = () => {
   return (
@@ -8,25 +10,44 @@ const Footer = () => {
       <footer className="footer-container">
 
         <div className="footer-card">
+
           <div className="fc">
-            <div className="nav-logo">
+            <div className="footer-logo">
               <LazyLoadImage
                 src={asset.logo}
                 alt="accomi logo"
                 effect="blur"
-                style={{ width: "80px", height: "80px" }}
+                style={{ width: "120px", height: "140px" }}
               />
               <h2>ccomi</h2>
             </div>
-            
           </div>
+
+
           <div className="fc">
             <h2>Quick Links</h2>
             <div className="fc-separator">
               <div></div>
               <div></div>
             </div>
+            <ul className='list-container'>
+              <li>
+                <Link to="#">Home</Link>
+              </li>
+              <li>
+                <Link to="/about">About Us</Link>
+              </li>
+              <li>
+                <Link to="/properties">Properties</Link>
+              </li>
+              <li>
+                <Link to="/contact">Contact Us</Link>
+              </li>
+
+            </ul>
           </div>
+
+
           <div className="fc">
             <h2>Information</h2>
             <div className="fc-separator">
@@ -34,7 +55,24 @@ const Footer = () => {
               <div></div>
             </div>
 
+            <ul className='list-container'>
+              <li>
+                <Link to="#">FAQs</Link>
+              </li>
+              <li>
+                <Link to="#">Account Types</Link>
+              </li>
+              <li>
+                <Link to="#">Terms & Conditions</Link>
+              </li>
+              <li>
+                <Link to="#">Privacy Policy</Link>
+              </li>
+            </ul>
+
           </div>
+
+
           <div className="fc">
             <h2>Get in Touch</h2>
             <div className="fc-separator">
@@ -92,7 +130,7 @@ const Footer = () => {
         <div className="footer-separator">
         </div>
 
-        <p>&copy; 2023-2025 Accomi - All Rights Reserved</p>
+        <p style={{textAlign:"center"}}>&copy; 2023-2025 Accomi - All Rights Reserved</p>
 
       </footer>
     </>

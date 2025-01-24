@@ -97,9 +97,9 @@ const Navbar = () => {
                             <Link to="/about">
                                 <li className={activePath === "/about" ? "active" : ""}>About Us {activePath === "/about" && <div className="nav-dot"></div>}</li>
                             </Link>
-                            <Link to="/services">
+                            {/* <Link to="/services">
                                 <li className={activePath === "/services" ? "active" : ""}>Services {activePath === "/services" && <div className="nav-dot"></div>}</li>
-                            </Link>
+                            </Link> */}
                             <Link to="/properties">
                                 <li className={activePath === "/properties" ? "active" : ""}>Properties {activePath === "/properties" && <div className="nav-dot"></div>}</li>
                             </Link>
