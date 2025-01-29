@@ -1,4 +1,4 @@
-import { Button, Checkbox, Input, message } from 'antd';
+import { Button, Input, message } from 'antd';
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import './styles.css';
 import { asset } from '../assets/assets';
@@ -42,14 +42,14 @@ const Login2 = ({ onLogin }) => {
                         <h1 style={{ fontSize: 20 }}>Welcome to Accomi</h1>
                     </div>
                     <div className="card" style={{ width: "350px", padding: " 20px 30px" }}>
-                        
-                        <h2 style={{ padding: "0" }}>Sign in</h2>
-                        
-                        
-                        <Input 
-                            type="text" 
-                            className='inputField' 
-                            placeholder='Enter your Email' 
+
+                        <h2 style={{ padding: "0", marginBottom: 10 }}>Sign in</h2>
+
+
+                        <Input
+                            type="text"
+                            className='inputField'
+                            placeholder='Enter your Email'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
@@ -59,17 +59,15 @@ const Login2 = ({ onLogin }) => {
                             iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            style={{ height: 40, display: "flex", alignItems: "center" }}
                         />
-                        <div className="checkbox-container" style={{display:"flex", flexDirection:"row", justifyContent:"space-between", alignItems:"center", width: '100%', margin: '5px 0'}}>
-                            <Checkbox>Remember me</Checkbox>
-                            {/* <a href='#' style={{fontSize:13}}>Forgot Password?</a> */}
+                        <div style={{marginTop:10,width:"100%",display:"flex",flexDirection:'column',justifyContent:"space-between",alignItems:"center"}}>
+                            <button className="auth-btn1" onClick={handleLogin}>Sign in</button>
+                            <p style={{ margin: "5px 0" }}>Or</p>
+                            <Button className="auth-btn2" onClick={handleOAuth}> <img src={asset.googleIcon} alt="" style={{ width: 25, height: 25 }} /> <p>Continue with Google</p></Button>
                         </div>
 
-                        <button className="auth-btn1" onClick={handleLogin}>Sign in</button>
-                        <p style={{margin:"5px 0"}}>Or</p>
-                        <Button className="auth-btn2" onClick={handleOAuth}> <img src={asset.googleIcon} alt="" style={{ width: 25, height: 25 }} /> <p>Continue with Google</p></Button>
-
-                        <p style={{marginTop: "10px"}}>Don&apos;t have an account? <Link to='/account-type' style={{color:"#fdb10e"}}>Sign Up</Link></p>
+                        <p style={{ marginTop: "10px", color: '#8e8e8e' }}>Don&apos;t have an account? <Link to='/account-type' style={{ color: "#fdb10e" }}>Sign Up</Link></p>
                     </div>
 
                 </div>

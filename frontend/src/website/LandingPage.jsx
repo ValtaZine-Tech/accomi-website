@@ -62,7 +62,7 @@ const LandingPage = () => {
                     <div className="header-overlay"></div>
 
                     <div className="header-background">
-                        <img src={images.header2} alt="Header background image" />
+                        <img src={images.header2} alt="Header background image" loading="lazy" />
                     </div>
 
                 </header>
@@ -99,7 +99,7 @@ const LandingPage = () => {
                                 <div></div>
                             </div>
 
-                            <img src={images.about3} alt="About us" />
+                            <img src={images.about3} alt="About us" loading="lazy" />
 
                             <div className="edge2">
                                 <div></div>

@@ -3,18 +3,18 @@ import Navbar from '../partials/Navbar';
 import './styles.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import LandlordDetails from './steps/LandlordDetails';
+import AgentDetails from './steps/AgentDetails';
 import PropertyDetails from './steps/PropertyDetails';
-import LandlordVerification from './steps/LandlordVerification';
+import AgentVerification from './steps/AgentVerification';
 
-const LandlordSignup = () => {
+const AgentSignup = () => {
     const navigate = useNavigate();
     const [current, setCurrent] = useState(0);
 
-    const landlordSteps = [
+    const agentSteps = [
         {
             title: 'Profile',
-            content: <LandlordDetails />,
+            content: <AgentDetails />,
         },
         {
             title: 'Property Details',
@@ -22,7 +22,7 @@ const LandlordSignup = () => {
         },
         {
             title: 'Verification',
-            content: <LandlordVerification />,
+            content: <AgentVerification />,
         }
     ];
 
@@ -36,7 +36,7 @@ const LandlordSignup = () => {
         navigate('/account-type')
     }
 
-    const items = landlordSteps.map((item) => ({
+    const items = agentSteps.map((item) => ({
         key: item.title,
         title: item.title,
     }));
@@ -60,7 +60,7 @@ const LandlordSignup = () => {
                     progressDot={{ '--ant-steps-icon-color': '#fdb10e' }}
                 />
                 <div style={contentStyle}>
-                    {landlordSteps[current]?.content}
+                    {agentSteps[current]?.content}
                 </div>
 
                 <div
@@ -89,12 +89,12 @@ const LandlordSignup = () => {
                             <i className='fa-solid fa-chevron-left'></i>
                         </Button>
                     )}
-                    {current < landlordSteps.length - 1 && (
+                    {current < agentSteps.length - 1 && (
                         <Button type="primary" className='step-next-btn' onClick={() => next()} style={{ background: "#fdb10e" }}>
                             <i className='fa-solid fa-chevron-right'></i>
                         </Button>
                     )}
-                    {current === landlordSteps.length - 1 && (
+                    {current === agentSteps.length - 1 && (
                         <Button type="primary" className='step-done-btn' onClick={() => message.success('Processing complete!')} style={{ background: "transparent",border: "2px solid #fdb10e", }}>
                             <i className='fa-solid fa-chevron-right'></i>
                         </Button>
@@ -107,4 +107,4 @@ const LandlordSignup = () => {
     );
 };
 
-export default LandlordSignup;
+export default AgentSignup;
