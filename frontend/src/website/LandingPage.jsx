@@ -6,46 +6,41 @@ import './styles.css'
 import Footer from "../partials/Footer"
 import 'animate.css';
 import { useEffect, useRef } from "react";
+import { BaseApiService } from "../utils/BaseApiService";
 
 const roomTypes = [
-    { 
+    {
         title: "Ensuite",
         des: "Private room with its own bathroom, and a communal kitchen.",
-        image: roomType.type1, 
+        image: roomType.type1,
     },
-    { 
+    {
         title: "Twin-Ensuite",
         des: "Shared bedroom with two beds and a private attached bathroom.",
-        image: roomType.type2, 
+        image: roomType.type2,
     },
-    { 
+    {
         title: "One Bed Apartment",
         des: "Private one-bedroom apartment with separate living and sleeping areas.",
-        image: roomType.type3, 
+        image: roomType.type3,
     },
-    { 
+    {
         title: "Two Bed Apartment",
         des: "Private two-bedroom apartment with separate living and sleeping areas.",
-        image: roomType.type4, 
+        image: roomType.type4,
     },
-    { 
+    {
         title: "Non-Ensuite",
         des: "A private room with personal space and a shared bathroom.",
-        image: roomType.type5, 
+        image: roomType.type5,
     },
-    { 
+    {
         title: "Twin-Studio",
         des: "A private room with personal space and a shared bathroom.",
-        image: roomType.type6, 
+        image: roomType.type6,
     },
 ]
-import { Link } from "react-router-dom";
-import { images } from "../assets/assets";
-import Navbar from "../partials/Navbar";
-import "./styles.css";
-import Footer from "../partials/Footer";
-import { useEffect } from "react";
-import { BaseApiService } from "../utils/BaseApiService";
+
 
 const LandingPage = () => {
 
@@ -128,17 +123,36 @@ const LandingPage = () => {
         }
     }, []);
 
+    const searchParameters = { offset: 0, limit: 10 };
+    //Sample for GET request
+    const fetchUsers = () => {
+        new BaseApiService("/users")
+            .getRequestWithJsonResponse(searchParameters)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    };
+
+    useEffect(() => {
+        fetchUsers();
+    });
+
     return (
         <>
             <Navbar />
             <>
                 <header className="header-container">
-
                     <div className="header-card">
+                        <h1>
+                            Find A <span style={{ color: "#fdb10e" }}>House</span> That Suits
+                            You.
+                        </h1>
 
-                        <h1>Find A <span style={{ color: '#fdb10e' }}>House</span> That Suits You.</h1>
                         <p>Want to find a home? We are ready to help you find one that suits your lifestyle and needs.</p>
-                        {/* <p>Personalised Recommendations based on your preferences</p> */}
+
                         <ul>
                             <li style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
                                 <img src={asset.htag} alt="" style={{ width: '20px', height: '20px' }} />
@@ -164,91 +178,50 @@ const LandingPage = () => {
                                 <button className="header-btn2"> Learn More </button>
                             </Link>
                         </div>
-
-
                     </div>
-  const searchParameters = { offset: 0, limit: 10 };
-//Sample for GET request
-  const fetchUsers = () => {
-    new BaseApiService("/users")
-      .getRequestWithJsonResponse(searchParameters)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+                    <div className="header-socials">
+                        <div className="filler"></div>
 
-  return (
-    <>
-      <Navbar />
-      <>
-        <header className="header-container">
-          <div className="header-card">
-            <h1>
-              Find A <span style={{ color: "#fdb10e" }}>House</span> That Suits
-              You.
-            </h1>
+                        <div>
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <i className="fa-brands fa-whatsapp"></i>
+                            </a>
 
-            <p>
-              Want to find a home? We are ready to help you find one that suits
-              your lifestyle and needs.
-            </p>
+                            <a
+                                href="https://www.instagram.com/accomi.ae?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <i className="fa-brands fa-instagram"></i>
+                            </a>
 
-            <Link to="/account-type">
-              <button className="header-btn">Create an account </button>
-            </Link>
-          </div>
+                            <a href="http://" target="_blank" rel="noopener noreferrer">
+                                <i className="fa-brands fa-x-twitter"></i>
+                            </a>
 
-          <div className="header-card"></div>
+                            <a
+                                href="https://www.tiktok.com/@accomi.ae?_t=ZM-8t3WgCSOqoP&_r=1"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <i className="fa-brands fa-tiktok"></i>
+                            </a>
+                        </div>
 
-          <div className="header-socials">
-            <div className="filler"></div>
+                        <div className="filler"></div>
+                    </div>
 
-            <div>
-              <a href="http://" target="_blank" rel="noopener noreferrer">
-                <i className="fa-brands fa-whatsapp"></i>
-              </a>
+                    <div className="header-overlay"></div>
 
-              <a
-                href="https://www.instagram.com/accomi.ae?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i className="fa-brands fa-instagram"></i>
-              </a>
-
-              <a href="http://" target="_blank" rel="noopener noreferrer">
-                <i className="fa-brands fa-x-twitter"></i>
-              </a>
-
-              <a
-                href="https://www.tiktok.com/@accomi.ae?_t=ZM-8t3WgCSOqoP&_r=1"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i className="fa-brands fa-tiktok"></i>
-              </a>
-            </div>
-
-            <div className="filler"></div>
-          </div>
-
-          <div className="header-overlay"></div>
-
-          <div className="header-background">
-            <img
-              src={images.header2}
-              alt="Header background image"
-              loading="lazy"
-            />
-          </div>
-        </header>
+                    <div className="header-background">
+                        <img
+                            src={images.header2}
+                            alt="Header background image"
+                            loading="lazy"
+                        />
+                    </div>
+                </header>
 
                 <section style={{ padding: '5vh 0', margin: '0' }}>
 
@@ -302,13 +275,7 @@ const LandingPage = () => {
                                     <img src={images.intro1} alt="" style={{ width: '100%', height: '100%' }} />
                                 </div>
                             </div>
-        <section className="about-container">
-          <div className="about-container-card">
-            <div className="about-card">
-              <div className="section-intro">
-                <div className="bullet"></div>
-                <p>ABOUT US</p>
-              </div>
+
 
                             <div className="intro-card">
                                 <div>
@@ -362,9 +329,9 @@ const LandingPage = () => {
 
                 <section style={{ padding: '5vh 0', margin: '0' }}>
                     <div className="property-owners-container">
-                        
+
                         <img src={images.poIMG} alt="background image" />
-                        
+
                         <div className="poc-card">
                             <h1>Expand Your Reach, Maximize Your Earnings</h1>
                             <p>Are you a property owner or agent? List your property on Accomi to reach a global student audience.</p>
@@ -376,6 +343,7 @@ const LandingPage = () => {
                 </section>
 
                 <section style={{ padding: '0', margin: '0' }}>
+
                     <div className="room-type-card-container">
                         <div className="room-type-card">
                             {roomTypes.map((value) => (
@@ -411,50 +379,12 @@ const LandingPage = () => {
                         </Link>
                     </div>
                 </section>
+
             </>
 
-              <h1>
-                What is <span style={{ color: "#fdb10e" }}>Accomi</span> all
-                about?
-              </h1>
-
-              <div>
-                <div className="bullet"></div>
-                <p>
-                  Accomi is a platform that connects students looking for
-                  residencies with property owners. We are dedicated to
-                  providing you with the best experience in finding a home that
-                  suits your lifestyle and needs.
-                </p>
-              </div>
-
-              <Link to="/about">
-                <button className="about-btn">Learn More</button>
-              </Link>
-            </div>
-
-            <div className="about-card-image">
-              <div className="edge1">
-                <div></div>
-                <div></div>
-              </div>
-
-              <img src={images.about3} alt="About us" loading="lazy" />
-
-              <div className="edge2">
-                <div></div>
-                <div></div>
-              </div>
-
-              <div className="about-image-overlay"></div>
-            </div>
-          </div>
-        </section>
-      </>
-
-      <Footer />
-    </>
-  );
+            <Footer />
+        </>
+    );
 };
 
 export default LandingPage;
