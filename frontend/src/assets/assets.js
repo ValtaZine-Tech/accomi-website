@@ -17,6 +17,42 @@ import header2 from './images/headerIMG2.jpg'
 import about1 from './images/about1.jpg'
 import about2 from './images/about2.jpg'
 import about3 from './images/about3.jpg'
+import intro1 from './images/introIMG1.png'
+
+import type1 from './images/type1.jpeg'
+import type2 from './images/type2.jpg'
+import type3 from './images/type3.jpg'
+import type4 from './images/type4.jpg'
+import type5 from './images/type5.jpg'
+import type6 from './images/type6.jpg'
+
+import poIMG from './images/propertyOwnerBg.png'
+import mission from './images/missionIMG.jpg'
+import team1 from './images/teamIMG1.jpg'
+import team2 from './images/teamIMG2.jpg'
+import team3 from './images/teamIMG3.jpg'
+import team4 from './images/teamIMG4.jpg'
+import step1 from './images/step1.jpg'
+import step2 from './images/step2.jpg'
+import step3 from './images/step3.jpg'
+
+import globe from './icons/globe.png'
+import properties from './icons/properties.png'
+import location from './icons/location.png'
+import medal from './icons/medal.png'
+import care from './icons/support.png'
+import tag from './icons/tag.png'
+import verified from './icons/verified.png'
+import visa from './icons/visa.png'
+import check from './icons/check.png'
+import call from './icons/headerCall.png'
+import building from './icons/headerHome.png'
+import htag from './icons/headerTag.png'
+import hSearch from './icons/houseSearch.png'
+import cloud from './icons/management.png'
+import house from './icons/house.png'
+import stats from './icons/stats.png'
+
 
 
 export const asset = {
@@ -25,7 +61,19 @@ export const asset = {
     logout,
     login,
     profile,
-    wishlist
+    wishlist,
+    care,
+    tag,
+    verified,
+    visa,
+    check,
+    call,
+    building,
+    htag,
+    hSearch,
+    house,
+    cloud,
+    stats,
     
 }
 
@@ -45,5 +93,28 @@ export const images = {
     header2,
     about1,
     about2,
-    about3
+    about3,
+    globe,
+    properties,
+    location,
+    medal,
+    intro1,
+    team1,
+    team2,
+    team3,
+    team4,
+    mission,
+    poIMG,
+    step1,
+    step2,
+    step3,
+}
+
+export const roomType = {
+    type1,
+    type2,
+    type3,
+    type4,
+    type5,
+    type6,
 }

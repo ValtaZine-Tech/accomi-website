@@ -92,19 +92,21 @@ const Navbar = () => {
                     <div className="nav-menu">
                         <ul className="menu-container">
                             <Link to="/">
-                                <li className={activePath === "/" ? "active" : ""}>Home {activePath === "/" && <div className="nav-dot"></div>}</li>
+                                <li className={activePath === "/" ? "active" : ""}>
+                                    Home {activePath === "/" && <div className="nav-dot"></div>}
+                                </li>
                             </Link>
                             <Link to="/about">
                                 <li className={activePath === "/about" ? "active" : ""}>About Us {activePath === "/about" && <div className="nav-dot"></div>}</li>
+                            </Link>
+                            <Link to="/landlord-agent">
+                                <li className={activePath === "/landlord-agent" ? "active" : ""}>Agent {activePath === "/landlord-agent" && <div className="nav-dot"></div>}</li>
                             </Link>
                             {/* <Link to="/services">
                                 <li className={activePath === "/services" ? "active" : ""}>Services {activePath === "/services" && <div className="nav-dot"></div>}</li>
                             </Link> */}
                             <Link to="/properties">
                                 <li className={activePath === "/properties" ? "active" : ""}>Properties {activePath === "/properties" && <div className="nav-dot"></div>}</li>
-                            </Link>
-                            <Link to="/contact">
-                                <li className={activePath === "/contact" ? "active" : ""}>Contact US {activePath === "/contact" && <div className="nav-dot"></div>}</li>
                             </Link>
                         </ul>
                     </div>
@@ -117,16 +119,16 @@ const Navbar = () => {
                                     </button>
                                 </Link>
                                 <button type="default" className="nav-auth-btn2" onClick={showDrawer} aria-label="My Profile">
-                                    <img src={asset.profile} alt=""  />
+                                    <img src={asset.profile} alt="" />
                                 </button>
                                 <button type="default" className="nav-auth-btn2" onClick={handleLogout} aria-label="Logout">
-                                    <img src={asset.logout} alt=""  />
+                                    <img src={asset.logout} alt="" />
                                 </button>
                             </>
                         ) : (
                             <button type="default" className="nav-auth-btn3" onClick={showModal}>
-                                    <img src={asset.login} alt=""  />
-                                    {/* Sign in */}
+                                <img src={asset.login} alt="" />
+                                {/* Sign in */}
                             </button>
                         )}
                     </div>

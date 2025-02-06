@@ -1,130 +1,133 @@
+/* Input Styling */
 input[type="password"] {
     height: 20px;
     line-height: 0;
-}
-
-.step-container {
-    /* border: 1px solid orange; */
+  }
+  
+  /* Step Container */
+  .step-container {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    padding: 0px 0px 10px;
-    margin: 0px 30px;
-    
-}
-
-.step-card {
-    /* border: 1px solid orange; */
+    padding: 0 0 10px;
+    margin: 0 30px;
+  }
+  
+  /* Step Cards */
+  .step-card {
     min-width: 300px;
     display: block;
-}
-.step-card:nth-of-type(1) {
+  }
+  
+  .step-card:nth-of-type(1) {
     width: 500px;
-}
-.step-card:nth-of-type(2) {
+  }
+  
+  .step-card:nth-of-type(2) {
     width: 600px;
-}
-
-.step-card:nth-of-type(1) h1 {
+  }
+  
+  .step-card:nth-of-type(1) h1 {
     text-align: left;
     font-size: 3.5rem;
+    font-weight: 500;
     line-height: 70px;
     margin: 0;
-}
-
-
-.city-card,
-.university-card,
-.house-type-card,
-.account-type-card,
-.property-type-card,
-.intake-card {
-    /* border: 1px solid orange; */
+  }
+  
+  /* Card Styles */
+  .city-card,
+  .university-card,
+  .house-type-card,
+  .account-type-card,
+  .property-type-card,
+  .intake-card {
     background: #ffffff;
     height: 180px;
     width: 180px;
     border-radius: 10px;
     box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
     position: relative;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
     transition: transform 0.3s ease;
-}
-
-.city-card>div:nth-of-type(1),
-.university-card>div:nth-of-type(1),
-.house-type-card>div:nth-of-type(1),
-.property-type-card>div:nth-of-type(1), {
-    /* border: 1px solid orange; */
+  }
+  
+  /* Image Styles */
+  .city-card img,
+  .university-card img,
+  .house-type-card img {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  /* Card Header */
+  .city-card > div:nth-of-type(1),
+  .university-card > div:nth-of-type(1),
+  .house-type-card > div:nth-of-type(1),
+  .property-type-card > div:nth-of-type(1) {
     position: absolute;
     top: 0;
     left: 0;
     height: 140px;
     border-radius: 10px 10px 0 0;
-}
-
-.city-card img,
-.university-card img,
-.house-type-card img {
-    height: 100%;
-    width: 100%;
-    border-radius: 10px 10px 0 0;
-}
-.account-type-card>div:nth-of-type(2),
-.city-card>div:nth-of-type(2),
-.university-card>div:nth-of-type(2),
-.house-type-card>div:nth-of-type(2),
-.property-type-card>div:nth-of-type(2) {
-    /* border: 1px solid orange; */
+  }
+  
+  /* Card Footer */
+  .account-type-card > div:nth-of-type(2),
+  .city-card > div:nth-of-type(2),
+  .university-card > div:nth-of-type(2),
+  .house-type-card > div:nth-of-type(2),
+  .property-type-card > div:nth-of-type(2) {
     position: absolute;
     bottom: 0;
     height: 40px;
     width: 100%;
     box-sizing: border-box;
     border-radius: 0 0 10px 10px;
-
-}
-
-
-.city-card>div:nth-of-type(2) p,
-.university-card>div:nth-of-type(2) p,
-.house-type-card>div:nth-of-type(2) p,
-.property-type-card>div:nth-of-type(2) p {
+  }
+  
+  /* Card Footer Text */
+  .city-card > div:nth-of-type(2) p,
+  .university-card > div:nth-of-type(2) p,
+  .house-type-card > div:nth-of-type(2) p,
+  .property-type-card > div:nth-of-type(2) p {
     margin-top: -112px;
     font-size: 18px;
     font-weight: 600;
     color: #8e8e8e;
-
-}
-
-.city-select,
-.university-select,
-.house-type-select {
-    /* border: 1px solid orange; */
+  }
+  
+  /* Selection Styling */
+  .city-card.selected,
+  .university-card.selected,
+  .house-type-card.selected,
+  .account-type-card.selected,
+  .property-type-card.selected,
+  .intake-card.selected {
+    border: 2px solid #fdb10e;
+  }
+  
+  /* Select Containers */
+  .city-select,
+  .university-select,
+  .house-type-select {
     display: flex;
     flex-direction: row;
     justify-content: center;
     gap: 20px;
     margin: 20px 40px;
-}
-
-
-.city-card.selected,
-.university-card.selected,
-.house-type-card.selected,
-.account-type-card.selected,
-.property-type-card.selected,
-.intake-card.selected {
-    border: 2px solid #fdb10e;
-    /* transform: scale(1.05); */
-}
-
-.city-container,
-.university-container,
-.house-type-container,
-.account-type-container,
-.intake-container, {
-    /* border: 1px solid orange; */
+  }
+  
+  /* Grid Container */
+  .city-container,
+  .university-container,
+  .house-type-container,
+  .account-type-container,
+  .intake-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(2, auto);
@@ -132,122 +135,76 @@ input[type="password"] {
     margin: 20px 0;
     justify-content: center;
     align-content: center;
-    /* width: 650px; */
-}
-
-.city-card,
-.university-card,
-.house-type-card,
-.intake-card,
-.account-type-card {
-    height: 180px;
-    width: 180px;
-    border-radius: 10px;
-    box-shadow: 0 0px 10px rgba(0, 0, 0, 0.1);
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.university-card.selected,
-.house-type-card.selected,
-.intake-card.selected,
-.account-type-card.selected {
-    border: 2px solid #fdb10e;
-}
-
-.university-card,
-.house-type-card,
-.intake-card,
-.account-type-card {
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.university-card.selected,
-.house-type-card.selected {
-    border: 2px solid #fdb10e;
-    /* transform: scale(1.05); */
-}
-
-.intake-card {
+  }
+  
+  /* Intake Card */
+  .intake-card {
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
-}
-.intake-card h1 {
+  }
+  
+  .intake-card h1 {
     color: #fdb10e;
     font-size: 2.5rem;
-
-}
-
-.intake-card p {
+  }
+  
+  .intake-card p {
     line-height: normal;
     font-size: 18px;
     font-weight: 600;
     color: #8e8e8e;
-}
-
-
-.profile-card h2 {
+  }
+  
+  /* Profile & Account Steps */
+  .profile-card h2,
+  .verification-container h2 {
     text-align: left;
     margin-bottom: 10px;
-}
-
-
-
-.account-step-container {
-    /* border: 1px solid orange; */
+  }
+  
+  .account-step-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 0px 20px 10px;
+    padding: 0 20px 10px;
     gap: 30px;
     height: 100vh;
-}
-
-.account-type-card>div:nth-of-type(2) p {
+  }
+  
+  /* Account Type Card Footer */
+  .account-type-card > div:nth-of-type(2) p {
     margin-top: 5px;
     font-size: 18px;
     font-weight: 600;
     color: #8e8e8e;
     text-align: center;
-}
-
-
-.property-container {
-    /* border: 1px solid orange; */
+  }
+  
+  /* Property & Verification Containers */
+  .property-container {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    margin-left: -20px;
-    
-}
-
-.property-card {
-    /* border: 1px solid orange; */
+  }
+  
+  .property-card {
     width: 500px;
     padding-left: 10px;
-}
-.verification-container {
-    /* border: 1px solid orange; */
+  }
+  
+  .verification-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* gap: 20px; */
-}
-.verification-container h2 {
-    text-align: left;
-    margin-bottom: 10px;
-}
-.verification-card {
-    /* border: 1px solid orange; */
+    gap: 20px;
+  }
+  
+  .verification-card {
     width: 500px;
     display: flex;
     align-items: flex-start;
-}
+  }
+  

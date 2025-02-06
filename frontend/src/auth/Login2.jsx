@@ -128,6 +128,7 @@ const Login2 = ({ onLogin }) => {
 };
 
 Login2.propTypes = {
+   
   onLogin: PropTypes.func.isRequired,
 };
 

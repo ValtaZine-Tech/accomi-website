@@ -19,20 +19,26 @@ import AccountType from "./website/steps/AccountType";
 import StudentSignup from "./website/StudentSignup";
 import LandlordSignup from "./website/LandlordSignup";
 import AgentSignup from "./website/AgentSignup";
+import AboutUsPage from "./website/AboutUsPage";
+import ServicesPage from "./website/ServicesPage";
+import PropertyPage from "./website/PropertyPage";
+import LandlordAgent from "./website/LandlordAgent";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/about" element={<LandingPage />} />
-        <Route path="/services" element={<LandingPage />} />
-        <Route path="/properties" element={<LandingPage />} />
+        <Route path="/about" element={<AboutUsPage />} />
+        <Route path="/services" element={<ServicesPage />} />
+        <Route path="/properties" element={<PropertyPage />} />
+        <Route path="/properties/:id" element={<PropertyPage />} />
+        <Route path="/landlord-agent" element={<LandlordAgent />} />
         <Route path="/contact" element={<ContactUsPage />} />
         <Route path="/account-type" element={<AccountType />} />
-        <Route path="/student-signup" element={<StudentSignup />} />
+        <Route path="/student" element={<StudentSignup />} />
         <Route path="/agent-signup" element={<AgentSignup />} />
-        <Route path="/landlord-signup" element={<LandlordSignup />} />
+        <Route path="/agent" element={<LandlordSignup />} />
         
         <Route path="/login" element={<Login />} />
         <Route path="/property-owner-login" element={<Login2 />} />
