@@ -1,4 +1,4 @@
-import { Button, message, Steps } from 'antd';
+import { Button, ConfigProvider, message, Steps } from 'antd';
 import Navbar from '../partials/Navbar';
 import './styles.css';
 import { useState } from 'react';
@@ -33,7 +33,7 @@ const LandlordSignup = () => {
         setCurrent(current - 1);
     };
     const back = () => {
-        navigate('/account-type')
+        navigate('/landlord-agent')
     }
 
     const items = landlordSteps.map((item) => ({
@@ -49,13 +49,21 @@ const LandlordSignup = () => {
 
     return (
         <>
+        <ConfigProvider
+                theme={{
+                    components: {
+                        Steps: {
+                            colorPrimary: '#fdb10e',
+                            progressDot: true,
+                        }
+                    }
+                }}>
             <Navbar />
 
-            <div className='booking-container'>
+            <section className='booking-container'>
                 <Steps
                     current={current}
-                    items={items}
-                    navArrowColor='#fdb10e'
+                    items={items}                    
                     style={{ '--ant-steps-icon-color': '#fdb10e',color:'#fdb10e' }}
                     progressDot={{ '--ant-steps-icon-color': '#fdb10e' }}
                 />
@@ -102,7 +110,8 @@ const LandlordSignup = () => {
 
                 </div>
 
-            </div>
+            </section>
+            </ConfigProvider>
         </>
     );
 };

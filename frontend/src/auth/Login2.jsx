@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Button, Input, message } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import "./styles.css";
@@ -128,6 +129,7 @@ const Login2 = ({ onLogin }) => {
 };
 
 Login2.propTypes = {
+   
   onLogin: PropTypes.func.isRequired,
 };
 

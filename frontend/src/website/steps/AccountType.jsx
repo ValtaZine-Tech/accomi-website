@@ -50,7 +50,7 @@ const AccountType = ({ onAccountTypeChange }) => {
 };
 
 AccountType.propTypes = {
-    onAccountTypeChange: PropTypes.func.isRequired,
+    onAccountTypeChange: PropTypes.func,
 };
 
 export default AccountType;
