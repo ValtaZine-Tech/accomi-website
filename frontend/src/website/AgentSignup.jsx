@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AgentDetails from './steps/AgentDetails';
 import PropertyDetails from './steps/PropertyDetails';
-import AgentVerification from './steps/AgentVerification';
 
 const AgentSignup = () => {
     const navigate = useNavigate();
@@ -13,17 +12,13 @@ const AgentSignup = () => {
 
     const agentSteps = [
         {
-            title: 'Profile',
+            title: 'Create Account',
             content: <AgentDetails />,
         },
         {
             title: 'Property Details',
             content: <PropertyDetails onNext={() => setCurrent(current + 1)} />,
         },
-        {
-            title: 'Verification',
-            content: <AgentVerification />,
-        }
     ];
 
     const next = () => {

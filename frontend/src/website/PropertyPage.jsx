@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import { Button, ConfigProvider, Select } from "antd"
+import { Button, Carousel, ConfigProvider, Select, Tag } from "antd"
 import { asset, images } from "../assets/assets"
 import GoogleMapsComp from "../components/GoogleMapsComp"
 import { SearchOutlined } from '@ant-design/icons';
@@ -43,6 +43,49 @@ const ugandanCities = [
     { value: "gulu", label: "Gulu" },
 ];
 
+const propertyInfo = [
+    {
+        images: [images.property1, images.property2, images.property3, images.property4],
+        title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        location: "Kampala, Uganda",
+        price: "UGX.500,000 /month",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, eleifend nunc. Nulla facilisi. Nullam nec purus feugiat, molestie ipsum et, eleifend nunc. Nulla facilisi.",
+        type: 'Apartment',
+        availability: 'Available',
+        amenities: ['Wifi', 'Parking', 'Security', 'Furnished'],
+    },
+    {
+        images: [images.property1, images.property2, images.property3, images.property4],
+        title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        location: "Kampala, Uganda",
+        price: "UGX.500,000 /month",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, eleifend nunc. Nulla facilisi. Nullam nec purus feugiat, molestie ipsum et, eleifend nunc. Nulla facilisi.",
+        type: 'Apartment',
+        availability: 'Available',
+        amenities: ['Wifi', 'Parking', 'Security', 'Furnished'],
+    },
+    {
+        images: [images.property1, images.property2, images.property3, images.property4],
+        title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        location: "Kampala, Uganda",
+        price: "UGX.500,000 /month",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, eleifend nunc. Nulla facilisi. Nullam nec purus feugiat, molestie ipsum et, eleifend nunc. Nulla facilisi.",
+        type: 'Apartment',
+        availability: 'Available',
+        amenities: ['Wifi', 'Parking', 'Security', 'Furnished'],
+    },
+    {
+        images: [images.property1, images.property2, images.property3, images.property4],
+        title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        location: "Kampala, Uganda",
+        price: "UGX.500,000 /month",
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, eleifend nunc. Nulla facilisi. Nullam nec purus feugiat, molestie ipsum et, eleifend nunc. Nulla facilisi.",
+        type: 'Apartment',
+        availability: 'Available',
+        amenities: ['Wifi', 'Parking', 'Security', 'Furnished'],
+    }
+]
+
 const PropertyPage = () => {
     return (
         <>
@@ -66,6 +109,11 @@ const PropertyPage = () => {
                             width: '10rem',
                             border: 'none',
                             fontSize: '15px'
+                        },
+                        Carousel: {
+                            dotActiveColor: '#fdb10e',
+                            dotColor: '#ffffff',
+                            dotSize: '10px',
                         },
                     },
                 }}
@@ -160,9 +208,57 @@ const PropertyPage = () => {
 
 
 
-                    <section style={{ padding: '5vh 3vw', margin: '0' }}>
-                        <div className="ppty-card">
-                            <div className="ppty-card-image"></div>
+                    <section style={{ padding: '0 0 5vh 0', margin: '0 3vw' }}>
+                    <h1 style={{ fontWeight: 500, marginBottom: '20px' }}>Top Rated Properties</h1>
+                        <div className="ppty-card-container">
+                            {propertyInfo.map((info, index) => (
+                                <div className="ppty-card" key={index}>
+                                    <div className="ppty-card-image">
+                                        <Carousel dots={true} infinite={false} effect="fade" draggable >
+                                            {info.images.map((image, imgIndex) => (
+                                                <div className="ppty-image" key={imgIndex}>
+                                                    <img src={image} alt={`Property ${index + 1} - Image ${imgIndex + 1}`} />
+                                                    <div className="image-count-tag">
+                                                        <i className="fa-regular fa-image" style={{ color: '#ffffff' }}></i>
+                                                        <p style={{ color: '#ffffff', lineHeight: 0, }}>{info.images.length}</p>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </Carousel>
+                                        <div className="availability-tag" style={{ background: info.availability === 'Available' ? '#fdb10e' : '#111143' }}>
+                                            <p style={{ color: '#ffffff', lineHeight: 0, }}>{info.availability}</p>
+                                        </div>
+                                    </div>
+                                    <div style={{ padding: '0.5rem 1rem 0.7rem 1rem' }}>
+
+                                        <h3>{info.title}</h3>
+
+                                        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
+                                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', gap: '.4rem' }}>
+                                                <i className="fa-solid fa-building" style={{ color: '#fdb10e' }}></i>
+                                                <p style={{ fontSize: '0.9rem', color: '#8e8e8e' }}>{info.type}</p>
+                                            </div>
+
+                                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', gap: '.4rem' }}>
+                                                <i className="fa-solid fa-location-dot" style={{ color: '#fdb10e' }}></i>
+                                                <p style={{ fontSize: '0.9rem', color: '#8e8e8e' }}>{info.location}</p>
+                                            </div>
+                                        </div>
+
+                                        <div className="amenities-container">
+                                            {info.amenities.map((amenity, aIndex) => (
+                                                <div color="orange" className="amenity-tag" key={aIndex}>
+                                                    {/* <i className="fa-solid fa-check" style={{ color: '#fdb10e' }}></i> */}
+                                                    <p style={{ fontSize: '0.8rem' }}>{amenity}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        <p>{info.description}</p>
+                                        <h3 style={{ marginTop: 2 }}>{info.price}</h3>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </section>
 

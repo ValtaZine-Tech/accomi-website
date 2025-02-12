@@ -35,6 +35,10 @@ import team4 from './images/teamIMG4.jpg'
 import step1 from './images/step1.jpg'
 import step2 from './images/step2.jpg'
 import step3 from './images/step3.jpg'
+import property1 from './images/property1.jpg'
+import property2 from './images/property2.jpg'
+import property3 from './images/property3.jpg'
+import property4 from './images/property4.jpg'
 
 import globe from './icons/globe.png'
 import properties from './icons/properties.png'
@@ -52,6 +56,7 @@ import hSearch from './icons/houseSearch.png'
 import cloud from './icons/management.png'
 import house from './icons/house.png'
 import stats from './icons/stats.png'
+import comments from './icons/comments.png'
 
 
 
@@ -86,6 +91,7 @@ export const drawer = {
     landlord,
     setting,
     placeholder,
+    comments,
 }
 
 export const images = {
@@ -108,6 +114,10 @@ export const images = {
     step1,
     step2,
     step3,
+    property1,
+    property2,
+    property3,
+    property4,
 }
 
 export const roomType = {
