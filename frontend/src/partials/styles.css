@@ -64,6 +64,45 @@
     background-color: #fdb10e;
 }
 
+.drawer-profile-body > a {
+    color: #666666;
+    font-size: 1rem;
+    transition: color var(--transition-time) ease-in-out;
+}
+
+.drawer-profile-body > a:hover {
+    color: #ffffff;
+}
+
+.drawer-profile-btn {
+    border: 1px solid #eeeeee;
+    height: 50px;
+    max-width: 100%;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 5px;
+    gap: 5px;
+    transition: background var(--transition-time) ease-in-out;
+}
+
+.drawer-profile-btn div:nth-child(1) {
+    /* border: 1px solid orange; */
+    height: 35px;
+    width: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.drawer-profile-btn:hover {
+    background: #fdb10e;
+}
+
+
 /* Drawer Component End */
 
 
@@ -254,20 +293,16 @@
 }
 
 .custom-modal {
+    /* border: 1px solid orange; */
     background: transparent;
-    padding: 20px;
     border-radius: 8px;
-    /* max-width: 500px;
-    width: 100%; */
-    max-height: 500px;
-    /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    width: 900px;
+    height: 400px;
+    position: relative;
 }
 
 .custom-modal-close {
+    /* border: 1px solid orange; */
     position: absolute;
     top: 10px;
     right: 10px;
@@ -275,6 +310,17 @@
     border: none;
     font-size: 16px;
     cursor: pointer;
+}
+.custom-modal-close-btn {
+    border: none;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    background: #111241;
+    z-index: 100;
 }
 
 

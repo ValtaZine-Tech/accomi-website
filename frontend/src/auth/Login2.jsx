@@ -5,58 +5,83 @@ import "./styles.css";
 import { asset } from "../assets/assets";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import PropTypes from "prop-types";
 import { BaseApiService } from "../utils/BaseApiService";
 import { UserSessionUtils } from "../utils/UserSessionUtils";
+import PropTypes from 'prop-types';
+import SignUp from "./SignUp";
+import { CustomModal } from "../components/CustomalModal";
 
-const Login2 = ({ onLogin }) => {
+
+const Login2 = ({onSuccess}) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [activePath, setActivePath] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-  const handleLogin = () => {
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleLogin = async () => {
     // Simple login logic
-    // if (email === "guest" && password === "1234") {
-    //     localStorage.setItem("user", "authenticated");
-    //     onLogin(true);
-    //     navigate('/');
-    //     message.success("Logged in Successfully");
-    // } else if (email === "admin" && password === "admin123") {
-    //     localStorage.setItem("admin", "authenticated");
-    //     onLogin(true);
-    //     navigate('/dashboard');
-    // } else {
-    //     message.error("Invalid email or password");
-    // }
+    if (email === "guest" && password === "1234") {
+      // dispatch(login({ user: email, role: 'student' }));
+      message.success("Logged in Successfully");
+      navigate('/');
+      return;
+    } else if (email === "admin" && password === "admin123") {    
+      // dispatch(login({ user: email, role: 'admin' }));
+      message.success("Logged in Successfully");
+      navigate('/dashboard');
+      return;
+    }
 
-    new BaseApiService("/auth/login")
-      .postRequestWithJsonResponse({
-        email: "prime",
-        password: "admin1234",
-      })
-      .then((response) => {
-        UserSessionUtils.setUserAuthToken(response.accessToken);
-      })
-      .catch((error) => {
-        console.error(error);
+    // API-based authentication
+    try {
+      const response = await new BaseApiService("/auth/login").postRequestWithJsonResponse({
+        email,
+        password,
       });
+  
+      if (response.accessToken) {
+        UserSessionUtils.setUserAuthToken(response.accessToken);
+        
+        // Store user details from API response
+        UserSessionUtils.setUserDetails({
+          fullName: `${response.user.firstName} ${response.user.lastName}`,
+          email: response.user.primaryEmail,
+          userId: response.user.id,
+          gender: response.user.gender,
+          countryId: response.user.countryId
+        });
+  
+        message.success("Logged in Successfully");
+        onSuccess?.();
+        navigate('/');
+      }
+    } catch (error) {
+      message.error("Login failed");
+    }
+
   };
 
   const handleOAuth = () => {
     console.log("OAuth Authentication");
+    // Implement OAuth logic here
   };
 
   return (
     <>
       <section className="auth-section">
-        <div className="auth-container">
+        <div className="auth-container custom-modal">
+
           <div
             className="card"
-            style={{
-              width: "400px",
-              backgroundColor: "#111241",
-              color: "#ffffff",
-            }}
           >
             <div className="auth-img-card">
               <img
@@ -67,9 +92,9 @@ const Login2 = ({ onLogin }) => {
             </div>
             <h1 style={{ fontSize: 20 }}>Welcome to Accomi</h1>
           </div>
+
           <div
             className="card"
-            style={{ width: "350px", padding: " 20px 30px" }}
           >
             <h2 style={{ padding: "0", marginBottom: 10 }}>Sign in</h2>
 
@@ -117,20 +142,26 @@ const Login2 = ({ onLogin }) => {
 
             <p style={{ marginTop: "10px", color: "#8e8e8e" }}>
               Don&apos;t have an account?{" "}
-              <Link to="/account-type" style={{ color: "#fdb10e" }}>
+              <span style={{ color: "#fdb10e", cursor: 'pointer' }} onClick={showModal}>
                 Sign Up
-              </Link>
+              </span>
             </p>
           </div>
         </div>
       </section>
+
+      {/* Registration Modal */}
+      <CustomModal visible={isModalVisible} onClose={handleCancel}>
+        <SignUp onLogin={handleLogin}/>
+      </CustomModal>
+
     </>
   );
 };
 
 Login2.propTypes = {
-   
-  onLogin: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func
 };
+
 
 export default Login2;

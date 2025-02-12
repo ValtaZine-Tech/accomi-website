@@ -1,58 +1,69 @@
-import { asset, drawer } from "../assets/assets"
+import { asset, drawer } from "../assets/assets";
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { Drawer } from 'antd';
-import LoginForm from '../auth/Login2';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
-
-import './styles.css'
-import PropTypes from 'prop-types';
-
-
-const CustomModal = ({ visible, onClose, children }) => {
-    if (!visible) return null;
-    return (
-        <div className="custom-modal-overlay">
-            <div className="custom-modal">
-                <button className="custom-modal-close" onClick={onClose}>X</button>
-                {children}
-            </div>
-        </div>
-    )
-};
-
-CustomModal.propTypes = {
-    visible: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
-    children: PropTypes.node
-};
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Drawer } from "antd";
+import LoginForm from "../auth/Login2";
+import SignUp from "../auth/SignUp"; // Import the SignUp component
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+import "./styles.css";
+import { UserSessionUtils } from "../utils/UserSessionUtils";
+import { CustomModal } from "../components/CustomalModal";
 
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const location = useLocation();
     const [activePath, setActivePath] = useState("");
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isDrawerVisible, setIsDrawerVisible] = useState(false);
+    const [isLoginForm, setIsLoginForm] = useState(true); // Toggle between login and registration
+    const [userDetails, setUserDetails] = useState(null);
+
 
     useEffect(() => {
         setActivePath(location.pathname);
     }, [location]);
 
     useEffect(() => {
-        // Replace this with your actual authentication check logic
-        const user = localStorage.getItem("user");
-        setIsAuthenticated(!!user);
+        setIsAuthenticated(UserSessionUtils.isAuthenticated());
     }, []);
+
+    // Replace your current authentication useEffect with:
+    useEffect(() => {
+        const handleStorageChange = () => {
+            setIsAuthenticated(UserSessionUtils.isAuthenticated());
+        };
+
+        // Listen for both storage events and local authentication changes
+        window.addEventListener('storage', handleStorageChange);
+
+        // Add a custom event listener for local auth changes
+        window.addEventListener('app-auth-change', handleStorageChange);
+
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+            window.removeEventListener('app-auth-change', handleStorageChange);
+        };
+    }, []);
+
+    useEffect(() => {
+        if (isDrawerVisible) {
+            const details = UserSessionUtils.getUserDetails();
+            setUserDetails(details);
+        }
+    }, [isDrawerVisible]);
+
+    const triggerAuthCheck = () => {
+        setIsAuthenticated(UserSessionUtils.isAuthenticated());
+        window.dispatchEvent(new Event('app-auth-change'));
+    };
 
     const showModal = () => {
         setIsModalVisible(true);
+        setIsLoginForm(true);
     };
-
-    // const handleOk = () => {
-    //     setIsModalVisible(false);
-    // };
 
     const handleCancel = () => {
         setIsModalVisible(false);
@@ -66,15 +77,12 @@ const Navbar = () => {
         setIsDrawerVisible(false);
     };
 
-    const handleLogin = (status) => {
-        setIsAuthenticated(status);
-        setIsModalVisible(false);
+    const handleLogout = () => {
+        UserSessionUtils.logout();
+        triggerAuthCheck(); // Use the same trigger method
+        navigate('/');
     };
 
-    const handleLogout = () => {
-        localStorage.removeItem("user");
-        setIsAuthenticated(false);
-    };
 
     return (
         <>
@@ -97,16 +105,24 @@ const Navbar = () => {
                                 </li>
                             </Link>
                             <Link to="/about">
-                                <li className={activePath === "/about" ? "active" : ""}>About Us {activePath === "/about" && <div className="nav-dot"></div>}</li>
+                                <li className={activePath === "/about" ? "active" : ""}>
+                                    About Us{" "}
+                                    {activePath === "/about" && <div className="nav-dot"></div>}
+                                </li>
                             </Link>
-                            <Link to="/landlord-agent">
-                                <li className={activePath === "/landlord-agent" ? "active" : ""}>Agent {activePath === "/landlord-agent" && <div className="nav-dot"></div>}</li>
-                            </Link>
-                            {/* <Link to="/services">
-                                <li className={activePath === "/services" ? "active" : ""}>Services {activePath === "/services" && <div className="nav-dot"></div>}</li>
+                            {/* <Link to="/landlord-agent">
+                                <li className={activePath === "/landlord-agent" ? "active" : ""}>
+                                    List Your Properrty{" "}
+                                    {activePath === "/landlord-agent" && (
+                                        <div className="nav-dot"></div>
+                                    )}
+                                </li>
                             </Link> */}
                             <Link to="/properties">
-                                <li className={activePath === "/properties" ? "active" : ""}>Properties {activePath === "/properties" && <div className="nav-dot"></div>}</li>
+                                <li className={activePath === "/properties" ? "active" : ""}>
+                                    Properties{" "}
+                                    {activePath === "/properties" && <div className="nav-dot"></div>}
+                                </li>
                             </Link>
                         </ul>
                     </div>
@@ -128,32 +144,39 @@ const Navbar = () => {
                         ) : (
                             <button type="default" className="nav-auth-btn3" onClick={showModal}>
                                 <img src={asset.login} alt="" />
-                                {/* Sign in */}
+                                Log in
                             </button>
                         )}
                     </div>
                 </div>
             </nav>
 
+            {/* Login/Registration Modal */}
             <CustomModal visible={isModalVisible} onClose={handleCancel}>
-                <LoginForm onLogin={handleLogin} />
+                {isLoginForm ? (
+                    <LoginForm onSuccess={() => {
+                        handleCancel();
+                        triggerAuthCheck(); // Use the new trigger method
+                    }} />
+                ) : (
+                    <SignUp />
+                )}
             </CustomModal>
 
+            {/* Profile Drawer */}
             <Drawer
                 className="profile-drawer"
-                title="Student Profile"
                 placement="right"
                 onClose={onClose}
                 open={isDrawerVisible}
                 width={350}
             >
-
                 <div className="drawer-profile-header">
                     <div className="dph1">
                         <div className="profile-pic">
                             <LazyLoadImage
                                 src={drawer.placeholder}
-                                alt=""
+                                alt="User profile"
                                 effect="blur"
                                 style={{ width: "100%", height: "100%" }}
                             />
@@ -161,12 +184,20 @@ const Navbar = () => {
                     </div>
                     <div className="dph2">
                         <div className="dph2-cards">
-                            <div><p>Name:</p></div>
-                            <div><p>Odeke Noah</p></div>
+                            <div>
+                                <p>Name:</p>
+                            </div>
+                            <div>
+                                <p>{userDetails?.fullName || "Loading..."}</p>
+                            </div>
                         </div>
                         <div className="dph2-cards">
-                            <div><p>Email:</p></div>
-                            <div><p>odekenoah@gmail.com</p></div>
+                            <div>
+                                <p>Email:</p>
+                            </div>
+                            <div>
+                                <p>{userDetails?.email || "Loading..."}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -174,12 +205,17 @@ const Navbar = () => {
                     <div></div>
                     <div></div>
                 </div>
-                <div className="drawer-profile-body"></div>
-
+                <div className="drawer-profile-body">
+                    <Link to="/property-dashboard">
+                        <div className="drawer-profile-btn" >
+                            <div></div>
+                            My Dashboard
+                        </div>
+                    </Link>
+                </div>
             </Drawer>
         </>
-    )
-}
-
+    );
+};
 
 export default Navbar;

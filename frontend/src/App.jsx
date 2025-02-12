@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Login from "./auth/Login";
-import Login2 from "./auth/Login2";
+
 import Dashboard from "./core/Dashboard";
 import PropertyForm from "./forms/PropertyForm";
 import PropertyList from "./lists/PropertyList";
@@ -23,27 +22,50 @@ import AboutUsPage from "./website/AboutUsPage";
 import ServicesPage from "./website/ServicesPage";
 import PropertyPage from "./website/PropertyPage";
 import LandlordAgent from "./website/LandlordAgent";
+import SignUp from "./auth/SignUp";
+
+import StudentDashboard from "./website/dashboards/StudentDashboard";
+import PropertyOwnerDashboard from "./website/dashboards/PropertyOwnerDashboard";
+import Login2 from "./auth/Login2";
+// import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
+
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/login" element={<Login2 />} />
         <Route path="/about" element={<AboutUsPage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/properties" element={<PropertyPage />} />
         <Route path="/properties/:id" element={<PropertyPage />} />
+        <Route path="/register" element={<SignUp />} />
         <Route path="/landlord-agent" element={<LandlordAgent />} />
         <Route path="/contact" element={<ContactUsPage />} />
         <Route path="/account-type" element={<AccountType />} />
         <Route path="/student" element={<StudentSignup />} />
         <Route path="/agent-signup" element={<AgentSignup />} />
         <Route path="/agent" element={<LandlordSignup />} />
-        
-        <Route path="/login" element={<Login />} />
-        <Route path="/property-owner-login" element={<Login2 />} />
+
+
+
+        <Route path="/student-dashboard" element={
+          <StudentDashboard />
+        } />
+        <Route path="/property-dashboard" element={
+
+          <PropertyOwnerDashboard />
+        }>
+          <Route path="" element={<Overview />} />
+          <Route path="properties" element={<PropertyList />} />
+          <Route path="properties/add-new" element={<PropertyForm />} />
+        </Route>
+
+
         <Route path="/dashboard" element={<Dashboard />}>
-        
+
+
           {/* Nested route */}
           <Route path="" element={<Overview />} />
           <Route path="properties/add-new" element={<PropertyForm />} />
@@ -55,11 +77,14 @@ function App() {
           <Route path="students" element={<StudentList />} />
           <Route path="landlords" element={<LandlordList />} />
           <Route path="landlords/add-new" element={<LandlordForm />} />
-          
+
         </Route>
       </Routes>
     </Router>
+
   );
 }
+
+
 
 export default App;

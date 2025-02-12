@@ -18,6 +18,8 @@ html {
   scrollbar-width: thin;
   scrollbar-color: #fdb10e #111143;
   font-size: 16px;
+  position: relative;
+
 }
 
 body {
@@ -25,6 +27,7 @@ body {
   color: #2e2e2e;
   font-size: 1rem;
   scroll-behavior: smooth;
+  position: relative;
 }
 
 h1 {
@@ -60,3 +63,8 @@ button [type:submit] {
 .btn1 {
   font-size: 16px;
 }
+
+
+
+/* Ants Carousel */
+

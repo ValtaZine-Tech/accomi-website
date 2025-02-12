@@ -1,5 +1,4 @@
 import StorageParams from "../constants/StorageParams";
-import { LOGIN_ROUTE_PATH } from "../constants/NavigationRoutes";
 
 export class UserSessionUtils {
    /**
@@ -26,8 +25,7 @@ export class UserSessionUtils {
       // remove all
       this.setUserAuthToken(null);
       localStorage.clear();
-      window.location.reload();
-      window.location.href = LOGIN_ROUTE_PATH;
+
    }
 
    /**
@@ -114,16 +112,30 @@ export class UserSessionUtils {
     * @param userDetails
     */
    static setUserDetails(userDetails) {
-      localStorage.setItem(StorageParams.USER_DETAILS_JSON, JSON.stringify(userDetails));
-   }
+      localStorage.setItem(
+        StorageParams.USER_DETAILS_JSON, 
+        JSON.stringify({
+          fullName: userDetails.fullName,
+          email: userDetails.email,
+          userId: userDetails.userId,
+          gender: userDetails.gender,
+          countryId: userDetails.countryId
+        })
+      );
+    }
 
    /**
     * This method is used to get a JSON object containing user details
     * @returns
     */
    static getUserDetails() {
-      const value = localStorage.getItem(StorageParams.USER_DETAILS_JSON);
-      return JSON.parse(value);
+      try {
+         const value = localStorage.getItem(StorageParams.USER_DETAILS_JSON);
+         return JSON.parse(value) || {};
+       } catch (error) {
+         console.error("Error parsing user details:", error);
+         return {};
+       }
    }
 
    /**
@@ -131,29 +143,15 @@ export class UserSessionUtils {
     * @returns
     */
    static isLoggedIn() {
-        try {
-        const loggedIn = localStorage.getItem(StorageParams.IS_LOGGED_IN);
-
-        if (loggedIn && loggedIn === true) {
-            return true;
-        }
-        return false;
-        } catch (error) {
-            console.error(error);
-            return false;
-        }
-    }
+      return localStorage.getItem(StorageParams.IS_LOGGED_IN) === 'true';
+   }
 
    /**
     * This method is used to set user logged in status
     * @returns
     */
    static setLoggedIn(loggedIn) {
-      if (loggedIn) {
-         localStorage.setItem(StorageParams.IS_LOGGED_IN, true);
-      } else {
-         localStorage.setItem(StorageParams.IS_LOGGED_IN, false);
-      }
+      localStorage.setItem(StorageParams.IS_LOGGED_IN, loggedIn.toString());
    }
 
    /**
@@ -216,4 +214,21 @@ export class UserSessionUtils {
       let time = localStorage.getItem(StorageParams.LOGIN_TIME);
       return time;
    }
+
+   /**
+  * This method checks if the user is authenticated.
+  * @returns {boolean}
+  */
+   static isAuthenticated() {
+      const accessToken = this.getBearerToken();
+      return !!accessToken; // Returns true if the access token exists
+   }
+
+   /**
+    * This method logs the user out by clearing the session and redirecting to the login page.
+    */
+   static logout() {
+      this.clearLocalStorageAndLogout();
+   }
+
 }

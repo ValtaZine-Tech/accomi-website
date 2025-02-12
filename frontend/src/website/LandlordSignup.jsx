@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LandlordDetails from './steps/LandlordDetails';
 import PropertyDetails from './steps/PropertyDetails';
-import LandlordVerification from './steps/LandlordVerification';
 
 const LandlordSignup = () => {
     const navigate = useNavigate();
@@ -13,17 +12,14 @@ const LandlordSignup = () => {
 
     const landlordSteps = [
         {
-            title: 'Profile',
+            title: 'Create Account',
             content: <LandlordDetails />,
         },
         {
             title: 'Property Details',
             content: <PropertyDetails onNext={() => setCurrent(current + 1)} />,
         },
-        {
-            title: 'Verification',
-            content: <LandlordVerification />,
-        }
+        
     ];
 
     const next = () => {
