@@ -371,7 +371,7 @@ const LandingPage = () => {
                     </div>
                 </section>
 
-                <section style={{ padding: '5vh 0', margin: '0' }}>
+                <section style={{ padding: '0 0 5vh 0', margin: '0' }}>
                     <div className="property-dir-container">
                         <h2>Explore <span style={{ color: '#fdb10e' }}>10+ room types</span> across properties globally.</h2>
                         <Link to="/properties">

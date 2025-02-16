@@ -14,7 +14,7 @@ import { CustomModal } from "../components/CustomalModal";
 
 const Login2 = ({onSuccess}) => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [activePath, setActivePath] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -29,12 +29,12 @@ const Login2 = ({onSuccess}) => {
 
   const handleLogin = async () => {
     // Simple login logic
-    if (email === "guest" && password === "1234") {
+    if (userName === "guest" && password === "1234") {
       // dispatch(login({ user: email, role: 'student' }));
       message.success("Logged in Successfully");
       navigate('/');
       return;
-    } else if (email === "admin" && password === "admin123") {    
+    } else if (userName === "admin" && password === "admin123") {    
       // dispatch(login({ user: email, role: 'admin' }));
       message.success("Logged in Successfully");
       navigate('/dashboard');
@@ -44,7 +44,7 @@ const Login2 = ({onSuccess}) => {
     // API-based authentication
     try {
       const response = await new BaseApiService("/auth/login").postRequestWithJsonResponse({
-        email,
+        userName,
         password,
       });
   
@@ -57,7 +57,8 @@ const Login2 = ({onSuccess}) => {
           email: response.user.primaryEmail,
           userId: response.user.id,
           gender: response.user.gender,
-          countryId: response.user.countryId
+          countryId: response.user.countryId,
+          roles: response.user.roles
         });
   
         message.success("Logged in Successfully");
@@ -101,9 +102,9 @@ const Login2 = ({onSuccess}) => {
             <Input
               type="text"
               className="inputField"
-              placeholder="Enter your Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your Username"
+              value={userName}
+              onChange={(e) => setUsername(e.target.value)}
             />
             <Input.Password
               className="inputField"

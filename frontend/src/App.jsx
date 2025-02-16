@@ -17,7 +17,6 @@ import ContactUsPage from "./website/ContactUsPage";
 import AccountType from "./website/steps/AccountType";
 import StudentSignup from "./website/StudentSignup";
 import LandlordSignup from "./website/LandlordSignup";
-import AgentSignup from "./website/AgentSignup";
 import AboutUsPage from "./website/AboutUsPage";
 import ServicesPage from "./website/ServicesPage";
 import PropertyPage from "./website/PropertyPage";
@@ -45,8 +44,7 @@ function App() {
         <Route path="/contact" element={<ContactUsPage />} />
         <Route path="/account-type" element={<AccountType />} />
         <Route path="/student" element={<StudentSignup />} />
-        <Route path="/agent-signup" element={<AgentSignup />} />
-        <Route path="/agent" element={<LandlordSignup />} />
+        <Route path="/account-creation" element={<LandlordSignup />} />
 
 
 
@@ -63,7 +61,7 @@ function App() {
         </Route>
 
 
-        <Route path="/dashboard" element={<Dashboard />}>
+        <Route path="/admin-dashboard" element={<Dashboard />}>
 
 
           {/* Nested route */}

@@ -4,7 +4,8 @@ import './styles.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import LandlordDetails from './steps/LandlordDetails';
-import PropertyDetails from './steps/PropertyDetails';
+import LandlordLogin from './steps/LandlordLogin';
+import WelcomeStep from './steps/WelcomeStep';
 
 const LandlordSignup = () => {
     const navigate = useNavigate();
@@ -16,8 +17,12 @@ const LandlordSignup = () => {
             content: <LandlordDetails />,
         },
         {
-            title: 'Property Details',
-            content: <PropertyDetails onNext={() => setCurrent(current + 1)} />,
+            title: 'Login',
+            content: <LandlordLogin />,
+        },
+        {
+            title: 'Finish',
+            content: <WelcomeStep onNext={() => setCurrent(current + 1)} />,
         },
         
     ];
@@ -49,8 +54,7 @@ const LandlordSignup = () => {
                 theme={{
                     components: {
                         Steps: {
-                            colorPrimary: '#fdb10e',
-                            progressDot: true,
+                            colorPrimary: '#fdb10e',                            
                         }
                     }
                 }}>
@@ -59,9 +63,7 @@ const LandlordSignup = () => {
             <section className='booking-container'>
                 <Steps
                     current={current}
-                    items={items}                    
-                    style={{ '--ant-steps-icon-color': '#fdb10e',color:'#fdb10e' }}
-                    progressDot={{ '--ant-steps-icon-color': '#fdb10e' }}
+                    items={items}                                    
                 />
                 <div style={contentStyle}>
                     {landlordSteps[current]?.content}

@@ -9,6 +9,7 @@ export default {
     FULL_LOGIN_DETAILS_JSON: "@full_login_details_json",
     USERNAME: "@username",
     FULL_NAME: "@full_name",
+    EMAIL: "@email",
     COUNTRY: "@country",
     LANGUAGE: "@language",
     IS_SUPER_ADMIN: "@is_super_admin",
