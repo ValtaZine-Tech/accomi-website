@@ -30,6 +30,7 @@ const Navbar = () => {
         setIsAuthenticated(UserSessionUtils.isAuthenticated());
     }, []);
 
+
     // Replace your current authentication useEffect with:
     useEffect(() => {
         const handleStorageChange = () => {
@@ -83,6 +84,17 @@ const Navbar = () => {
         navigate('/');
     };
 
+    useEffect(() => {
+        if (isAuthenticated) {
+            const details = UserSessionUtils.getUserDetails();
+            setUserDetails(details);
+            console.log("User details:", details);
+        } else {
+            setUserDetails(null);
+            console.log('No user details fetched')
+        }
+    }, [isAuthenticated]);
+
 
     return (
         <>
@@ -110,14 +122,14 @@ const Navbar = () => {
                                     {activePath === "/about" && <div className="nav-dot"></div>}
                                 </li>
                             </Link>
-                            {/* <Link to="/landlord-agent">
-                                <li className={activePath === "/landlord-agent" ? "active" : ""}>
-                                    List Your Properrty{" "}
-                                    {activePath === "/landlord-agent" && (
-                                        <div className="nav-dot"></div>
-                                    )}
-                                </li>
-                            </Link> */}
+                            {userDetails?.roles?.some(role => role.type === "AGENT") && (
+                                <Link to="/landlord-agent">
+                                    <li className={activePath === "/landlord-agent" ? "active" : ""}>
+                                        List Your Property
+                                        {activePath === "/landlord-agent" && <div className="nav-dot"></div>}
+                                    </li>
+                                </Link>
+                            )}
                             <Link to="/properties">
                                 <li className={activePath === "/properties" ? "active" : ""}>
                                     Properties{" "}
@@ -188,7 +200,7 @@ const Navbar = () => {
                                 <p>Name:</p>
                             </div>
                             <div>
-                                <p>{userDetails?.fullName || "Loading..."}</p>
+                                <p>{userDetails?.fullName || ""}</p>
                             </div>
                         </div>
                         <div className="dph2-cards">
@@ -199,6 +211,14 @@ const Navbar = () => {
                                 <p>{userDetails?.email || "Loading..."}</p>
                             </div>
                         </div>
+                        <div className="dph2-cards">
+                            <div>
+                                <p>Role:</p>
+                            </div>
+                            <div>
+                                <p>{userDetails?.roles?.map(role => role.type).join(', ') || "Loading..."}</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="profile-separator">
@@ -206,12 +226,39 @@ const Navbar = () => {
                     <div></div>
                 </div>
                 <div className="drawer-profile-body">
-                    <Link to="/property-dashboard">
-                        <div className="drawer-profile-btn" >
-                            <div></div>
-                            My Dashboard
-                        </div>
-                    </Link>
+                    {/* Agent Dashboard */}
+                    {userDetails?.roles?.some(role => role.type === "AGENT") && (
+                        <>
+                            <Link to="/property-dashboard">
+                                <div className="drawer-profile-btn">
+                                    <div></div>
+                                    My Dashboard
+                                </div>
+                            </Link>
+
+                        </>
+                    )}
+
+
+                    {/* Student Dashboard */}
+                    {userDetails?.roles?.some(role => role.type === "STUDENT") && (
+                        <Link to="/student-dashboard">
+                            <div className="drawer-profile-btn">
+                                <div></div>
+                                My Dashboard
+                            </div>
+                        </Link>
+                    )}
+
+                    {/* Admin Dashboard */}
+                    {userDetails?.roles?.some(role => role.type === "ADMIN") && (
+                        <Link to="/admin-dashboard">
+                            <div className="drawer-profile-btn">
+                                <div></div>
+                                My Dashboard
+                            </div>
+                        </Link>
+                    )}
                 </div>
             </Drawer>
         </>

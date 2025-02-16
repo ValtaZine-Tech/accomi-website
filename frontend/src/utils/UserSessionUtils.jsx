@@ -119,7 +119,8 @@ export class UserSessionUtils {
           email: userDetails.email,
           userId: userDetails.userId,
           gender: userDetails.gender,
-          countryId: userDetails.countryId
+          countryId: userDetails.countryId,
+          roles: userDetails.roles
         })
       );
     }

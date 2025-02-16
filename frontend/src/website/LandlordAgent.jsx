@@ -17,7 +17,7 @@ const LandlordAgent = () => {
                         
 
                         <div className="header-btns">
-                            <Link to="/agent">
+                            <Link to="/account-creation">
                                 <button className="header-btn"> Begin Listing </button>
                             </Link>
                         </div>

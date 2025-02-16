@@ -12,6 +12,7 @@ const SignUp = ({ onSuccess }) => {
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
+        username: '',
         email: '',
         password: '',
         confirmPassword: '',
@@ -32,6 +33,7 @@ const SignUp = ({ onSuccess }) => {
             const registrationData = {
                 firstName: formData.firstName,
                 lastName: formData.lastName,
+                username: formData.username,
                 primaryEmail: formData.email,
                 password: formData.password,
                 countryId: formData.countryId
@@ -44,6 +46,7 @@ const SignUp = ({ onSuccess }) => {
                 UserSessionUtils.setUserAuthToken(response.accessToken);
                 UserSessionUtils.setUserDetails({
                     fullName: `${response.user.firstName} ${response.user.lastName}`,
+                    username: `${response.user.firstName} ${response.user.lastName}`,
                     email: response.user.primaryEmail,
                     userId: response.user.id
                 });
@@ -143,6 +146,7 @@ const SignUp = ({ onSuccess }) => {
                             iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                             value={formData.password}
                             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                            style={{ height: 40, display: "flex", alignItems: "center" }}
                         />
 
                         <Input.Password
@@ -151,6 +155,7 @@ const SignUp = ({ onSuccess }) => {
                             iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                             value={formData.confirmPassword}
                             onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                            style={{ height: 40, display: "flex", alignItems: "center" }}
                         />
 
                         {loading ? <Button
@@ -158,7 +163,7 @@ const SignUp = ({ onSuccess }) => {
                             disabled={loading}
                             style={{ background: '#111143', color: '#ffffff' }}
                         >
-                            <Loading3QuartersOutlined />
+                            <Loading3QuartersOutlined spin={true}/>
                         </Button>
 
                             : <Button className="auth-btn1" onClick={handleRegister}
