@@ -211,14 +211,6 @@ const Navbar = () => {
                                 <p>{userDetails?.email || "Loading..."}</p>
                             </div>
                         </div>
-                        <div className="dph2-cards">
-                            <div>
-                                <p>Role:</p>
-                            </div>
-                            <div>
-                                <p>{userDetails?.roles?.map(role => role.type).join(', ') || "Loading..."}</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div className="profile-separator">
