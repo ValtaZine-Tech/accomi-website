@@ -3,6 +3,7 @@ import { asset, images } from "../assets/assets";
 import Footer from "../partials/Footer";
 import Navbar from "../partials/Navbar";
 import './styles.css'
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const LandlordAgent = () => {
     return (
@@ -60,7 +61,7 @@ const LandlordAgent = () => {
                     <div className="header-overlay"></div>
 
                     <div className="header-background">
-                        <img src={images.header2} alt="Header background image" loading="lazy" />
+                        <LazyLoadImage effect="blur" style={{objectPosition: 'center', width: '100vw'}} src={images.agtBG} alt="Header background image"/>
                     </div>
 
                 </header>

@@ -7,6 +7,7 @@ import Footer from "../partials/Footer"
 import 'animate.css';
 import { useEffect, useRef } from "react";
 import { BaseApiService } from "../utils/BaseApiService";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const roomTypes = [
     {
@@ -215,10 +216,12 @@ const LandingPage = () => {
                     <div className="header-overlay"></div>
 
                     <div className="header-background">
-                        <img
+                        <LazyLoadImage
                             src={images.header2}
+                            effect="blur"
+                            style={{ objectPosition: 'center', width: '100vw' }}
                             alt="Header background image"
-                            loading="lazy"
+                            
                         />
                     </div>
                 </header>

@@ -9,6 +9,7 @@ import Navbar from "../partials/Navbar"
 import './styles.css'
 import { useEffect, useState } from "react";
 import { BaseApiService } from "../utils/BaseApiService";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 
 const PropertyPage = () => {
@@ -137,7 +138,7 @@ const PropertyPage = () => {
                         <div className="header-overlay"></div>
 
                         <div className="header-background">
-                            <img src={images.header2} alt="Header background image" loading="lazy" />
+                            <LazyLoadImage effect="blur" style={{objectPosition: 'center', width: '100vw'}} src={images.poBG} alt="Header background image" loading="lazy" />
                         </div>
 
                     </header>
