@@ -17,6 +17,8 @@ import header2 from './images/headerIMG2.jpg'
 import about1 from './images/about1.jpg'
 import about2 from './images/about2.jpg'
 import about3 from './images/about3.jpg'
+import abtBG from './images/aboutBg.jpg'
+import agtBG from './images/agentBg.jpg'
 import intro1 from './images/introIMG1.png'
 
 import type1 from './images/type1.jpeg'
@@ -26,6 +28,7 @@ import type4 from './images/type4.jpg'
 import type5 from './images/type5.jpg'
 import type6 from './images/type6.jpg'
 
+import poBG from './images/propertiesBg.jpg'
 import poIMG from './images/propertyOwnerBg.png'
 import mission from './images/missionIMG.jpg'
 import team1 from './images/teamIMG1.jpg'
@@ -118,6 +121,9 @@ export const images = {
     property2,
     property3,
     property4,
+    poBG,
+    abtBG,
+    agtBG,
 }
 
 export const roomType = {

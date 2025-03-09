@@ -1,3 +1,4 @@
+import { LazyLoadImage } from "react-lazy-load-image-component"
 import { images } from "../assets/assets"
 import Footer from "../partials/Footer"
 import Navbar from "../partials/Navbar"
@@ -38,7 +39,7 @@ const AboutUsPage = () => {
                     </div>
                     <div className="header-overlay"></div>
                     <div className="header-background">
-                        <img src={images.header2} alt="Header background image" />
+                        <LazyLoadImage effect="blur" style={{objectPosition: 'center', width: '100vw'}} src={images.abtBG} alt="Header background image" loading="lazy"/>
                     </div>
                 </header>
 
@@ -48,7 +49,7 @@ const AboutUsPage = () => {
                             <img src={images.mission} alt="" />
                             <div className="about-image-overlay"></div>
                         </div>
-                        <div className="abt-card" style={{ width: '35vw' }}>
+                        <div className="abt-card" style={{ width: '40vw' }}>
                             <h1>Our <span style={{ color: '#fdb10e' }}>Mission</span></h1>
                             <p style={{ marginBottom: '2vh' }}>Accomi intends to provide students with the most important part of their study journey: Accommodation.
                             </p>

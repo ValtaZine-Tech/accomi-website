@@ -3,7 +3,7 @@ import { Alert, Button, Input, Select, message } from "antd";
 import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import "./styles.css";
 import { asset } from "../assets/assets";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import { useState } from "react";
@@ -11,7 +11,7 @@ import { BaseApiService } from "../utils/BaseApiService";
 import { UserSessionUtils } from "../utils/UserSessionUtils";
 
 const Login = () => {
-  const navigate = useNavigate(); // Initialize the navigate function
+  // const navigate = useNavigate(); // Initialize the navigate function
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
