@@ -1,92 +1,54 @@
 /* eslint-disable no-unused-vars */
 
-import { Button, Carousel, ConfigProvider, Select, Tag } from "antd"
+import { Button, Carousel, ConfigProvider, Select, Spin, Tag } from "antd"
 import { asset, images } from "../assets/assets"
 import GoogleMapsComp from "../components/GoogleMapsComp"
 import { SearchOutlined } from '@ant-design/icons';
 import Footer from "../partials/Footer"
 import Navbar from "../partials/Navbar"
 import './styles.css'
+import { useEffect, useState } from "react";
+import { BaseApiService } from "../utils/BaseApiService";
 
-
-const propertyTypes = [
-    { value: "apartment", label: "Apartment" },
-    { value: "hostel", label: "Hostel" },
-    { value: "penthouse", label: "Penthouse" },
-    { value: "townhouse", label: "Townhouse" },
-    { value: "villa", label: "Villa" },
-    { value: "duplex", label: "Duplex" },
-];
-
-const roomTypes = [
-    { value: "apartment", label: "Ensuite" },
-    { value: "hostel", label: "Twin Ensuite" },
-    { value: "penthouse", label: "One Bed Apartment" },
-    { value: "townhouse", label: "Two Bed Apartment" },
-    { value: "villa", label: "Non-Ensuite" },
-    { value: "duplex", label: "Twin-Studio" },
-];
-
-const budgetRanges = [
-    { value: "150000-300000", label: "UGX. 150 - 300" },
-    { value: "300000-500000", label: "UGX. 300 - 500" },
-    { value: "500000-800000", label: "UGX. 500 - 800" },
-    { value: "800000-1000000", label: "UGX. 800 - 1m" },
-    { value: "1000000-1500000", label: "UGX. 1m - 1.5m" },
-]
-
-const ugandanCities = [
-    { value: "kampala", label: "Kampala" },
-    { value: "entebbe", label: "Entebbe" },
-    { value: "jinja", label: "Jinja" },
-    { value: "mbale", label: "Mbale" },
-    { value: "gulu", label: "Gulu" },
-];
-
-const propertyInfo = [
-    {
-        images: [images.property1, images.property2, images.property3, images.property4],
-        title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        location: "Kampala, Uganda",
-        price: "UGX.500,000 /month",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, eleifend nunc. Nulla facilisi. Nullam nec purus feugiat, molestie ipsum et, eleifend nunc. Nulla facilisi.",
-        type: 'Apartment',
-        availability: 'Available',
-        amenities: ['Wifi', 'Parking', 'Security', 'Furnished'],
-    },
-    {
-        images: [images.property1, images.property2, images.property3, images.property4],
-        title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        location: "Kampala, Uganda",
-        price: "UGX.500,000 /month",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, eleifend nunc. Nulla facilisi. Nullam nec purus feugiat, molestie ipsum et, eleifend nunc. Nulla facilisi.",
-        type: 'Apartment',
-        availability: 'Available',
-        amenities: ['Wifi', 'Parking', 'Security', 'Furnished'],
-    },
-    {
-        images: [images.property1, images.property2, images.property3, images.property4],
-        title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        location: "Kampala, Uganda",
-        price: "UGX.500,000 /month",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, eleifend nunc. Nulla facilisi. Nullam nec purus feugiat, molestie ipsum et, eleifend nunc. Nulla facilisi.",
-        type: 'Apartment',
-        availability: 'Available',
-        amenities: ['Wifi', 'Parking', 'Security', 'Furnished'],
-    },
-    {
-        images: [images.property1, images.property2, images.property3, images.property4],
-        title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        location: "Kampala, Uganda",
-        price: "UGX.500,000 /month",
-        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, molestie ipsum et, eleifend nunc. Nulla facilisi. Nullam nec purus feugiat, molestie ipsum et, eleifend nunc. Nulla facilisi.",
-        type: 'Apartment',
-        availability: 'Available',
-        amenities: ['Wifi', 'Parking', 'Security', 'Furnished'],
-    }
-]
 
 const PropertyPage = () => {
+
+    const [properties, setProperties] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    const searchParameters = { offset: 0, limit: 100 };
+
+    const fetchProperties = async () => {
+        try {
+            console.log("Fetching properties from API...");
+            const response = await new BaseApiService("/properties")
+            .getRequestWithJsonResponse(searchParameters)
+            .then((response)=>{
+                
+            })
+            console.log("API Response:", response);
+            setProperties(response.data);
+            setLoading(false);
+        } catch (err) {
+            console.error("Error fetching properties:", err);
+            setError(err.message);
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchProperties();
+    });
+
+    // if (loading) {
+    //     return <div className="loading-container"><Spin size="large" /></div>;
+    // }
+
+    // if (error) {
+    //     return <div className="error-container">Error: {error}</div>;
+    // }
+
     return (
         <>
             <ConfigProvider
@@ -138,9 +100,6 @@ const PropertyPage = () => {
 
 
 
-
-
-
                         </div>
 
 
@@ -188,16 +147,16 @@ const PropertyPage = () => {
                         <div className="header-property-search">
                             <div className="property-search-inputs">
                                 <Select placeholder="Location" style={{ width: '18vw', height: '40px' }} allowClear>
-                                    {ugandanCities.map(city => <Select.Option key={city.value} value={city.value}>{city.label}</Select.Option>)}
+                                    {/* {ugandanCities.map(city => <Select.Option key={city.value} value={city.value}>{city.label}</Select.Option>)} */}
                                 </Select>
                                 <Select placeholder="Property Type" style={{ width: '18vw', height: '40px' }} allowClear>
-                                    {propertyTypes.map(type => <Select.Option key={type.value} value={type.value}>{type.label}</Select.Option>)}
+                                    {/* {propertyTypes.map(type => <Select.Option key={type.value} value={type.value}>{type.label}</Select.Option>)} */}
                                 </Select>
                                 <Select placeholder="Room Type" style={{ width: '18vw', height: '40px' }} allowClear>
-                                    {roomTypes.map(type => <Select.Option key={type.value} value={type.value}>{type.label}</Select.Option>)}
+                                    {/* {roomTypes.map(type => <Select.Option key={type.value} value={type.value}>{type.label}</Select.Option>)} */}
                                 </Select>
                                 <Select placeholder="Budget" style={{ width: '18vw', height: '40px' }} allowClear>
-                                    {budgetRanges.map(range => <Select.Option key={range.value} value={range.value}>{range.label}</Select.Option>)}
+                                    {/* {budgetRanges.map(range => <Select.Option key={range.value} value={range.value}>{range.label}</Select.Option>)} */}
                                 </Select>
                                 <Button type="primary" icon={<SearchOutlined />} style={{ background: '#fdb10e', height: '40px', width: '10rem', borderRadius: 6, border: 'none' }}>
                                     Search
@@ -209,44 +168,44 @@ const PropertyPage = () => {
 
 
                     <section style={{ padding: '0 0 5vh 0', margin: '0 3vw' }}>
-                    <h1 style={{ fontWeight: 500, marginBottom: '20px' }}>Top Rated Properties</h1>
+                        <h1 style={{ fontWeight: 500, marginBottom: '20px' }}>Top Rated Properties</h1>
                         <div className="ppty-card-container">
-                            {propertyInfo.map((info, index) => (
-                                <div className="ppty-card" key={index}>
+                            {properties.map((property, index) => (
+                                <div className="ppty-card" key={property.id}>
                                     <div className="ppty-card-image">
-                                        <Carousel dots={true} infinite={false} effect="fade" draggable >
-                                            {info.images.map((image, imgIndex) => (
+                                        <Carousel dots={true} infinite={false} effect="fade" draggable>
+                                            {property.imageUrls.map((image, imgIndex) => (
                                                 <div className="ppty-image" key={imgIndex}>
                                                     <img src={image} alt={`Property ${index + 1} - Image ${imgIndex + 1}`} />
                                                     <div className="image-count-tag">
                                                         <i className="fa-regular fa-image" style={{ color: '#ffffff' }}></i>
-                                                        <p style={{ color: '#ffffff', lineHeight: 0, }}>{info.images.length}</p>
+                                                        <p style={{ color: '#ffffff', lineHeight: 0, }}>{property.imageUrls.length}</p>
                                                     </div>
                                                 </div>
                                             ))}
                                         </Carousel>
-                                        <div className="availability-tag" style={{ background: info.availability === 'Available' ? '#fdb10e' : '#111143' }}>
-                                            <p style={{ color: '#ffffff', lineHeight: 0, }}>{info.availability}</p>
+                                        <div className="availability-tag" style={{ background: property.available ? '#fdb10e' : '#111143' }}>
+                                            <p style={{ color: '#ffffff', lineHeight: 0, }}>{property.available ? 'Available' : 'Occupied'}</p>
                                         </div>
                                     </div>
                                     <div style={{ padding: '0.5rem 1rem 0.7rem 1rem' }}>
 
-                                        <h3>{info.title}</h3>
+                                        <h3>{property.title}</h3>
 
                                         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', }}>
                                             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', gap: '.4rem' }}>
                                                 <i className="fa-solid fa-building" style={{ color: '#fdb10e' }}></i>
-                                                <p style={{ fontSize: '0.9rem', color: '#8e8e8e' }}>{info.type}</p>
+                                                <p style={{ fontSize: '0.9rem', color: '#8e8e8e' }}>{property.type}</p>
                                             </div>
 
                                             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start', alignItems: 'center', gap: '.4rem' }}>
                                                 <i className="fa-solid fa-location-dot" style={{ color: '#fdb10e' }}></i>
-                                                <p style={{ fontSize: '0.9rem', color: '#8e8e8e' }}>{info.location}</p>
+                                                <p style={{ fontSize: '0.9rem', color: '#8e8e8e' }}>{property.location}</p>
                                             </div>
                                         </div>
 
                                         <div className="amenities-container">
-                                            {info.amenities.map((amenity, aIndex) => (
+                                            {property.amenities.map((amenity, aIndex) => (
                                                 <div color="orange" className="amenity-tag" key={aIndex}>
                                                     {/* <i className="fa-solid fa-check" style={{ color: '#fdb10e' }}></i> */}
                                                     <p style={{ fontSize: '0.8rem' }}>{amenity}</p>
@@ -254,8 +213,8 @@ const PropertyPage = () => {
                                             ))}
                                         </div>
 
-                                        <p>{info.description}</p>
-                                        <h3 style={{ marginTop: 2 }}>{info.price}</h3>
+                                        <p>{property.description}</p>
+                                        <h3 style={{ marginTop: 2 }}>{property.price}</h3>
                                     </div>
                                 </div>
                             ))}

@@ -5,6 +5,7 @@ import { Form, Input, InputNumber, Select, DatePicker, Checkbox, Button, Row, Co
 import { InboxOutlined, PlusOutlined } from '@ant-design/icons'
 import './styles.css'
 import Dragger from 'antd/es/upload/Dragger';
+import { BaseApiService } from '../utils/BaseApiService';
 
 
 const { Option } = Select;
@@ -12,9 +13,10 @@ const { Title } = Typography;
 
 
 const PropertyForm = () => {
-
+    const [form] = Form.useForm();
     const [previewOpen, setPreviewOpen] = useState(false);
-    const [previewImage, setPreviewImage] = useState('');
+    const [previewImage, setPreviewImage] = useState();
+    const [fileList, setFileList] = useState([]);
 
     // Helper function to read image file as base64
     const getBase64 = (file) =>
@@ -25,58 +27,77 @@ const PropertyForm = () => {
             reader.onerror = (error) => reject(error);
         });
 
-    const handleImagePreview = async (file) => {
+    const handlePreview = async (file) => {
         if (!file.url && !file.preview) {
-            file.preview = await getBase64(file.originFileObj); // Convert to base64 preview
+            file.preview = await getBase64(file.originFileObj);
         }
         setPreviewImage(file.url || file.preview);
         setPreviewOpen(true);
     };
 
-    const props = {
-        name: 'file',
-        multiple: true,
-        action: 'https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload',
-        onChange(info) {
-            const { status } = info.file;
-            if (status !== 'uploading') {
-                console.log(info.file, info.fileList);
-            }
-            if (status === 'done') {
-                message.success(`${info.file.name} file uploaded successfully.`);
-            } else if (status === 'error') {
-                message.error(`${info.file.name} file upload failed.`);
-            }
-        },
-        onDrop(e) {
-            console.log('Dropped files', e.dataTransfer.files);
-        },
-        onPreview: handleImagePreview,
+    const handleImageUpload = async (options) => {
+        const { file, onSuccess, onError } = options;
+        const formData = new FormData();
+        formData.append('files', file);
+
+        try {
+            const response = await new BaseApiService("/images/upload").postMultipartWithJsonResponse(formData);
+            onSuccess({ url: response.data.url }, file);
+        } catch (error) {
+            console.error('Image upload error:', error);
+            onError(error);
+        }
     };
 
-    const props2 = {
-        name: 'file',
-        multiple: false,
-        action: 'https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload',
-        onChange(info) {
-            const { status } = info.file;
-            if (status !== 'uploading') {
-                console.log(info.file, info.fileList);
-            }
-            if (status === 'done') {
-                message.success(`${info.file.name} file uploaded successfully.`);
-            } else if (status === 'error') {
-                message.error(`${info.file.name} file upload failed.`);
-            }
-        },
-        onDrop(e) {
-            console.log('Dropped files', e.dataTransfer.files);
-        },
-        onPreview: handleImagePreview,
+    const handleImageChange = ({ fileList: newFileList }) => {
+        setFileList(newFileList);
     };
-    
-    const onFinish = (values) => {
-        console.log('Form Values:', values);
+
+    const uploadProps = {
+        customRequest: handleImageUpload,
+        listType: "picture-card",
+        fileList: fileList,
+        onChange: handleImageChange,
+        onPreview: handlePreview,
+        multiple: true,
+        accept: "image/*",
+        beforeUpload: (file) => {
+            const isImage = file.type.startsWith('image/');
+            if (!isImage) {
+                message.error('You can only upload image files!');
+            }
+            return isImage;
+        }
+    };
+
+
+    const onFinish = async (values) => {
+        try {
+            const imageUrls = fileList.map(file => file.response?.url || file.url);
+
+            const formattedValues = {
+                ...values,
+                countryId: 1,
+                amenitiesIds: values.amenities || [],
+                securityDeposit: values.securityDeposit,
+                price: values.monthlyRent,
+                unit: "UGX",
+                imageUrls: imageUrls,
+                available: values.availabilityStatus === 'available'
+            };
+
+            console.log('Submitting:', formattedValues);
+
+            const response = await new BaseApiService("/properties/list").postRequestWithJsonResponse(formattedValues);
+            console.log('Submission successful:', response);
+
+            message.success('Property created successfully!');
+            form.resetFields();
+            setFileList([]);
+        } catch (error) {
+            console.error('Submission error:', error);
+            message.error(error.response?.data?.message || 'Error creating property');
+        }
     };
 
 
@@ -148,16 +169,7 @@ const PropertyForm = () => {
                             </Form.Item>
                         </Col>
 
-                        <Col span={8}>
-                            <Form.Item
-                                label="Property Owner"
-                                name="propertyOwner"
-                                rules={[{ required: true, message: "Property Owner's name is required!" }]}
-                                style={{ marginBottom: 5 }}
-                            >
-                                <Input />
-                            </Form.Item>
-                        </Col>
+
                         <Col span={24}>
                             <Form.Item
                                 label="Property Decription"
@@ -176,47 +188,14 @@ const PropertyForm = () => {
                     </Title>
                     <Divider />
                     <Row gutter={[10, 0]}>
-                        <Col span={8} style={{ display: 'flex' }}> {/* Apply flex layout to the column */}
-                            <Form.Item
-                                label="Cover Image"
-                                name="coverImage"
-                                rules={[{ required: true, message: "Please upload at least 1 image!" }]}
-                                style={{ flex: 1 }} // Make the Form.Item fill the available space
-                            >
-                                <div>
-                                <Dragger {...props2}>
-                                    <p className="ant-upload-drag-icon">
-                                        <PlusOutlined style={{ color: "#fdb10e" }} />
-                                    </p>
-                                    <p className="ant-upload-text">Click or drag file to this area to upload</p>
-                                    <p className="ant-upload-hint">
-                                        Support for single uploads. Prohibited from uploading any copyrighted images.
-                                    </p>
-                                </Dragger>
-                                    {previewImage && (
-                                        <Image
-                                            wrapperStyle={{
-                                                display: 'none',
-                                            }}
-                                            preview={{
-                                                visible: previewOpen,
-                                                onVisibleChange: (visible) => setPreviewOpen(visible),
-                                                afterOpenChange: (visible) => !visible && setPreviewImage(''),
-                                            }}
-                                            src={previewImage}
-                                        />
-                                    )}
-                                </div>
-                            </Form.Item>
-                        </Col>
 
-                        <Col span={16}>
+                        <Col span={24}>
                             <Form.Item
-                                label="Other Image"
+                                label="Images"
                                 name="otherImage"
                                 rules={[{ required: false, message: "Please upload at least 1 image!" }]}
                             >
-                                <Dragger {...props}>
+                                <Dragger {...uploadProps}>
                                     <p className="ant-upload-drag-icon">
                                         <InboxOutlined style={{ color: "#fdb10e" }} />
                                     </p>
@@ -227,6 +206,18 @@ const PropertyForm = () => {
                                     </p>
                                 </Dragger>
                             </Form.Item>
+                            {previewImage && (
+                                <Image
+                                    wrapperStyle={{ display: 'none' }}
+                                    preview={{
+                                        visible: previewOpen,
+                                        onVisibleChange: (visible) => setPreviewOpen(visible),
+                                        afterOpenChange: (visible) => !visible && setPreviewImage(''),
+                                        
+                                    }}
+                                    src={previewImage}
+                                />
+                            )}
                         </Col>
                     </Row>
 
@@ -370,19 +361,14 @@ const PropertyForm = () => {
                     </Title>
                     <Divider />
                     <Row gutter={[10, 0]}>
-                        <Col span={8}>
-                            <Form.Item label="Move-in Date" name="moveInDate" rules={[{ required: true }]} style={{ marginBottom: 10 }}>
-                                <DatePicker style={{ width: "100%" }} />
-                            </Form.Item>
-                        </Col>
 
-                        <Col span={8}>
+                        <Col span={12}>
                             <Form.Item label="Security Deposit" name="securityDeposit" rules={[{ required: true }]} style={{ marginBottom: 10 }}>
                                 <InputNumber min={0} style={{ width: "100%" }} prefix="UGX." />
                             </Form.Item>
                         </Col>
 
-                        <Col span={8}>
+                        <Col span={12}>
                             <Form.Item label="Monthly Rent" name="monthlyRent" rules={[{ required: true }]} style={{ marginBottom: 10 }}>
                                 <InputNumber min={0} style={{ width: "100%" }} prefix="UGX." />
                             </Form.Item>
@@ -390,17 +376,17 @@ const PropertyForm = () => {
                     </Row>
 
                     {/* Submit Button */}
-                    <Row justify="center" style={{ marginTop: 20 }} gutter={[50,0]}>
+                    <Row justify="center" style={{ marginTop: 20 }} gutter={[50, 0]}>
                         <Col span={12}>
                             <Form.Item>
-                                <Button type="primary" htmlType="submit" block style={{backgroundColor: '#111241'}}>
+                                <Button type="primary" htmlType='submit' block style={{ backgroundColor: '#111241', height: 40 }}>
                                     Submit
                                 </Button>
                             </Form.Item>
                         </Col>
                         <Col span={12}>
                             <Form.Item>
-                                <Button type="default" htmlType="reset" block>
+                                <Button type="default" htmlType="reset" block style={{ height: 40 }}>
                                     Cancel
                                 </Button>
                             </Form.Item>

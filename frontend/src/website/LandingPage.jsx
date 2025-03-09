@@ -336,7 +336,7 @@ const LandingPage = () => {
                             <h1>Expand Your Reach, Maximize Your Earnings</h1>
                             <p>Are you a property owner or agent? List your property on Accomi to reach a global student audience.</p>
                             <Link to="/landlord-agent">
-                                <button className="poc-cta">Begin Listing</button>
+                                <button className="poc-cta">Learn more</button>
                             </Link>
                         </div>
                     </div>
