@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import "../node_modules/vanilla-infinite-marquee/infinite-marquee.css";
+:root {
+  font-family: Poppins, Inter, "sans-serif",-apple-system,BlinkMacSystemFont;
+
+  --base-color: #f4f4f4;
+
+  --transition-time: 0.3s;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #fdb10e #111143;
+  font-size: 16px;
+  position: relative;
+
+}
+
+body {
+  background-color: var(--base-color);
+  color: #2e2e2e;
+  font-size: 1rem;
+  scroll-behavior: smooth;
+  position: relative;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111143;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fdb10e;
+}
+
+
+
+a {
+  text-decoration: none;
+  color: #2e2e2e;
+}
+
+
+button [type:submit] {
+  background-color: #111241;
+}
+
+
+.btn1 {
+  font-size: 16px;
+}
+
+
+
+/* Ants Carousel */
+
