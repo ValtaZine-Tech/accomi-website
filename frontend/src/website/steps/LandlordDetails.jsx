@@ -42,7 +42,7 @@ const LandlordDetails = ({ onSuccess }) => {
         firstName: formData.firstName,
         lastName: formData.lastName,
         username: generatedUsername,
-        primaryEmail: formData.email,
+        primaryEmail: formData.primaryEmail,
         password: formData.password,
         primaryPhone: formData.primaryPhone,
         countryId: formData.countryId
@@ -77,17 +77,25 @@ const LandlordDetails = ({ onSuccess }) => {
   // Sample for GET request
   const fetchCountries = async () => {
     try {
+      setIsLoading(true);
+      setError(null);
+      
       const response = await new BaseApiService("/lookups/countries")
         .getRequestWithJsonResponse(searchParameters);
-
-      // Sort countries alphabetically by name
-      const sortedCountries = (response.records || []).sort((a, b) =>
+  
+      // Handle empty response
+      if (!response?.records?.length) {
+        setError("No countries found");
+        return;
+      }
+  
+      const sortedCountries = response.records.sort((a, b) =>
         a.name.localeCompare(b.name)
       );
-
+  
       setCountries(sortedCountries);
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "Failed to load countries");
     } finally {
       setIsLoading(false);
     }
@@ -171,8 +179,8 @@ const LandlordDetails = ({ onSuccess }) => {
                       >
                         <Input
                           placeholder="Enter your email address"
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          value={formData.primaryEmail}
+                          onChange={(e) => setFormData({ ...formData, primaryEmail: e.target.value })}
                         />
                       </Form.Item>
                     </Col>
@@ -203,20 +211,28 @@ const LandlordDetails = ({ onSuccess }) => {
                           style={{ height: 40, textAlign: "left" }}
                           value={formData.countryId}
                           onChange={(value) => setFormData({ ...formData, countryId: value })}
-                        // showSearch
-                        // disabled={isLoading || error}
+                          showSearch // Enable search functionality
+                          optionFilterProp="children" // Search against the children (country names)
+                          filterOption={(input, option) =>
+                            option.children.toLowerCase().includes(input.toLowerCase())
+                          }
+                          filterSort={(optionA, optionB) =>
+                            optionA.children.toLowerCase().localeCompare(optionB.children.toLowerCase())
+                          }
+                          notFoundContent={
+                            isLoading ?
+                              "Loading countries..." :
+                              error ?
+                                "Error loading countries" :
+                                "No countries found"
+                          }
+                          disabled={isLoading || error}
                         >
-                          {error ? (
-                            <Option value="" disabled>Error loading countries</Option>
-                          ) : isLoading ? (
-                            <Option value="" disabled>Loading...</Option>
-                          ) : (
-                            countries.map(country => (
-                              <Option key={country.id} value={country.id}>
-                                {country.name}
-                              </Option>
-                            ))
-                          )}
+                          {countries.map(country => (
+                            <Option key={country.id} value={country.id}>
+                              {country.name}
+                            </Option>
+                          ))}
                         </Select>
                       </Form.Item>
                     </Col>

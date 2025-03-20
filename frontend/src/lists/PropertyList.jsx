@@ -5,7 +5,7 @@ import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import Search from 'antd/es/input/Search';
 import { Link } from 'react-router-dom';
 import { BaseApiService } from '../utils/BaseApiService';
-import { images } from '../assets/assets';
+import { UserSessionUtils } from '../utils/UserSessionUtils';
 
 
 
@@ -23,19 +23,47 @@ const PropertyList = () => {
     const [error, setError] = useState(null);
 
     const fetchProperties = useCallback(async () => {
-        const searchParameters = { offset: 0, limit: 100 };
+        const userDetails = UserSessionUtils.getUserDetails();
+        const ownerId = userDetails?.ownerId;
+        
+        // Validate ownerId before making the request
+        if (!ownerId) {
+            setError('User not authenticated or owner ID missing');
+            setLoading(false);
+            return;
+        }
+    
         try {
             setLoading(true);
+            setError(null); // Clear previous errors
+            
+            // Use correct parameter name based on backend expectation (owner_id)
+            const searchParameters = { 
+                offset: 0, 
+                limit: 100,
+                id: ownerId // Changed to match backend expectation
+            };
+    
             const response = await new BaseApiService("/properties")
                 .getRequestWithJsonResponse(searchParameters);
-            console.log("API Response:", response);
-            setProperties(response.map(prop => ({ ...prop, key: prop.id })));
-            setLoading(false);
+    
+            // Add extra safety check for response format
+            if (!Array.isArray(response)) {
+                throw new Error('Invalid response format from server');
+            }
+    
+            setProperties(response.map(prop => ({
+                ...prop,
+                key: prop.id // Ensure unique keys for React lists
+            })));
+    
         } catch (error) {
-            setError(error.message);
+            setError(error.message || 'Failed to fetch properties');
+            console.error('Fetch properties error:', error);
+        } finally {
             setLoading(false);
         }
-    }, []);
+    }, []); // Add ownerId as dependency to refresh when it changes
 
     useEffect(() => {
         fetchProperties();
@@ -55,12 +83,12 @@ const PropertyList = () => {
             title: 'Image',
             dataIndex: 'images',
             key: 'image',
-            render: (_, record) => (
+            render: (images) => (
                 <Image
                     width={50}
                     height={50}
-                    src={record.images?.path?.[0] || images.defaultProperty}
-                    // alt="Property"
+                    src={images?.[0]?.path ? `http://localhost:8080${images[0].path}` : images.defaultProperty}
+                    alt="Property"
                     onError={(e) => {
                         e.target.src = images.defaultProperty;
                         e.target.alt = "Fallback property image";

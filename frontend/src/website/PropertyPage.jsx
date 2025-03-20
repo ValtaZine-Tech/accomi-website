@@ -201,23 +201,28 @@ const PropertyPage = () => {
                                 <div className="ppty-card" key={property.id}>
                                     <div className="ppty-card-image">
                                         <Carousel dots={true} infinite={false} effect="fade" draggable>
-                                            {property.images.map((image, imgIndex) => (
-                                                <div className="ppty-image" key={imgIndex}>
-                                                    <LazyLoadImage effect="blur"
-                                                        src={image.path || images.defaultProperty}
-                                                        alt={`${property.propertyName} - Image ${imgIndex + 1}`}
-                                                        onError={(e) => {
-                                                            e.target.src = images.defaultProperty;
-                                                            e.target.alt = "Fallback property image";
-                                                        }}
-                                                        style={{ width: '100%', height: '100%', objectFit: 'cover', }}
-                                                    />
-                                                    <div className="image-count-tag">
-                                                        <i className="fa-regular fa-image" style={{ color: '#ffffff' }}></i>
-                                                        <p style={{ color: '#ffffff', lineHeight: 0, }}>{property?.imageUrls?.length}</p>
+                                            {property.images.map((image, imgIndex) => {
+                                                return (
+                                                    <div className="ppty-image" key={imgIndex}>
+                                                        <LazyLoadImage
+                                                            src={`http://localhost:8080${image?.path}`}
+                                                            alt={`${property.propertyName} - Image ${imgIndex + 1}`}
+                                                            onError={(e) => {
+                                                                console.log("Image failed to load:", e.target.src);
+                                                                e.target.src = images.defaultProperty;
+                                                                e.target.alt = "Fallback property image";
+                                                            }}
+                                                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                                        />
+                                                        <div className="image-count-tag">
+                                                            <i className="fa-regular fa-image" style={{ color: '#ffffff' }}></i>
+                                                            <p style={{ color: '#ffffff', lineHeight: 0 }}>
+                                                                {property.images.length}
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            ))}
+                                                );
+                                            })}
                                         </Carousel>
                                         <div className="availability-tag"
                                             style={{ background: property.availabilityStatus === 'available' ? '#fdb10e' : '#111143' }}>
@@ -226,7 +231,7 @@ const PropertyPage = () => {
                                     </div>
                                     <div style={{ padding: '0.5rem 1rem 0.7rem 1rem' }}>
                                         <h3>{property.propertyName}</h3>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '.5rem' }}>
                                             <div className="property-info" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                                 <i className="fa-solid fa-building" style={{ color: '#fdb10e' }}></i>
                                                 <p>{property.propertyType || 'Apartment'}</p>
@@ -236,7 +241,7 @@ const PropertyPage = () => {
                                                 <p>{truncateText(property.address, 13)}</p>
                                             </div>
                                         </div>
-                                        <p>{property.propertyDescription}</p>
+                                        <p style={{ marginBottom: '.5rem' }}>{truncateText(property.description || "", 200)}</p>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                             <h3>UGX {property.price?.toLocaleString() ?? '...'}</h3>
                                             <p>per month</p>
