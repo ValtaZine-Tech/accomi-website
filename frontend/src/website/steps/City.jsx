@@ -1,6 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { images } from "../../assets/assets";
 import { Select, Alert } from 'antd';
+import PropTypes from "prop-types";
 import { useState } from 'react';
 
 const cities = {
@@ -25,15 +25,17 @@ const cities = {
 
 const popularCities = Object.values(cities).flat().slice(0, 6);
 
-const City = () => {
+const City = ({onSuccess}) => {
   const [selectedCity, setSelectedCity] = useState(null);
-
-  const handleCityChange = (value) => {
-    setSelectedCity(value);
-  };
 
   const handleCardClick = (cityName) => {
     setSelectedCity(cityName);
+    onSuccess();
+  };
+
+  const handleCityChange = (cityName) => {
+    setSelectedCity(cityName);
+    onSuccess();
   };
 
   const cityOptions = Object.entries(cities).map(([region, cities]) => ({
@@ -52,6 +54,14 @@ const City = () => {
       <div className="step-container">
         <div className="step-card">
           <h1>Choose your desired City Destination</h1>
+          {selectedCity && (
+            <Alert
+              message={`Selected City: ${selectedCity}`}
+              type="info"
+              showIcon
+              style={{ margin: "20px 40px" }}
+            />
+          )}
         </div>
         <div className="step-card">
           <div className="city-container">
@@ -70,27 +80,23 @@ const City = () => {
               </div>
             ))}
           </div>
-          {/* <h3>Other Cities</h3>
-          <div className="city-select">
+
+          <div className="step-card-select">
             <Select
-              style={{ width: '100%', height: '40px', fontSize: '16px' }}
-              placeholder="Select a city"
+              style={{ width: '100%', height: '40px', fontSize: '16px',textAlign: 'left' }}
+              placeholder="Other cities"
               onChange={handleCityChange}
               options={cityOptions}
             />
-          </div> */}
-          {selectedCity && (
-            <Alert
-              message={`Selected City: ${selectedCity}`}
-              type="info"
-              showIcon
-              style={{ margin: "20px 40px" }}
-            />
-          )}
+          </div>
         </div>
       </div>
     </>
   );
+};
+
+City.propTypes = {
+  onSuccess: PropTypes.func,
 };
 
 export default City;

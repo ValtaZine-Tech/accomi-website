@@ -6,23 +6,41 @@ import { UserOutlined } from '@ant-design/icons';
 import { asset, drawer } from '../assets/assets';
 import { Link, useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { UserSessionUtils } from '../utils/UserSessionUtils';
 
 
 const Drawer = () => {
     const [activeItem, setActiveItem] = useState('');
     const [modal2Open, setModal2Open] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    // eslint-disable-next-line no-unused-vars
+    const [userDetails, setUserDetails] = useState(null);
+
+
     const location = useLocation();
     const navigate = useNavigate();
 
 
     useEffect(() => {
-        // Set the active drawer item based on the current URL
         setActiveItem(location.pathname);
     }, [location]);
 
     const handleLogout = () => {
+        UserSessionUtils.logout();
+        setIsAuthenticated(false);
+        
         navigate('/')
     }
+
+    useEffect(() => {
+                if (isAuthenticated) {
+                    const details = UserSessionUtils.getUserDetails();
+                    setUserDetails(details);
+                    console.log("User details:", details);
+                } else {
+                    setUserDetails(null);
+                }
+            }, [isAuthenticated]);
 
     return (
         <>

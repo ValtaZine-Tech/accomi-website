@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import './styles.css'
 import { Alert } from 'antd';
+import PropTypes from 'prop-types'
 
-const Budget = () => {
+const Budget = ({onSuccess}) => {
 
   const budget = [   
     { estimate: '250k', currency: 'UGX' },
@@ -21,6 +22,7 @@ const popularBudgets = Object.values(budget).flat().slice(0, 6);
     
       const handleCardClick = (estimateBudget) => {
         setSelectedBudget(estimateBudget);
+        onSuccess();
       };
   return (
     <>
@@ -59,6 +61,10 @@ const popularBudgets = Object.values(budget).flat().slice(0, 6);
       </div>
     </>
   )
+}
+
+Budget.PropTypes = {
+  onSuccess: PropTypes.func,
 }
 
 export default Budget

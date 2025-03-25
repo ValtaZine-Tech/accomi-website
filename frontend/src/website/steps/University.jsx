@@ -1,7 +1,8 @@
-/* eslint-disable no-unused-vars */
 import { Select, Alert } from 'antd';
 import { useState } from 'react';
 import { images } from "../../assets/assets";
+import PropTypes from 'prop-types';
+import './styles.css'
 
 const universities = {
   "Central Region": [
@@ -25,15 +26,17 @@ const universities = {
 
 const popularUniversities = Object.values(universities).flat().slice(0, 6);
 
-const University = () => {
+const University = ({onSuccess}) => {
   const [selectedUniversity, setSelectedUniversity] = useState(null);
 
   const handleUniversityChange = (value) => {
     setSelectedUniversity(value);
+    onSuccess();
   };
 
   const handleCardClick = (universityName) => {
     setSelectedUniversity(universityName);
+    onSuccess();
   };
 
   const universityOptions = Object.entries(universities).map(([region, universities]) => ({
@@ -68,15 +71,15 @@ const University = () => {
               </div>
             ))}
           </div>
-          {/* <h3>Other Universities</h3>
-          <div className="university-select">
+          
+          <div className="step-card-select">
             <Select
-              style={{ width: '100%', height: '40px', fontSize: '16px' }}
+             style={{ width: '100%', height: '40px', fontSize: '16px', textAlign: 'left' }}
               placeholder="Select a university"
               onChange={handleUniversityChange}
               options={universityOptions}
             />
-          </div> */}
+          </div> 
           {selectedUniversity && (
             <Alert
               message={`Selected University: ${selectedUniversity}`}
@@ -89,6 +92,10 @@ const University = () => {
       </div>
     </>
   );
+};
+
+University.propTypes = {
+  onSuccess: PropTypes.func,
 };
 
 export default University;
