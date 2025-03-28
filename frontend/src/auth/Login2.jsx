@@ -116,42 +116,27 @@ const Login2 = ({ onSuccess }) => {
   }, [isAuthenticated]);
 
   return (
-    <>
-      <section className="auth-section">
-        <div className="auth-container custom-modal">
-          <div className="card">
-            <div className="auth-img-card">
-              <img
-                src={asset.logo}
-                alt=""
-                style={{ objectFit: "cover", height: "200px", width: "200px" }}
+<>
+  <section className="auth-section">
+    <div className="auth-container custom-modal">
+      <div className="card">
+        <div className="auth-img-card">
+          <img src={asset.logo} alt="" style={{ objectFit: "cover", height: "200px", width: "200px" }}
               />
-            </div>
-            <h1 style={{ fontSize: 20 }}>Welcome to Accomi</h1>
-          </div>
+</div>
+<h1 style={{ fontSize: 20 }}>Welcome to Accomi</h1>
+</div>
 
-          <div className="card">
+<div className="card">
             <h2 style={{ padding: "0", marginBottom: 10 }}>Sign in</h2>
 
-            <Input
-              type="text"
-              className="inputField"
-              placeholder="Enter your Username"
-              value={userName}
-              onChange={(e) => setUsername(e.target.value)}
+<Input type="text" className="inputField" placeholder="Enter your Username" value={userName} onChange={(e) => setUsername(e.target.value)}
             />
-            <Input.Password
-              className="inputField"
-              placeholder="Enter your password"
-              iconRender={(visible) =>
+<Input.Password className="inputField" placeholder="Enter your password" iconRender={(visible) =>
                 visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-              }
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              style={{ height: 40, display: "flex", alignItems: "center" }}
+              } value={password} onChange={(e) => setPassword(e.target.value)} style={{ height: 40, display: "flex", alignItems: "center" }}
             />
-            <div
-              style={{
+<div style={{
                 marginTop: 10,
                 width: "100%",
                 display: "flex",
@@ -161,40 +146,30 @@ const Login2 = ({ onSuccess }) => {
               }}
             >
               {loading ? (
-                <Button
-                  type="primary"
-                  className="auth-btn1"
-                  style={{ backgroundColor: "#111241", color: "#fff" }}
+                <Button type="primary" className="auth-btn1" style={{ backgroundColor: "#111241", color: "#fff" }}
                   
                 >
-                  <LoadingOutlined spin />
-                </Button>
+<LoadingOutlined spin />
+</Button>
               ) : (
-                <Button
-                  type="primary"
-                  className="auth-btn1"
-                  onClick={handleLogin}
-                  style={{ backgroundColor: "#111241", color: "#fff" }}
+                <Button type="primary" className="auth-btn1" onClick={handleLogin} style={{ backgroundColor: "#111241", color: "#fff" }}
                 >
                   Sign in
                 </Button>
               )}
 
               <p style={{ margin: "5px 0" }}>Or</p>
-              <Button className="auth-btn2" onClick={handleOAuth}>
+<Button className="auth-btn2" onClick={handleOAuth}>
                 {" "}
-                <img
-                  src={asset.googleIcon}
-                  alt=""
-                  style={{ width: 25, height: 25 }}
+                <img src={asset.googleIcon} alt="" style={{ width: 25, height: 25 }}
                 />{" "}
                 <p>Continue with Google</p>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+</Button>
+</div>
+</div>
+</div>
+</section>
+</>
   );
 };
 
