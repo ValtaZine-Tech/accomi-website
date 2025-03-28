@@ -1,6 +1,14 @@
 /* eslint-disable no-unused-vars */
 
-import { Button, Carousel, ConfigProvider, Select, Spin, Tag } from "antd";
+import {
+  Button,
+  Carousel,
+  ConfigProvider,
+  Select,
+  Skeleton,
+  Spin,
+  Tag,
+} from "antd";
 import { asset, images } from "../assets/assets";
 import GoogleMapsComp from "../components/GoogleMapsComp";
 import { GoogleMapsWrapper } from "../utils/GoogleMapUtils";
@@ -64,13 +72,45 @@ const PropertyPage = () => {
     loadData();
   }, [fetchProperties, fetchLocations]);
 
-  // if (loading) {
-  //     return <div className="loading-container"><Spin size="large" /></div>;
-  // }
-
-  // if (error) {
-  //     return <div className="error-container">Error: {error}</div>;
-  // }
+  const renderPropertySkeletons = () => {
+    return Array(4)
+      .fill()
+      .map((_, index) => (
+        <div className="ppty-card" key={`skeleton-${index}`}>
+          <div className="ppty-card-image">
+            <Skeleton.Image
+              active
+              style={{
+                width: "22vw",
+                height: "250px",
+                borderRadius: "8px 8px 0 0",
+              }}
+            />
+          </div>
+          <div style={{ padding: "0.5rem 1rem 0.7rem 1rem" }}>
+            <Skeleton
+              active
+              paragraph={{
+                rows: 4,
+                width: ["100%", "100%", "100%", "60%"],
+              }}
+              title={false}
+            />
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                marginTop: "1rem",
+              }}
+            >
+              <Skeleton.Button active size="large" style={{ width: "100px" }} />
+              <Skeleton.Input active size="small" style={{ width: "80px" }} />
+            </div>
+          </div>
+        </div>
+      ));
+  };
 
   return (
     <>
@@ -236,120 +276,126 @@ const PropertyPage = () => {
               Listed Properties
             </h1>
             <div className="ppty-card-container">
-              {properties.map((property) => (
-                <div className="ppty-card" key={property.id}>
-                  <div className="ppty-card-image">
-                    <Carousel
-                      dots={true}
-                      infinite={false}
-                      effect="fade"
-                      draggable
-                    >
-                      {property.images.map((image, imgIndex) => {
-                        return (
-                          <div className="ppty-image" key={imgIndex}>
-                            <LazyLoadImage
-                              src={`http://localhost:8080${image?.path}`}
-                              alt={`${property.propertyName} - Image ${
-                                imgIndex + 1
-                              }`}
-                              onError={(e) => {
-                                console.log(
-                                  "Image failed to load:",
-                                  e.target.src
-                                );
-                                e.target.src = images.defaultProperty;
-                                e.target.alt = "Fallback property image";
-                              }}
-                              style={{
-                                width: "100%",
-                                height: "100%",
-                                objectFit: "cover",
-                              }}
-                            />
-                            <div className="image-count-tag">
-                              <i
-                                className="fa-regular fa-image"
-                                style={{ color: "#ffffff" }}
-                              ></i>
-                              <p style={{ color: "#ffffff", lineHeight: 0 }}>
-                                {property.images.length}
-                              </p>
-                            </div>
+              {loading
+                ? renderPropertySkeletons()
+                : properties.map((property) => (
+                    <div className="ppty-card" key={property.id}>
+                      <div className="ppty-card-image">
+                        <Carousel
+                          dots={true}
+                          infinite={false}
+                          effect="fade"
+                          draggable
+                        >
+                          {property.images.map((image, imgIndex) => {
+                            return (
+                              <div className="ppty-image" key={imgIndex}>
+                                <LazyLoadImage
+                                  src={`http://localhost:8080${image?.path}`}
+                                  alt={`${property.propertyName} - Image ${
+                                    imgIndex + 1
+                                  }`}
+                                  onError={(e) => {
+                                    console.log(
+                                      "Image failed to load:",
+                                      e.target.src
+                                    );
+                                    e.target.src = images.defaultProperty;
+                                    e.target.alt = "Fallback property image";
+                                  }}
+                                  style={{
+                                    width: "100%",
+                                    height: "100%",
+                                    objectFit: "cover",
+                                  }}
+                                />
+                                <div className="image-count-tag">
+                                  <i
+                                    className="fa-regular fa-image"
+                                    style={{ color: "#ffffff" }}
+                                  ></i>
+                                  <p
+                                    style={{ color: "#ffffff", lineHeight: 0 }}
+                                  >
+                                    {property.images.length}
+                                  </p>
+                                </div>
+                              </div>
+                            );
+                          })}
+                        </Carousel>
+                        <div
+                          className="availability-tag"
+                          style={{
+                            background:
+                              property.availabilityStatus === "available"
+                                ? "#fdb10e"
+                                : "#111143",
+                          }}
+                        >
+                          <p>
+                            {property.availabilityStatus === "available"
+                              ? "Available"
+                              : "Occupied"}
+                          </p>
+                        </div>
+                      </div>
+                      <div style={{ padding: "0.5rem 1rem 0.7rem 1rem" }}>
+                        <h3>{property.propertyName}</h3>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            marginBottom: ".5rem",
+                          }}
+                        >
+                          <div
+                            className="property-info"
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.5rem",
+                            }}
+                          >
+                            <i
+                              className="fa-solid fa-building"
+                              style={{ color: "#fdb10e" }}
+                            ></i>
+                            <p>{property.propertyType || "Apartment"}</p>
                           </div>
-                        );
-                      })}
-                    </Carousel>
-                    <div
-                      className="availability-tag"
-                      style={{
-                        background:
-                          property.availabilityStatus === "available"
-                            ? "#fdb10e"
-                            : "#111143",
-                      }}
-                    >
-                      <p>
-                        {property.availabilityStatus === "available"
-                          ? "Available"
-                          : "Occupied"}
-                      </p>
-                    </div>
-                  </div>
-                  <div style={{ padding: "0.5rem 1rem 0.7rem 1rem" }}>
-                    <h3>{property.propertyName}</h3>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        marginBottom: ".5rem",
-                      }}
-                    >
-                      <div
-                        className="property-info"
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "0.5rem",
-                        }}
-                      >
-                        <i
-                          className="fa-solid fa-building"
-                          style={{ color: "#fdb10e" }}
-                        ></i>
-                        <p>{property.propertyType || "Apartment"}</p>
-                      </div>
-                      <div
-                        className="property-info"
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          gap: "0.5rem",
-                        }}
-                      >
-                        <i
-                          className="fa-solid fa-location-dot"
-                          style={{ color: "#fdb10e" }}
-                        ></i>
-                        <p>{truncateText(property.address, 13)}</p>
+                          <div
+                            className="property-info"
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "0.5rem",
+                            }}
+                          >
+                            <i
+                              className="fa-solid fa-location-dot"
+                              style={{ color: "#fdb10e" }}
+                            ></i>
+                            <p>{truncateText(property.address, 13)}</p>
+                          </div>
+                        </div>
+                        <p style={{ marginBottom: ".5rem" }}>
+                          {truncateText(property.description || "", 200)}
+                        </p>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "10px",
+                          }}
+                        >
+                          <h3>
+                            UGX {property.price?.toLocaleString() ?? "..."}
+                          </h3>
+                          <p>per month</p>
+                        </div>
                       </div>
                     </div>
-                    <p style={{ marginBottom: ".5rem" }}>
-                      {truncateText(property.description || "", 200)}
-                    </p>
-                    <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "10px",
-                      }}
-                    >
-                      <h3>UGX {property.price?.toLocaleString() ?? "..."}</h3>
-                      <p>per month</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
+                  ))}
             </div>
           </section>
 

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Link } from "react-router-dom"
 import { asset, images, roomType } from "../assets/assets"
 import InfiniteMarquee from 'vanilla-infinite-marquee';
@@ -7,8 +6,8 @@ import './styles.css'
 import Footer from "../partials/Footer"
 import 'animate.css';
 import { useEffect, useRef, useState } from "react";
-import { BaseApiService } from "../utils/BaseApiService";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+import { UserSessionUtils } from "../utils/UserSessionUtils";
 
 const roomTypes = [
     {
@@ -56,6 +55,8 @@ const LandingPage = () => {
     const marqueeInitialized1 = useRef(false);
     const marqueeInitialized2 = useRef(false);
     const marqueeInitialized3 = useRef(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [userDetails, setUserDetails] = useState(null);
 
     useEffect(() => {
         if (!marqueeInitialized1.current) {
@@ -130,29 +131,27 @@ const LandingPage = () => {
     }, []);
 
 
-
-    const fetchUsers = () => {
-        new BaseApiService("/users")
-            .getRequestWithJsonResponse({
-                filter: ``,
-                offset: 0,
-                limit: 1000
-            })
-            .then((response) => {
-                if (response.data) {
-
-                    console.log(response.data);
-
-                }
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    };
+    useEffect(() => {
+        const handleStorageChange = () => {
+            setIsAuthenticated(UserSessionUtils.isAuthenticated());
+        };
+        window.addEventListener('storage', handleStorageChange);
+        window.addEventListener('app-auth-change', handleStorageChange);
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+            window.removeEventListener('app-auth-change', handleStorageChange);
+        };
+    }, []);
 
     useEffect(() => {
-        fetchUsers();
-    });
+            if (isAuthenticated) {
+                const details = UserSessionUtils.getUserDetails();
+                setUserDetails(details);
+                console.log("User details:", details);
+            } else {
+                setUserDetails(null);
+            }
+        }, [isAuthenticated]);
 
     return (
         <>
@@ -185,9 +184,16 @@ const LandingPage = () => {
                         </ul>
 
                         <div className="header-btns">
-                            <Link to="/student">
-                                <button className="header-btn"> Find My Home </button>
+                        {userDetails?.roles?.some(role => role.type === "STUDENT") ? (  
+                            <Link to="/properties">
+                                <button className="header-btn">Let&apos;s Find My Home</button>
                             </Link>
+                        ) : (
+                            <Link to="/student">
+                                <button className="header-btn">Get Started As Student</button>
+                            </Link>
+                        )}
+
                             <Link to="/about">
                                 <button className="header-btn2"> Learn More </button>
                             </Link>
@@ -251,10 +257,15 @@ const LandingPage = () => {
                                     <img src={asset.check} alt="" style={{ width: '25px', height: '25px' }} />
                                     <p style={{ color: '#333333' }}>Safe, Secure and Guranteed</p>
                                 </div>
-
-                                <a href="#">
-                                    <button className="intro-cta">Let&apos;s Get Started </button>
-                                </a>
+                                {userDetails?.roles?.some(role => role.type === "STUDENT") ? (  
+                                    <Link to="/properties">
+                                        <button className="intro-cta"> Let&apos;s Find My Home </button>
+                                    </Link>
+                                ) : (
+                                    <Link to="/student">
+                                        <button className="intro-cta"> Get Started As Student </button>
+                                    </Link>
+                                )}
                                 <div className="intro-slider-wrapper">
                                     <div className="intro-slider-comp">
                                         <div className="intro-comp">

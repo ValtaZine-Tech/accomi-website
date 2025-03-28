@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-// eslint-disable-next-line no-unused-vars
-import { Button, Divider, Image, Space, Table, Tag } from 'antd'
+import { Button, Divider, Image, Modal, Space, Table, Tag } from 'antd'
 import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import Search from 'antd/es/input/Search';
 import { Link } from 'react-router-dom';
@@ -21,49 +20,35 @@ const PropertyList = () => {
     const [properties, setProperties] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [modalOpen, setModalOpen] = useState(false);
 
-    const fetchProperties = useCallback(async () => {
-        const userDetails = UserSessionUtils.getUserDetails();
-        const ownerId = userDetails?.ownerId;
-        
-        // Validate ownerId before making the request
-        if (!ownerId) {
-            setError('User not authenticated or owner ID missing');
-            setLoading(false);
-            return;
-        }
+    const ownerDetails = UserSessionUtils.getOwnerDetails();
     
-        try {
+    const ownerId = ownerDetails?.id;
+    
+    const fetchProperties = useCallback(async () => {
             setLoading(true);
-            setError(null); // Clear previous errors
+            setError(null); 
             
-            // Use correct parameter name based on backend expectation (owner_id)
             const searchParameters = { 
                 offset: 0, 
-                limit: 100,
-                id: ownerId // Changed to match backend expectation
-            };
-    
-            const response = await new BaseApiService("/properties")
-                .getRequestWithJsonResponse(searchParameters);
-    
-            // Add extra safety check for response format
-            if (!Array.isArray(response)) {
-                throw new Error('Invalid response format from server');
-            }
-    
-            setProperties(response.map(prop => ({
-                ...prop,
-                key: prop.id // Ensure unique keys for React lists
-            })));
-    
-        } catch (error) {
-            setError(error.message || 'Failed to fetch properties');
-            console.error('Fetch properties error:', error);
-        } finally {
-            setLoading(false);
-        }
-    }, []); // Add ownerId as dependency to refresh when it changes
+                limit: 10,
+                ...(ownerId && { ownerId })
+            };    
+            new BaseApiService("/properties")
+            .getRequestWithJsonResponse(searchParameters)
+            .then(response => {
+                setProperties(response.map(prop => ({...prop, key: prop.id})));
+            })
+            .catch(error => {
+                setError(error.message || 'Failed to fetch properties');
+                console.error('Fetch properties error:', error);
+            })
+            .finally(() => {
+                setLoading(false);
+            })
+
+    }, [ownerId]);
 
     useEffect(() => {
         fetchProperties();
@@ -139,14 +124,11 @@ const PropertyList = () => {
             title: 'Availability',
             key: 'availabilityStatus',
             dataIndex: 'availabilityStatus',
-            // render: (record) => {
-            //     let color = record.availabilityStatus === 'available' ? 'geekblue' : 'red';
-            //     return (
-            //         <Tag color={color}>
-            //             {record.availabilityStatus.toCamelCase()}
-            //         </Tag>
-            //     );
-            // },
+            render: (_, record) => (
+                            <Tag color={record.status === 'AVAILABLE' ? 'green' : 'volcano'}>
+                                {record.recordStatus.toUpperCase()}
+                            </Tag>
+                        ),
         },
         {
             title: 'Action',
@@ -172,7 +154,7 @@ const PropertyList = () => {
                         aria-label="Delete Property"
                         title="Delete Property"
                         icon={<DeleteOutlined />}
-                        onClick={() => handleDelete(record.id)}
+                        onClick={() => setModalOpen(true)}
                         style={{
                             border: 'none',
                             fontSize: '16px',
@@ -184,6 +166,20 @@ const PropertyList = () => {
                             color: '#d9534f',
                         }}
                     />
+                    <Modal
+                                        title="Delete Property"
+                                        centered
+                                        open={modalOpen}
+                                        onOk={() => handleDelete(record.id)}
+                                        onCancel={() => setModalOpen(false)}
+                                    >
+                                        <p style={{marginBottom: 10}}>You are deleting <span style={{fontWeight: 600}}>{record.propertyName}</span> from your property list.
+                                        </p>
+                                        <p style={{fontWeight: 600}}>Caution</p>
+                                        <p>This action is irreversible and will permanently delete the property from your list. Do you wish to proceed?
+                                        </p>
+                    
+                                    </Modal>
                 </Space>
             ),
         },

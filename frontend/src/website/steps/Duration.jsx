@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import './styles.css'
 import { Alert } from 'antd';
+import PropTypes from 'prop-types';
 
 
 
-const Duration = () => {
+const Duration = ({onSuccess}) => {
 
   const duration = [   
         { name: 'Months', duration: "04-06" },
@@ -24,6 +25,7 @@ const Duration = () => {
     
       const handleCardClick = (durationPeriod) => {
         setSelectedDuration(durationPeriod);
+        onSuccess();
       };
 
   return (
@@ -63,6 +65,10 @@ const Duration = () => {
       </div>
     </>
   )
+}
+
+Duration.PropTypes = {
+  onSuccess: PropTypes.func,
 }
 
 export default Duration

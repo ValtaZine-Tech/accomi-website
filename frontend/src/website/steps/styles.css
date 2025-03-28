@@ -15,12 +15,15 @@ input[type="password"] {
 
 /* Updated Step Container with Grid */
 .step-container {
+  /* border: 1px solid orange;  */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   width: 100%;
-  min-height: 30rem;
+  height: 30rem;
+  max-height: 30rem;
   padding: 1rem;
+  margin-left: 1rem;
 }
 
 /* Updated Step Cards for Grid */
@@ -31,6 +34,11 @@ input[type="password"] {
   flex: 1;
 }
 
+.profile-login-card {
+  /* border: 1px solid orange; */
+  margin-left: 7rem;
+}
+
 
 .step-card:nth-of-type(1) h1 {
   text-align: left;
@@ -39,6 +47,79 @@ input[type="password"] {
   margin: 0;
   color: #5e5e5e;
   width: 100%;
+}
+
+.step-card-select {
+  margin-top: -5rem;
+} 
+
+.welcome-step-container {
+  /* border: 1px solid orange; */
+  height: 30rem;
+}
+.welcome-step-card {
+  /* border: 1px solid orange; */
+  flex: 1;
+  min-height: 25rem;
+  height: 25rem;
+  max-width: 50rem;
+  padding: 5rem 0;
+  gap: 20px;
+  background: #ffffff;
+  border-radius: 3rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.welcome-step-card h1 {
+  text-align: left;
+  font-size: clamp(2rem, 3.5vw, 2.8rem); /* Fluid font size */
+  line-height: 1.2; /* Use relative line-height */
+  margin: 0;
+  color: #5e5e5e;
+  width: 100%;
+}
+
+
+.welcome-btns-container {
+  /* border: 1px solid orange; */
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.welcome-btn1,
+.welcome-btn2 {
+  border: none;
+  height: 50px;
+  padding: 0 30px;
+  border-radius: 30rem;
+  font-size: 1rem;
+  min-width: 20rem;
+  color: #ffffff;
+}
+
+.welcome-btn1 {
+  background: #fdb10e;
+  transition: opacity 0.3s ease;
+}
+.welcome-btn1:hover {
+  background: #fdb10e;
+  opacity: 0.8;
+}
+
+.welcome-btn2 {
+  border: 2px solid #fdb10e;
+  background: transparent;
+  box-shadow: none;
+  color: #fdb10e;
+  font-size: 1rem;
+}
+
+.welcome-btn2:hover {
+  color: #fdb10e;
 }
 
 /* Card Styles */
@@ -63,16 +144,26 @@ input[type="password"] {
   margin: 0 auto; 
 }
 
+.city-card:hover,
+.university-card:hover,
+.house-type-card:hover,
+.account-type-card:hover,
+.property-type-card:hover,
+.intake-card:hover {
+  border: 2px solid #fdb10e;
+}
+
 /* Grid Container */
 .city-container,
 .university-container,
 .house-type-container,
 .account-type-container,
 .intake-container {
+  /* border: 1px solid orange; */
   display: grid;
-  grid-template-columns: repeat(3, minmax(220px, 1fr));
-  row-gap: 20px;
-  margin: 20px 0;
+  grid-template-columns: repeat(3, minmax(210px, 1fr));
+  row-gap: 10px;
+  margin: 0 ;
   justify-content: center;
   align-content: center;
 }
@@ -106,6 +197,7 @@ input[type="password"] {
   padding: 0 5px;
   margin-top: -140px;
 }
+
 
 
 

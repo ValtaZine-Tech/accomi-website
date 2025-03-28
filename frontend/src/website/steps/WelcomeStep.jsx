@@ -1,49 +1,40 @@
 /* eslint-disable no-unused-vars */
-import { Form, Input, InputNumber, Select, DatePicker, Button, Row, Col, Upload, Image, message, Steps } from "antd";
-import { InboxOutlined, PlusOutlined } from '@ant-design/icons';
-import Dragger from 'antd/es/upload/Dragger';
+import { InboxOutlined, PlusOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Option } from "antd/es/mentions";
 import "./styles.css";
-import PropTypes from 'prop-types';
+import { Button } from "antd";
 
-const WelcomeStep = ({ onNext }) => {
+const WelcomeStep = () => {
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
   const [showPropertyForm, setShowPropertyForm] = useState(false);
 
   const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewImage, setPreviewImage] = useState('');
-
-
-
-  const next = () => {
-    setCurrent(current + 1);
-  };
-  const prev = () => {
-    setCurrent(current - 1);
-  };
-  const back = () => {
-    setShowPropertyForm(false);
-  }
-
+  const [previewImage, setPreviewImage] = useState("");
 
   return (
     <>
-      <div className="step-container">
-        <div className="step-card">
-          <h1 style={{textAlign: 'left'}}>Your All Set And Ready To Start Listing Your Properties.</h1>
-          <Link to={''}>Go to Dashboard</Link>
-          <Link to={''}>Maybe Later</Link>
+      <div className="welcome-step-container">
+        <div className="welcome-step-card">
+          <h1 style={{ textAlign: "center" }}>
+            Your All Set And Ready To Start Listing Your Properties.
+          </h1>
+
+          <div className="welcome-btns-container">
+            <Link to="/properties-dashboard">
+              <button className="welcome-btn1">
+                Go to Dashboard
+              </button>
+            </Link>
+            <Link to="/" >
+              <button className="welcome-btn2">Maybe Later</button>
+            </Link>
+          </div>
         </div>
       </div>
     </>
-  )
-}
-WelcomeStep.propTypes = {
-  onNext: PropTypes.func.isRequired,
+  );
 };
-
 
 export default WelcomeStep;
