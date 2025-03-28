@@ -23,42 +23,31 @@ const PropertyList = () => {
     const [modalOpen, setModalOpen] = useState(false);
 
     const ownerDetails = UserSessionUtils.getOwnerDetails();
+    
     const ownerId = ownerDetails?.id;
     
     const fetchProperties = useCallback(async () => {
-        
-        console.log('Owner ID:', ownerId);
-            
-        if (!ownerId) {
-            setError('User not authenticated or owner ID missing');
-            setLoading(false);
-            return;
-        }
-    
-        try {
             setLoading(true);
             setError(null); 
             
             const searchParameters = { 
                 offset: 0, 
-                limit: 100,
-                ownerId: ownerId
-            };
-    
-            const response = await new BaseApiService("/properties")
-                .getRequestWithJsonResponse(searchParameters);
-    
-            if (!Array.isArray(response)) {
-                throw new Error('Invalid response format from server');
-            }
-            setProperties(response.map(prop => ({...prop, key: prop.id})));
-    
-        } catch (error) {
-            setError(error.message || 'Failed to fetch properties');
-            console.error('Fetch properties error:', error);
-        } finally {
-            setLoading(false);
-        }
+                limit: 10,
+                ...(ownerId && { ownerId })
+            };    
+            new BaseApiService("/properties")
+            .getRequestWithJsonResponse(searchParameters)
+            .then(response => {
+                setProperties(response.map(prop => ({...prop, key: prop.id})));
+            })
+            .catch(error => {
+                setError(error.message || 'Failed to fetch properties');
+                console.error('Fetch properties error:', error);
+            })
+            .finally(() => {
+                setLoading(false);
+            })
+
     }, [ownerId]);
 
     useEffect(() => {

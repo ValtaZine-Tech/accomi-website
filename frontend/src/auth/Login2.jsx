@@ -39,9 +39,8 @@ const Login2 = ({ onSuccess }) => {
 
     try {
       // 1. User authentication
-      const loginResponse = await new BaseApiService(
-        "/auth/login"
-      ).postRequestWithJsonResponse({ userName, password });
+      const loginResponse = await new BaseApiService("/auth/login")
+      .postRequestWithJsonResponse({ userName, password });
 
       if (!loginResponse.accessToken) {
         throw new Error("No access token received");
@@ -66,7 +65,7 @@ const Login2 = ({ onSuccess }) => {
       if (user.roles.some(r => r.type === "LANDLORD")) {
         try {
             const ownerResponse = await new BaseApiService(
-                `/property-owners/${user.id}`
+                `/property-owners/user/${user.id}`
             ).getRequestWithJsonResponse();
 
             UserSessionUtils.setOwnerDetails({
