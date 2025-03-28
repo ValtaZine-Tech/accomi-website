@@ -26,7 +26,7 @@ export default function GoogleMapWithMarkers({ className, streetViewLocation, lo
             const pin = new window.google.maps.Marker({
                position: position,
                label: {
-                  text: String.fromCharCode(0xea12),
+                  text: String.fromCharCode(0xe88a),
                   fontFamily: "Material Icons",
                   color: "#ffffff",
                   fontSize: "18px"

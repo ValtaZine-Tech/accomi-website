@@ -51,15 +51,14 @@ const PropertyPage = () => {
   }, []);
 
   const fetchLocations = useCallback(async () => {
-    try {
-      const response = await new BaseApiService(
-        "/map-controller/properties"
-      ).getRequestWithJsonResponse();
-      setLocations(response?.records || []);
-    } catch (error) {
-      console.error("Error fetching locations:", error);
-      setError(error.message);
-    }
+    new BaseApiService("/map-controller/properties")
+      .getRequestWithJsonResponse()
+      .then((response) => {
+        setLocations(response?.records);
+      })
+      .catch((error) => {
+        setError(error.message);
+      });
   }, []);
 
   useEffect(() => {
