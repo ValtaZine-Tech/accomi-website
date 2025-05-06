@@ -13,6 +13,7 @@ import { BaseApiService } from "../../utils/BaseApiService";
 import {  LoadingOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { GENDER_OPTIONS } from "../../constants/Constants";
 
 const { Option } = Select;
 
@@ -21,6 +22,7 @@ const LandlordDetails = ({ onSuccess }) => {
     firstName: "",
     lastName: "",
     username: "",
+    gender: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -29,9 +31,10 @@ const LandlordDetails = ({ onSuccess }) => {
   });
   const [loading, setLoading] = useState(false);
   const [countries, setCountries] = useState([]);
-  const [genders, setGenders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const Gender = GENDER_OPTIONS;
 
   const handleRegister = async () => {
     try {
@@ -112,38 +115,11 @@ const LandlordDetails = ({ onSuccess }) => {
       } finally {
         setIsLoading(false);
       }
-    };
-
-    const fetchGenders = async () => {
-      try {
-        setIsLoading(true);
-        setError(null);
-
-        const response = await new BaseApiService(
-          "/lookups/genders"
-        ).getRequestWithJsonResponse(searchParameters);
-
-        // Handle empty response
-        if (!response?.records?.length) {
-          setError("No countries found");
-          return;
-        }
-
-        const sortedCountries = response.records.sort((a, b) =>
-          a.name.localeCompare(b.name)
-        );
-
-        setGenders(sortedCountries);
-      } catch (err) {
-        setError(err.message || "Failed to load countries");
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    }
 
     fetchCountries();
-    fetchGenders();
-  }, []);
+    
+  } , [] );
 
   return (
     <>
@@ -310,7 +286,7 @@ const LandlordDetails = ({ onSuccess }) => {
                           }
                           disabled={isLoading || error}
                         >
-                          {genders.map((gender) => (
+                          {Gender.map((gender) => (
                             <Option key={gender.id} value={gender.id}>
                               {gender.name}
                             </Option>

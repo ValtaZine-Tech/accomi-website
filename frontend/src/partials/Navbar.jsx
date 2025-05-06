@@ -1,7 +1,8 @@
 import { asset, drawer } from "../assets/assets";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Drawer } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+import { Avatar, Button, Divider, Drawer, Modal, Popover } from "antd";
 import LoginForm from "../auth/Login2";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
@@ -17,6 +18,7 @@ const Navbar = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
+  const [modal2Open, setModal2Open] = useState(false);
 
   useEffect(() => {
     setActivePath(location.pathname);
@@ -63,10 +65,6 @@ const Navbar = () => {
     setIsModalVisible(false);
   };
 
-  const showDrawer = () => {
-    setIsDrawerVisible(true);
-  };
-
   const onClose = () => {
     setIsDrawerVisible(false);
   };
@@ -88,6 +86,79 @@ const Navbar = () => {
       setUserDetails(null);
     }
   }, [isAuthenticated]);
+
+  const popoverContent = (
+    <div style={{ minWidth: 250, maxWidth: 250 }}>
+      <div className="popover-header">
+        <Avatar
+          style={{
+            verticalAlign: "middle",
+            backgroundColor: "#ffbf00",
+            color: "#fff",
+          }}
+          size={60}
+        >
+          {UserSessionUtils.getUserDetails()?.fullName?.charAt(0) || "U"}
+        </Avatar>
+        <p style={{ margin: 0, fontWeight: 500 }}>
+          {UserSessionUtils.getUserDetails()?.fullName || "User"}
+        </p>
+        <p style={{ margin: 0 }}>
+          {UserSessionUtils.getUserDetails()?.email || "Not Available"}
+        </p>
+      </div>
+
+      <Divider style={{ marginTop: 20, marginBottom: 5 }}></Divider>
+
+      <Link to="/profile">
+        <Button type="default" className="popover-btn">
+          <UserOutlined />
+          View Profile
+        </Button>
+      </Link>
+
+      <Divider style={{ marginTop: 5, marginBottom: 20 }}></Divider>
+      <Button
+        type="default"
+        className="logout-btn"
+        onClick={() => setModal2Open(true)}
+      >
+        Sign out
+      </Button>
+
+      <div className="popover-footer">
+        <Link to="#">Privacy policy</Link>
+        <span
+          style={{
+            width: 3,
+            height: 3,
+            borderRadius: 50,
+            background: "#888888",
+          }}
+        ></span>
+        <Link to="#">Terms</Link>
+        <span
+          style={{
+            width: 3,
+            height: 3,
+            borderRadius: 50,
+            background: "#888888",
+          }}
+        ></span>
+        <Link to="#">Cookies</Link>
+      </div>
+
+      <Modal
+        title="Logout"
+        centered
+        open={modal2Open}
+        onOk={() => handleLogout()}
+        onCancel={() => setModal2Open(false)}
+      >
+        <p>You are logging out of your account.</p>
+      </Modal>
+    </div>
+  );
 
   return (
     <>
@@ -116,9 +187,13 @@ const Navbar = () => {
                 </li>
               </Link>
               <Link to="/properties">
-                <li className={activePath === "/properties" ? "active" : ""}>
+                <li
+                  className={
+                    activePath.startsWith("/properties") ? "active" : ""
+                  }
+                >
                   Properties{" "}
-                  {activePath === "/properties" && (
+                  {activePath.startsWith("/properties") && (
                     <div className="nav-dot"></div>
                   )}
                 </li>
@@ -144,22 +219,20 @@ const Navbar = () => {
                 <Link to="/landlord-agent">
                   <button className="nav-auth-btn3">List Your Property</button>
                 </Link>
-                <button
-                  type="default"
-                  className="nav-auth-btn2"
-                  onClick={showDrawer}
-                  aria-label="My Profile"
-                >
-                  <img src={asset.profile} alt="" />
-                </button>
-                <button
-                  type="default"
-                  className="nav-auth-btn2"
-                  onClick={handleLogout}
-                  aria-label="Logout"
-                >
-                  <img src={asset.logout} alt="" />
-                </button>
+
+                <Popover content={popoverContent} trigger="click">
+                  <Avatar
+                    style={{
+                      verticalAlign: "middle",
+                      backgroundColor: "#ffbf00",
+                      color: "#fff",
+                    }}
+                    size="large"
+                  >
+                    {UserSessionUtils.getUserDetails()?.fullName?.charAt(0) ||
+                      "U"}
+                  </Avatar>
+                </Popover>
               </>
             ) : (
               <>

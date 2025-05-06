@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from "react";
 import "./styles.css";
-import { Avatar, Button, Divider, Modal, Popover } from "antd";
+import { Avatar, Badge, Button, Divider, Modal, Popover } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { asset, drawer } from "../assets/assets";
 import { Link, useLocation } from "react-router-dom";
@@ -17,12 +17,18 @@ const Drawer2 = () => {
   useEffect(() => {
     // Set the active drawer item based on the current URL
     setActiveItem(location.pathname);
-
   }, [location]);
 
   const handleLogout = () => {
     UserSessionUtils.logout();
     navigate("/");
+  };
+
+  const truncateText = (text, maxLength) => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + "...";
+    }
+    return text;
   };
 
   const popoverContent = (
@@ -46,8 +52,7 @@ const Drawer2 = () => {
         </p>
       </div>
 
-      <Divider style={{marginTop: 20, marginBottom: 5}}></Divider>
-
+      <Divider style={{ marginTop: 20, marginBottom: 5 }}></Divider>
 
       <Link to="/profile">
         <Button type="default" className="popover-btn">
@@ -56,7 +61,7 @@ const Drawer2 = () => {
         </Button>
       </Link>
 
-      <Divider style={{marginTop: 5, marginBottom: 20}}></Divider>
+      <Divider style={{ marginTop: 5, marginBottom: 20 }}></Divider>
       <Button
         type="default"
         className="logout-btn"
@@ -96,6 +101,39 @@ const Drawer2 = () => {
       >
         <p>You are logging out of your account.</p>
       </Modal>
+    </div>
+  );
+  const notificationContent = (
+    <div style={{ minWidth: 300, maxWidth: 350 }}>
+      <div className="notification-header">
+        <h3>Notifications</h3>
+      </div>
+      <Divider style={{ marginTop: 8, marginBottom: 8 }}></Divider>
+      <div className="notification-item">
+        <Avatar
+          style={{
+            verticalAlign: "middle",
+            backgroundColor: "#ffbf00",
+            color: "#fff",
+          }}
+          size="medium"
+        ></Avatar>
+        <div>
+          <p style={{ fontWeight: 600 }}>John Doe</p>
+          <p style={{ fontSize: "12px", color: "#555555" }}>
+            {truncateText("You have a new message from John Doe", 23)}
+          </p>
+          <p style={{ color: "#888888", fontSize: "13px" }}>
+            <i
+              className="fa-regular fa-clock"
+              style={{ marginRight: "5px", fontSize: "11px" }}
+            ></i>
+            2 minutes ago
+          </p>
+        </div>
+      </div>
+      <Divider style={{ marginTop: 8, marginBottom: 8 }}></Divider>
+
     </div>
   );
 
@@ -208,18 +246,34 @@ const Drawer2 = () => {
       </div>
 
       <div className="topbar-container">
-        <Popover content={popoverContent} trigger="click">
-          <Avatar
-            style={{
-              verticalAlign: "middle",
-              backgroundColor: "#ffbf00",
-              color: "#fff"
-            }}
-            size="large"
+        <div className="topbar-container-right">
+          <Popover
+            content={notificationContent}
+            trigger="click"
+            style={{ zIndex: 1000, marginTop: 20 }}
           >
-            {UserSessionUtils.getUserDetails()?.fullName?.charAt(0) || "U"}
-          </Avatar>
-        </Popover>
+            <Badge count={5} size="small" style={{ marginRight: -2 }}>
+              <i
+                className="fa-regular fa-bell"
+                style={{ color: "#8e8e8e", fontSize: 20, cursor: "pointer" }}
+              ></i>
+            </Badge>
+          </Popover>
+
+          <Popover content={popoverContent} trigger="click">
+            <Avatar
+              style={{
+                verticalAlign: "middle",
+                backgroundColor: "#ffbf00",
+                color: "#fff",
+                cursor: "pointer",
+              }}
+              size="large"
+            >
+              {UserSessionUtils.getUserDetails()?.fullName?.charAt(0) || "U"}
+            </Avatar>
+          </Popover>
+        </div>
       </div>
     </>
   );

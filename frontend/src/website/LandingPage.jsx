@@ -185,16 +185,16 @@ const LandingPage = () => {
 
                         <div className="header-btns">
                         {userDetails?.roles?.some(role => role.type === "STUDENT") ? (  
-                            <Link to="/properties">
+                            <Link to="/properties" onClick={() => { window.scrollTo(0, 0); }}>
                                 <button className="header-btn">Let&apos;s Find My Home</button>
                             </Link>
                         ) : (
-                            <Link to="/student">
+                            <Link to="/student" onClick={() => { window.scrollTo(0, 0,); }}>
                                 <button className="header-btn">Get Started As Student</button>
                             </Link>
                         )}
 
-                            <Link to="/about">
+                            <Link to="/about" onClick={() => { window.scrollTo(0, 0); }}>
                                 <button className="header-btn2"> Learn More </button>
                             </Link>
                         </div>
@@ -259,11 +259,11 @@ const LandingPage = () => {
                                 </div>
                                 {userDetails?.roles?.some(role => role.type === "STUDENT") ? (  
                                     <Link to="/properties">
-                                        <button className="intro-cta"> Let&apos;s Find My Home </button>
+                                        <button className="intro-cta" onClick={()=> window.scroll(0,0)}> Let&apos;s Find My Home </button>
                                     </Link>
                                 ) : (
                                     <Link to="/student">
-                                        <button className="intro-cta"> Get Started As Student </button>
+                                        <button className="intro-cta" onClick={()=> window.scroll(0,0)}> Get Started As Student </button>
                                     </Link>
                                 )}
                                 <div className="intro-slider-wrapper">
@@ -362,7 +362,7 @@ const LandingPage = () => {
                         <div className="poc-card">
                             <h1>Expand Your Reach, Maximize Your Earnings</h1>
                             <p>Are you a property owner or agent? List your property on Accomi to reach a global student audience.</p>
-                            <Link to="/landlord-agent">
+                            <Link to="/landlord-agent" onClick={() => { window.scrollTo(0, 0); }}>
                                 <button className="poc-cta">Learn more</button>
                             </Link>
                         </div>

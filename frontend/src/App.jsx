@@ -26,19 +26,22 @@ import SignUp from "./auth/SignUp";
 import StudentDashboard from "./website/dashboards/StudentDashboard";
 import PropertyOwnerDashboard from "./website/dashboards/PropertyOwnerDashboard";
 import Login2 from "./auth/Login2";
+import PropertyDetailPage from "./website/PropertyDetailPage";
+import PropertyListings from "./website/PropertyListings";
 // import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
-
     <Router>
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login2 />} />
         <Route path="/about" element={<AboutUsPage />} />
         <Route path="/services" element={<ServicesPage />} />
-        <Route path="/properties" element={<PropertyPage />} />
-        <Route path="/properties/:id" element={<PropertyPage />} />
+        <Route path="/properties" element={<PropertyPage />}>
+          <Route path="" element={<PropertyListings />} />
+          <Route path=":id" element={<PropertyDetailPage />} />
+        </Route>
         <Route path="/register" element={<SignUp />} />
         <Route path="/landlord-agent" element={<LandlordAgent />} />
         <Route path="/contact" element={<ContactUsPage />} />
@@ -46,24 +49,14 @@ function App() {
         <Route path="/student" element={<StudentSignup />} />
         <Route path="/account-creation" element={<LandlordSignup />} />
 
-
-
-        <Route path="/student-dashboard" element={
-          <StudentDashboard />
-        } />
-        <Route path="/property-dashboard" element={
-
-          <PropertyOwnerDashboard />
-        }>
+        <Route path="/student-dashboard" element={<StudentDashboard />} />
+        <Route path="/property-dashboard" element={<PropertyOwnerDashboard />}>
           <Route path="" element={<Overview />} />
           <Route path="properties" element={<PropertyList />} />
           <Route path="properties/add-new" element={<PropertyForm />} />
         </Route>
 
-
         <Route path="/admin-dashboard" element={<Dashboard />}>
-
-
           {/* Nested route */}
           <Route path="" element={<Overview />} />
           <Route path="properties/add-new" element={<PropertyForm />} />
@@ -75,14 +68,10 @@ function App() {
           <Route path="students" element={<StudentList />} />
           <Route path="landlords" element={<LandlordList />} />
           <Route path="landlords/add-new" element={<LandlordForm />} />
-
         </Route>
       </Routes>
     </Router>
-
   );
 }
-
-
 
 export default App;

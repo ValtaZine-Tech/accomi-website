@@ -61,6 +61,12 @@ import cloud from './icons/management.png'
 import house from './icons/house.png'
 import stats from './icons/stats.png'
 import comments from './icons/comments.png'
+import visacard from './icons/visa-logo.png'
+import paypal from './icons/paypal-logo.png'
+import master from './icons/mastercard-logo.png'
+import mtn from './icons/mtn-logo.jpg'
+import airtel from './icons/airtel-logo.jpg'
+
 
 
 
@@ -83,6 +89,11 @@ export const asset = {
     house,
     cloud,
     stats,
+    visacard,
+    master,
+    paypal,
+    mtn,
+    airtel,
     
 }
 
