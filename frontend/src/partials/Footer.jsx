@@ -118,7 +118,7 @@ const Footer = () => {
         <div className="footer-separator">
         </div>
 
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0" }} className='footer-bottom'>
           <p style={{ textAlign: "left" }}>&copy; 2023-2025 Accomi - All Rights Reserved</p>
 
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "30px" }}>

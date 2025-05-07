@@ -8,6 +8,7 @@ import 'animate.css';
 import { useEffect, useRef, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { UserSessionUtils } from "../utils/UserSessionUtils";
+import { Button } from "antd";
 
 const roomTypes = [
     {
@@ -186,16 +187,16 @@ const LandingPage = () => {
                         <div className="header-btns">
                         {userDetails?.roles?.some(role => role.type === "STUDENT") ? (  
                             <Link to="/properties" onClick={() => { window.scrollTo(0, 0); }}>
-                                <button className="header-btn">Let&apos;s Find My Home</button>
+                                <Button className="header-btn">Let&apos;s Find My Home</Button>
                             </Link>
                         ) : (
                             <Link to="/student" onClick={() => { window.scrollTo(0, 0,); }}>
-                                <button className="header-btn">Get Started As Student</button>
+                                <Button className="header-btn">Get Started As Student</Button>
                             </Link>
                         )}
 
                             <Link to="/about" onClick={() => { window.scrollTo(0, 0); }}>
-                                <button className="header-btn2"> Learn More </button>
+                                <Button className="header-btn2"> Learn More </Button>
                             </Link>
                         </div>
                     </div>
@@ -259,11 +260,11 @@ const LandingPage = () => {
                                 </div>
                                 {userDetails?.roles?.some(role => role.type === "STUDENT") ? (  
                                     <Link to="/properties">
-                                        <button className="intro-cta" onClick={()=> window.scroll(0,0)}> Let&apos;s Find My Home </button>
+                                        <Button className="intro-cta" onClick={()=> window.scroll(0,0)}> Let&apos;s Find My Home </Button>
                                     </Link>
                                 ) : (
                                     <Link to="/student">
-                                        <button className="intro-cta" onClick={()=> window.scroll(0,0)}> Get Started As Student </button>
+                                        <Button className="intro-cta" onClick={()=> window.scroll(0,0)}> Get Started As Student </Button>
                                     </Link>
                                 )}
                                 <div className="intro-slider-wrapper">
@@ -363,7 +364,7 @@ const LandingPage = () => {
                             <h1>Expand Your Reach, Maximize Your Earnings</h1>
                             <p>Are you a property owner or agent? List your property on Accomi to reach a global student audience.</p>
                             <Link to="/landlord-agent" onClick={() => { window.scrollTo(0, 0); }}>
-                                <button className="poc-cta">Learn more</button>
+                                <Button className="poc-cta">Learn more</Button>
                             </Link>
                         </div>
                     </div>
@@ -398,7 +399,7 @@ const LandingPage = () => {
                     </div>
                 </section>
 
-                <section style={{ padding: '0 0 5vh 0', margin: '0' }}>
+                <section style={{ padding: '5vh 0', margin: '0 5vw' }}>
                     <div className="property-dir-container">
                         <h2>Explore <span style={{ color: '#fdb10e' }}>10+ room types</span> across properties globally.</h2>
                         <Link to="/properties">

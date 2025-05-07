@@ -211,11 +211,17 @@ input[type="password"] {
 
 @media (max-width: 768px) {
   .step-container {
-    grid-template-columns: 1fr;
+    border: 1px solid orange;
+    display: flex;
+    flex-direction: column;
+    width: 90vw;
+    margin: 0;
+    margin-top: -5vh;
   }
   
   .step-card {
     width: 100%;
     max-width: 100%;
+    height: auto;
   }
 }

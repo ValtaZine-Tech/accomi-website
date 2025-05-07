@@ -39,8 +39,9 @@ const Login2 = ({ onSuccess }) => {
 
     try {
       // 1. User authentication
-      const loginResponse = await new BaseApiService("/auth/login")
-      .postRequestWithJsonResponse({ userName, password });
+      const loginResponse = await new BaseApiService(
+        "/auth/login"
+      ).postRequestWithJsonResponse({ userName, password });
 
       if (!loginResponse.accessToken) {
         throw new Error("No access token received");
@@ -62,23 +63,23 @@ const Login2 = ({ onSuccess }) => {
       UserSessionUtils.setUserDetails(userDetails);
 
       // 4. Fetch and store property owner details for landlords
-      if (user.roles.some(r => r.type === "LANDLORD")) {
+      if (user.roles.some((r) => r.type === "LANDLORD")) {
         try {
-            const ownerResponse = await new BaseApiService(
-                `/property-owners/user/${user.id}`
-            ).getRequestWithJsonResponse();
+          const ownerResponse = await new BaseApiService(
+            `/property-owners/user/${user.id}`
+          ).getRequestWithJsonResponse();
 
-            UserSessionUtils.setOwnerDetails({
-                id: ownerResponse.id,
-                entityType: ownerResponse.entityType,
-                status: ownerResponse.recordStatus,
-                userId: user.id
-            });
+          UserSessionUtils.setOwnerDetails({
+            id: ownerResponse.id,
+            entityType: ownerResponse.entityType,
+            status: ownerResponse.recordStatus,
+            userId: user.id,
+          });
         } catch (error) {
-            console.error("Owner fetch error:", error);
-            message.warning("Property owner profile not found");
+          console.error("Owner fetch error:", error);
+          message.warning("Property owner profile not found");
         }
-    }
+      }
 
       // 5. Determine redirect path
       const redirectPath = user.roles.some((r) => r.type === "ADMIN")
@@ -115,27 +116,42 @@ const Login2 = ({ onSuccess }) => {
   }, [isAuthenticated]);
 
   return (
-<>
-  <section className="auth-section">
-    <div className="auth-container custom-modal">
-      <div className="card">
-        <div className="auth-img-card">
-          <img src={asset.logo} alt="" style={{ objectFit: "cover", height: "200px", width: "200px" }}
+    <>
+      <section className="auth-section">
+        <div className="auth-container custom-modal">
+          <div className="card">
+            <div className="auth-img-card">
+              <img
+                src={asset.logo}
+                alt=""
+                style={{ objectFit: "cover", height: "200px", width: "200px" }}
               />
-</div>
-<h1 style={{ fontSize: 20 }}>Welcome to Accomi</h1>
-</div>
+            </div>
+            {/* <h1 style={{ fontSize: 20 }}>Welcome to Accomi</h1> */}
+          </div>
 
-<div className="card">
-            <h2 style={{ padding: "0", marginBottom: 10 }}>Sign in</h2>
+          <div className="card">
+            <h2 style={{ padding: "0", marginBottom: 10 }}>Welcome</h2>
 
-<Input type="text" className="inputField" placeholder="Enter your Username" value={userName} onChange={(e) => setUsername(e.target.value)}
+            <Input
+              type="text"
+              className="inputField"
+              placeholder="Enter your Username"
+              value={userName}
+              onChange={(e) => setUsername(e.target.value)}
             />
-<Input.Password className="inputField" placeholder="Enter your password" iconRender={(visible) =>
-                visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />
-              } value={password} onChange={(e) => setPassword(e.target.value)} style={{ height: 40, display: "flex", alignItems: "center" }}
+            <Input.Password
+              className="inputField"
+              placeholder="Enter your password"
+              iconRender={(visible) =>
+                visible ? <EyeTwoTone style={{fontSize: 15, padding: 0, margin: 0, lineHeight: 0}}/> : <EyeInvisibleOutlined style={{fontSize: 15, padding: 0, margin: 0, lineHeight: 0}}/>
+              }
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              style={{ display: "flex", alignItems: "center", paddingRight: 10 }}
             />
-<div style={{
+            <div
+              style={{
                 marginTop: 10,
                 width: "100%",
                 display: "flex",
@@ -145,30 +161,39 @@ const Login2 = ({ onSuccess }) => {
               }}
             >
               {loading ? (
-                <Button type="primary" className="auth-btn1" style={{ backgroundColor: "#111241", color: "#fff" }}
-                  
+                <Button
+                  type="primary"
+                  className="auth-btn1"
+                  style={{ backgroundColor: "#111241", color: "#fff" }}
                 >
-<LoadingOutlined spin />
-</Button>
+                  <LoadingOutlined spin />
+                </Button>
               ) : (
-                <Button type="primary" className="auth-btn1" onClick={handleLogin} style={{ backgroundColor: "#111241", color: "#fff" }}
+                <Button
+                  type="primary"
+                  className="auth-btn1"
+                  onClick={handleLogin}
+                  style={{ backgroundColor: "#111241", color: "#fff" }}
                 >
                   Sign in
                 </Button>
               )}
 
               <p style={{ margin: "5px 0" }}>Or</p>
-<Button className="auth-btn2" onClick={handleOAuth}>
+              <Button className="auth-btn2" onClick={handleOAuth}>
                 {" "}
-                <img src={asset.googleIcon} alt="" style={{ width: 25, height: 25 }}
+                <img
+                  src={asset.googleIcon}
+                  alt=""
+                  style={{ width: 25, height: 25 }}
                 />{" "}
                 <p>Continue with Google</p>
-</Button>
-</div>
-</div>
-</div>
-</section>
-</>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 

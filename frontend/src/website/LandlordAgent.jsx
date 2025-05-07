@@ -6,6 +6,7 @@ import "./styles.css";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useEffect, useState } from "react";
 import { UserSessionUtils } from "../utils/UserSessionUtils";
+import { Button } from "antd";
 
 const LandlordAgent = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -47,7 +48,7 @@ const LandlordAgent = () => {
                 </Link>
               ) : (
                 <Link to="/account-creation">
-                  <button className="header-btn">Let&apos;s Get Started</button>
+                  <Button className="header-btn">Let&apos;s Get Started</Button>
                 </Link>
               )}
             </div>
@@ -97,12 +98,12 @@ const LandlordAgent = () => {
           </div>
         </header>
 
-        <section style={{ padding: "5vh 0", margin: "0 6vw" }}>
-          <h1 style={{ fontWeight: 500, marginBottom: "20px" }}>
-            Why Choose Us?
-          </h1>
-
+        <section style={{ padding: "5vh 0", margin: "0 5vw" }}>
           <div className="wcu-container">
+            <h1 style={{ fontWeight: 500, marginBottom: "20px" }}>
+              Why Choose Us?
+            </h1>
+
             <div className="wcu-card">
               <div className="wcu-card-image">
                 <img src={asset.cloud} alt="cloud icon" />
@@ -136,11 +137,11 @@ const LandlordAgent = () => {
         </section>
 
         <section style={{ padding: "0 0 5vh 0", margin: "0 6vw" }}>
-          <h1 style={{ fontWeight: 500, marginBottom: "20px" }}>
-            How It Works?
-          </h1>
-
           <div className="hiw-container">
+            <h1 style={{ fontWeight: 500, marginBottom: "20px" }}>
+              How It Works?
+            </h1>
+
             <div className="hiw-card">
               <div className="hiw-tag">
                 <p>1</p>

@@ -134,10 +134,10 @@ const PropertyListings = () => {
       >
         <>
           <header className="header-container">
-            <div className="header-card">
+            <div className="header-card header-ppt-card">
               <h1>
                 Redefining <span style={{ color: "#fdb10e" }}>Student</span>{" "}
-                Accommodation.{" "}
+                <span className="header-ppt-card-title-ending1">Accommodation.</span><span className="header-ppt-card-title-ending2">Living.</span>
               </h1>
 
               <div
@@ -211,7 +211,7 @@ const PropertyListings = () => {
             </div>
           </header>
 
-          <section style={{ padding: "5vh 0", margin: "0" }}>
+          {/* <section style={{ padding: "5vh 0", margin: "0" }}>
             <div className="header-property-search">
               <div className="property-search-inputs">
                 <Select
@@ -219,28 +219,24 @@ const PropertyListings = () => {
                   style={{ width: "18vw", height: "40px" }}
                   allowClear
                 >
-                  {/* {ugandanCities.map(city => <Select.Option key={city.value} value={city.value}>{city.label}</Select.Option>)} */}
                 </Select>
                 <Select
                   placeholder="Property Type"
                   style={{ width: "18vw", height: "40px" }}
                   allowClear
                 >
-                  {/* {propertyTypes.map(type => <Select.Option key={type.value} value={type.value}>{type.label}</Select.Option>)} */}
                 </Select>
                 <Select
                   placeholder="Room Type"
                   style={{ width: "18vw", height: "40px" }}
                   allowClear
-                >
-                  {/* {roomTypes.map(type => <Select.Option key={type.value} value={type.value}>{type.label}</Select.Option>)} */}
+                
                 </Select>
                 <Select
                   placeholder="Budget"
                   style={{ width: "18vw", height: "40px" }}
                   allowClear
                 >
-                  {/* {budgetRanges.map(range => <Select.Option key={range.value} value={range.value}>{range.label}</Select.Option>)} */}
                 </Select>
                 <Button
                   type="primary"
@@ -257,7 +253,7 @@ const PropertyListings = () => {
                 </Button>
               </div>
             </div>
-          </section>
+          </section> */}
 
           <section style={{ padding: "0 0 5vh 0", margin: "0 3vw" }}>
             <h1 style={{ fontWeight: 500, marginBottom: "20px" }}>

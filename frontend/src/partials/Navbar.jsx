@@ -19,6 +19,12 @@ const Navbar = () => {
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
   const [modal2Open, setModal2Open] = useState(false);
+  const [isClicked, setIsClicked] = useState(false); // State to toggle clicked class
+
+  const toggleMenu = () => {
+    // setIsMenuVisible(!isMenuVisible);
+    setIsClicked(!isClicked); // Toggle clicked state
+  };
 
   useEffect(() => {
     setActivePath(location.pathname);
@@ -173,7 +179,7 @@ const Navbar = () => {
             />
             <h2>ccomi</h2>
           </div>
-          <div className="nav-menu">
+          <div className={`nav-menu ${isClicked ? "clicked" : ""}`}>
             <ul className="menu-container">
               <Link to="/">
                 <li className={activePath === "/" ? "active" : ""}>
@@ -199,6 +205,9 @@ const Navbar = () => {
                 </li>
               </Link>
             </ul>
+            <Link to="/landlord-agent">
+              <Button className="nav-auth-btn5">Get Listed as Agent</Button>
+            </Link>
           </div>
           <div className="nav-cta-btns">
             {isAuthenticated ? (
@@ -239,15 +248,24 @@ const Navbar = () => {
                 <Link to="/landlord-agent">
                   <button className="nav-auth-btn3">List Your Property</button>
                 </Link>
-                <button
+                <Button
                   type="default"
                   className="nav-auth-btn4"
                   onClick={showModal}
                 >
-                  Log in
-                </button>
+                  Login
+                </Button>
               </>
             )}
+
+            <div
+              className={`nav-menu-btn ${isClicked ? "clicked" : ""}`}
+              onClick={toggleMenu}
+            >
+              <div className="m1"></div>
+              <div className="m1"></div>
+              <div className="m1"></div>
+            </div>
           </div>
         </div>
       </nav>

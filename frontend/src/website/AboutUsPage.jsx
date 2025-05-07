@@ -10,7 +10,7 @@ const AboutUsPage = () => {
             <Navbar />
             <>
                 <header className="header-container">
-                    <div className="header-card">
+                    <div className="header-card header-abt-card">
                         <h1>Who We Are <span style={{ color: '#fdb10e' }}>And</span> What We Do.</h1>
                         <p style={{ marginBottom: '2vh' }}>Accomi is a rapidly growing platform offering ideal student housing across borders.
                         </p>
