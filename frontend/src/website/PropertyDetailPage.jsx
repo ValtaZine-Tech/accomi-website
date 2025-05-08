@@ -78,7 +78,7 @@ const PropertyDetailPage = () => {
         const response = await new BaseApiService(
           `/properties/${id}`
         ).getRequestWithJsonResponse();
-        console.log("Property images:", response.images);
+        console.log("Property images:", response?.images);
         console.log("Property Detail: ", response);
 
         setPropertyDetail(response);
@@ -384,68 +384,6 @@ const PropertyDetailPage = () => {
                   <button className="booking-button" onClick={handleReserveNow}>
                     <span style={{ fontSize: "14px" }}>Reserve Now</span>
                   </button>
-                </div>
-
-                <div className="sticky-contact-box">
-                  <h3 style={{ fontSize: "18px" }}>Let us help you!</h3>
-                  <p
-                    style={{
-                      color: "#6e6e6e",
-                      fontSize: "12px",
-                      fontWeight: 400,
-                    }}
-                  >
-                    Fill the form below and discover comfortable living spaces
-                    near your campus.
-                  </p>
-                  <div className="contact-form">
-                    <input type="text" placeholder="Your Name" />
-                    <input type="email" placeholder="Your Email" />
-                    <input type="tel" placeholder="Your Phone" />
-                    <textarea placeholder="Your Message" rows="4" />
-                    <button className="submit-button">
-                      <i className="fa-solid fa-zap"></i>{" "}
-                      <span style={{ fontSize: "14px" }}>Get Expert Help!</span>{" "}
-                    </button>
-                  </div>
-                  <div className="contact-footer">
-                    <p
-                      style={{
-                        fontSize: "10px",
-                        color: "#6e6e6e",
-                        fontWeight: 400,
-                      }}
-                    >
-                      By submitting this form, you agree to our{" "}
-                      <a href="#" target="_blank">
-                        terms
-                      </a>
-                      ,{" "}
-                      <a href="#" target="_blank">
-                        privacy policy
-                      </a>{" "}
-                      , , and to receive voice, email and whatsapp communication
-                      from UniAcco about our services, offers & promotions.
-                    </p>
-                  </div>
-                  {/* <div className="contact-highlights">
-                    <div className="highlight-item">
-                      <span>Listed On</span>
-                      <span>
-                        {new Date(
-                          propertyDetail.dateCreated
-                        ).toLocaleDateString()}
-                      </span>
-                    </div>
-                    <div className="highlight-item">
-                      <span>Last Updated</span>
-                      <span>
-                        {new Date(
-                          propertyDetail.dateChanged
-                        ).toLocaleDateString()}
-                      </span>
-                    </div>
-                  </div> */}
                 </div>
               </div>
             </>

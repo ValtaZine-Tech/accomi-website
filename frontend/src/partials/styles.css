@@ -197,7 +197,7 @@
 /* Navbar Section/ component */
 .nav-container {
   /* border: 1px solid orange; */
-  padding: 10px;
+  padding: 5px 10px;
   background: #111241;
   position: fixed;
   top: 0;
@@ -336,6 +336,10 @@
   border-radius: 8px;
 }
 
+.nav-auth-btn5 {
+  display: none;
+}
+
 .nav-auth-btn2 img,
 .nav-auth-btn3 img {
   height: 30px;
@@ -347,6 +351,8 @@
   .nav-card {
     /* border: 1px solid orange; */
     margin: 0;
+    width: 100%;
+    padding-right: 10px;
   }
   /* .nav-menu {
     display: none;
@@ -448,6 +454,11 @@
 
   .nav-menu.clicked .menu-container li.active {
     color: #fdb10e;
+  }
+
+  .nav-auth-btn4 {
+    width: 100px;
+    padding: 5px 10px !important;
   }
 
   .nav-auth-btn5 {

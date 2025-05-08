@@ -116,10 +116,57 @@ const Drawer = () => {
       </Modal>
     </div>
   );
+  const featuresListContent = (
+    <div style={{ minWidth: 300, maxWidth: 350 }}>
+      <div className="notification-header">
+        <h3 style={{ color: "#555555" }}>More Features</h3>
+      </div>
+      <Divider style={{ marginTop: 8, marginBottom: 8 }}></Divider>
+
+      <div
+        style={{ display: "flex", flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: 5 }}
+      >
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "100px",
+            height: "100px",
+          }}
+        >
+          <img
+            src={asset.flutter}
+            style={{ height: 55, width: 55, cursor: "pointer" }}
+            alt=""
+          />
+          <p style={{ color: "#666666", fontWeight: 600 }}>Flutterwave</p>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            width: "100px",
+            height: "100px",
+          }}
+        >
+          <img
+            src={asset.quickBook}
+            style={{ height: 55, width: "100%", cursor: "pointer" }}
+            alt=""
+          />
+          <p style={{ color: "#666666", fontWeight: 600 }}>QuickBooks</p>
+        </div>
+      </div>
+
+      <Divider style={{ marginTop: 8, marginBottom: 8 }}></Divider>
+    </div>
+  );
   const notificationContent = (
     <div style={{ minWidth: 300, maxWidth: 350 }}>
       <div className="notification-header">
-        <h3>Notifications</h3>
+        <h3 style={{ color: "#555555" }}>Notifications</h3>
       </div>
       <Divider style={{ marginTop: 8, marginBottom: 8 }}></Divider>
       <div className="notification-item">
@@ -132,8 +179,8 @@ const Drawer = () => {
           size="medium"
         ></Avatar>
         <div>
-          <p style={{ fontWeight: 600 }}>John Doe</p>
-          <p style={{ fontSize: "12px", color: "#555555" }}>
+          <p style={{ fontWeight: 600, color: "#555555" }}>John Doe</p>
+          <p style={{ fontSize: "13px", color: "#666666" }}>
             {truncateText("You have a new message from John Doe", 23)}
           </p>
           <p style={{ color: "#888888", fontSize: "13px" }}>
@@ -354,6 +401,16 @@ const Drawer = () => {
       <div className="topbar-container">
         <div className="topbar-container-right">
           <Popover
+            content={featuresListContent}
+            trigger="click"
+            style={{ zIndex: 1000, marginTop: 20 }}
+          >
+            <img
+              src={asset.grid}
+              style={{ cursor: "pointer", height: 25, width: 25 }}
+            />
+          </Popover>
+          <Popover
             content={notificationContent}
             trigger="click"
             style={{ zIndex: 1000, marginTop: 20 }}
@@ -380,8 +437,7 @@ const Drawer = () => {
             </Avatar>
           </Popover>
         </div>
-        
-        
+
         <Modal
           title="Logout"
           centered

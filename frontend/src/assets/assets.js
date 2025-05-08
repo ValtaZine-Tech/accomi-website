@@ -66,6 +66,9 @@ import paypal from './icons/paypal-logo.png'
 import master from './icons/mastercard-logo.png'
 import mtn from './icons/mtn-logo.jpg'
 import airtel from './icons/airtel-logo.jpg'
+import grid from './icons/grid.png'
+import flutter from './icons/flutterLogo.png'
+import quickBook from './icons/quickBook.png'
 
 
 
@@ -94,6 +97,9 @@ export const asset = {
     paypal,
     mtn,
     airtel,
+    grid,
+    flutter,
+    quickBook,
     
 }
 

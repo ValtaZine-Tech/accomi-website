@@ -31,9 +31,9 @@ const LandlordAgent = () => {
       <Navbar />
       <>
         <header className="header-container">
-          <div className="header-card">
-            <h1>
-              Expand Your Reach,{" "}
+          <div className="header-card header-la-card">
+            <h1 >
+              Expand Your Reach, {""}
               <span style={{ color: "#fdb10e" }}>Maximize</span> Your Earnings
             </h1>
             <p>
@@ -99,11 +99,10 @@ const LandlordAgent = () => {
         </header>
 
         <section style={{ padding: "5vh 0", margin: "0 5vw" }}>
+          <h1 style={{ fontWeight: 500, marginBottom: "20px", marginTop: "-5vh" }}>
+            Why Choose Us?
+          </h1>
           <div className="wcu-container">
-            <h1 style={{ fontWeight: 500, marginBottom: "20px" }}>
-              Why Choose Us?
-            </h1>
-
             <div className="wcu-card">
               <div className="wcu-card-image">
                 <img src={asset.cloud} alt="cloud icon" />
@@ -137,10 +136,10 @@ const LandlordAgent = () => {
         </section>
 
         <section style={{ padding: "0 0 5vh 0", margin: "0 6vw" }}>
-          <div className="hiw-container">
             <h1 style={{ fontWeight: 500, marginBottom: "20px" }}>
               How It Works?
             </h1>
+          <div className="hiw-container">
 
             <div className="hiw-card">
               <div className="hiw-tag">
