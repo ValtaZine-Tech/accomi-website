@@ -235,6 +235,7 @@ const Navbar = () => {
                       verticalAlign: "middle",
                       backgroundColor: "#ffbf00",
                       color: "#fff",
+                      cursor: "pointer",
                     }}
                     size="large"
                   >

@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { BaseApiService } from "../../utils/BaseApiService";
 import { LoadingOutlined } from "@ant-design/icons";
 import PropTypes from 'prop-types';
+import { GENDER_OPTIONS } from "../../constants/Constants";
+import { UserSessionUtils } from "../../utils/UserSessionUtils";
 
 const { Option } = Select;
 
@@ -10,8 +12,8 @@ const Profile = ({ onSubmit }) => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    username: "",
-    email: "",
+    userName: "",
+    primaryEmail: "",
     password: "",
     confirmPassword: "",
     primaryPhone: "",
@@ -19,43 +21,72 @@ const Profile = ({ onSubmit }) => {
   });
   const [loading, setLoading] = useState(false);
   const [countries, setCountries] = useState([]);
-  const [genders, setGenders] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const genders = GENDER_OPTIONS;
 
 
-const handleRegister = async () => {
+
+  const handleRegister = async () => {
     try {
       setLoading(true);
-
-      // Validation
+  
       if (formData.password !== formData.confirmPassword) {
         message.error("Passwords don't match!");
         return;
       }
-
-      // Prepare profile data
-      const profileData = {
-        userDetails: {
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          primaryEmail: formData.primaryEmail,
-          primaryPhone: formData.primaryPhone,
-          countryId: formData.countryId,
-          genderId: formData.genderId,
-        },
-        credentials: {
-          password: formData.password
-        }
+  
+      const generatedUsername = `${formData.firstName} ${formData.lastName}`
+        .toLowerCase()
+        .replace(/\s+/g, "_");
+  
+      const registrationData = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        userName: generatedUsername,
+        primaryEmail: formData.primaryEmail,
+        password: formData.password,
+        primaryPhone: formData.primaryPhone,
+        countryId: formData.countryId,
+        genderId: formData.genderId,
       };
-
-      // Pass data to parent component
-      await onSubmit(profileData);
-
+  
+      const response = await new BaseApiService(
+        "/students/register"
+      ).postRequestWithJsonResponse(registrationData);
+  
+      if (response.accessToken) {
+        UserSessionUtils.setUserAuthToken(response.accessToken);
+        UserSessionUtils.setUserDetails({
+          fullName: `${response.user.firstName} ${response.user.lastName}`,
+          userName: generatedUsername,
+          email: response.user.primaryEmail,
+          userId: response.user.id,
+          genderId: response.user.genderId,
+        });
+  
+        // Only show success and trigger onSuccess AFTER successful operations
+        message.success("Registration successful! Welcome to our platform!");
+        onSubmit();
+      } else {
+        throw new Error("Failed to complete registration");
+      }
+  
     } catch (error) {
-      message.error(error.message || "Registration failed. Please try again.");
+      // User-friendly error messages
+      let errorMessage = "Registration failed. Please check your information and try again.";
+      
+      // Handle specific error cases if available
+      if (error.response?.data?.message?.includes("email")) {
+        errorMessage = "This email is already registered. Please use a different email.";
+      } else if (error.response?.status === 400) {
+        errorMessage = "Invalid registration details. Please check your inputs.";
+      }
+  
+      message.error(errorMessage);
     } finally {
+      // Always reset loading state
       setLoading(false);
     }
   };
@@ -91,35 +122,8 @@ const handleRegister = async () => {
       }
     };
 
-    const fetchGenders = async () => {
-      try {
-        setIsLoading(true);
-        setError(null);
-
-        const response = await new BaseApiService(
-          "/lookups/genders"
-        ).getRequestWithJsonResponse(searchParameters);
-
-        // Handle empty response
-        if (!response?.records?.length) {
-          setError("No countries found");
-          return;
-        }
-
-        const sortedCountries = response.records.sort((a, b) =>
-          a.name.localeCompare(b.name)
-        );
-
-        setGenders(sortedCountries);
-      } catch (err) {
-        setError(err.message || "Failed to load countries");
-      } finally {
-        setIsLoading(false);
-      }
-    };
 
     fetchCountries();
-    fetchGenders();
   }, []);
 
   return (
@@ -354,7 +358,7 @@ const handleRegister = async () => {
                   <Row gutter={16}>
                     <Col span={24}>
                       <h2 style={{ color: "#8e8e8e", textAlign: "left" }}>
-                        Account Credientials
+                        Create Password
                       </h2>
                     </Col>
 

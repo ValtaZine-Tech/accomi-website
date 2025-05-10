@@ -124,7 +124,13 @@ const Drawer = () => {
       <Divider style={{ marginTop: 8, marginBottom: 8 }}></Divider>
 
       <div
-        style={{ display: "flex", flexDirection: "row", alignItems: "center", flexWrap: "wrap", gap: 5 }}
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          flexWrap: "wrap",
+          gap: 5,
+        }}
       >
         <div
           style={{
@@ -164,7 +170,7 @@ const Drawer = () => {
     </div>
   );
   const notificationContent = (
-    <div style={{ minWidth: 300, maxWidth: 350 }}>
+    <div style={{ minWidth: "90%", width: "40vw", maxWidth: "100vw" }}>
       <div className="notification-header">
         <h3 style={{ color: "#555555" }}>Notifications</h3>
       </div>
@@ -216,10 +222,10 @@ const Drawer = () => {
         </div>
         <div className="drawer-separator"></div>
         <div className="drawer-body">
-          <Link to="/dashboard/">
+          <Link to="/admin-dashboard/">
             <div
               className={`drawer-item ${
-                activeItem === "/dashboard/" ? "active" : ""
+                activeItem === "/admin-dashboard/" ? "active" : ""
               }`}
             >
               <div>
@@ -251,7 +257,7 @@ const Drawer = () => {
           <Link to="properties">
             <div
               className={`drawer-item ${
-                activeItem === "/dashboard/properties" ? "active" : ""
+                activeItem === "/admin-dashboard/properties" ? "active" : ""
               }`}
             >
               <div>
@@ -262,13 +268,13 @@ const Drawer = () => {
                 />
               </div>
               <div>
-                <p>Residencies</p>
+                <p>Accommodations</p>
               </div>
             </div>
           </Link>
           {/* <Link to="property-form">
                         <div
-                            className={`drawer-item ${activeItem === '/dashboard/property-form' ? 'active' : ''}`}
+                            className={`drawer-item ${activeItem === '/admin-dashboard/property-form' ? 'active' : ''}`}
                         >
                             <div></div>
                             <div>
@@ -287,14 +293,14 @@ const Drawer = () => {
                 borderWidth: 3,
               }}
             >
-              <p style={{ color: "#fdb10e", lineHeight: 0 }}>Profiles</p>
+              <p style={{ color: "#fdb10e", lineHeight: 0 }}>Accounts</p>
             </Divider>
           </div>
           {/* Employee Form Link */}
           <Link to="employee-list">
             <div
               className={`drawer-item ${
-                activeItem === "/dashboard/employee-list" ? "active" : ""
+                activeItem === "/admin-dashboard/employee-list" ? "active" : ""
               }`}
             >
               <div>
@@ -312,7 +318,7 @@ const Drawer = () => {
           <Link to="students">
             <div
               className={`drawer-item ${
-                activeItem === "/dashboard/students" ? "active" : ""
+                activeItem === "/admin-dashboard/students" ? "active" : ""
               }`}
             >
               <div>
@@ -331,7 +337,7 @@ const Drawer = () => {
           <Link to="landlords">
             <div
               className={`drawer-item ${
-                activeItem === "/dashboard/landlords" ? "active" : ""
+                activeItem === "/admin-dashboard/landlords" ? "active" : ""
               }`}
             >
               <div>
@@ -364,7 +370,7 @@ const Drawer = () => {
           <Link to="institutions">
             <div
               className={`drawer-item ${
-                activeItem === "/dashboard/university-list" ? "active" : ""
+                activeItem === "/admin-dashboard/institutions" ? "active" : ""
               }`}
             >
               <div>
@@ -391,15 +397,89 @@ const Drawer = () => {
                     </Link> */}
 
           <div>
-            {/* <Divider orientation='left' orientationMargin={0} style={{ color: '#ffffff', borderColor: '#fdb10e', borderWidth: 3, }}>
-                            <p style={{ color: '#fdb10e', lineHeight: 0 }}>Other</p>
-                        </Divider> */}
+            <Divider
+              orientation="left"
+              orientationMargin={0}
+              style={{
+                color: "#ffffff",
+                borderColor: "#fdb10e",
+                borderWidth: 3,
+              }}
+            >
+              <p style={{ color: "#fdb10e", lineHeight: 0 }}>Web Pages</p>
+            </Divider>
           </div>
+
+          <Link to="/">
+            <div
+              className={`drawer-item`}
+            >
+              <div>
+                
+              </div>
+              <div>
+                <p>Home</p>
+              </div>
+            </div>
+          </Link>
+
+          <Link to="/about">
+            <div
+              className={`drawer-item`}
+            >
+              <div>
+                
+              </div>
+              <div>
+                <p>About Us</p>
+              </div>
+            </div>
+          </Link>
+
+          <Link to="/properties">
+            <div
+              className={`drawer-item`}
+            >
+              <div>
+                
+              </div>
+              <div>
+                <p>Properties</p>
+              </div>
+            </div>
+          </Link>
+
+          <Link to="/landlord-agent">
+            <div
+              className={`drawer-item`}
+            >
+              <div>
+                
+              </div>
+              <div>
+                <p>Agents</p>
+              </div>
+            </div>
+          </Link>
+
         </div>
       </div>
 
       <div className="topbar-container">
         <div className="topbar-container-right">
+          <Popover
+            content={notificationContent}
+            trigger="click"
+            style={{ zIndex: 1000 }}
+          >
+            <Badge count={5} size="small" style={{ marginRight: -2 }}>
+              <i
+                className="fa-regular fa-bell"
+                style={{ color: "#8e8e8e", fontSize: 25, cursor: "pointer" }}
+              ></i>
+            </Badge>
+          </Popover>
+
           <Popover
             content={featuresListContent}
             trigger="click"
@@ -407,20 +487,8 @@ const Drawer = () => {
           >
             <img
               src={asset.grid}
-              style={{ cursor: "pointer", height: 25, width: 25 }}
+              style={{ cursor: "pointer", height: 30, width: 30 }}
             />
-          </Popover>
-          <Popover
-            content={notificationContent}
-            trigger="click"
-            style={{ zIndex: 1000, marginTop: 20 }}
-          >
-            <Badge count={5} size="small" style={{ marginRight: -2 }}>
-              <i
-                className="fa-regular fa-bell"
-                style={{ color: "#8e8e8e", fontSize: 20, cursor: "pointer" }}
-              ></i>
-            </Badge>
           </Popover>
 
           <Popover content={popoverContent} trigger="click">
@@ -430,6 +498,7 @@ const Drawer = () => {
                 backgroundColor: "#ffbf00",
                 color: "#fff",
                 cursor: "pointer",
+                fontSize: 20,
               }}
               size="large"
             >

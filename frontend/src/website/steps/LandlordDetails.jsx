@@ -21,12 +21,12 @@ const LandlordDetails = ({ onSuccess }) => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
-    username: "",
+    userName: "",
     gender: "",
-    email: "",
+    primaryEmail: "",
+    primaryPhone: "",
     password: "",
     confirmPassword: "",
-    primaryPhone: "",
     countryId: null,
   });
   const [loading, setLoading] = useState(false);
@@ -39,50 +39,64 @@ const LandlordDetails = ({ onSuccess }) => {
   const handleRegister = async () => {
     try {
       setLoading(true);
-
+  
       if (formData.password !== formData.confirmPassword) {
         message.error("Passwords don't match!");
         return;
       }
-
+  
       const generatedUsername = `${formData.firstName} ${formData.lastName}`
         .toLowerCase()
         .replace(/\s+/g, "_");
-
+  
       const registrationData = {
         firstName: formData.firstName,
         lastName: formData.lastName,
-        username: generatedUsername,
+        userName: generatedUsername,
         primaryEmail: formData.primaryEmail,
         password: formData.password,
         primaryPhone: formData.primaryPhone,
         countryId: formData.countryId,
-        genderId: formData.genderId
+        genderId: formData.genderId,
       };
-
+  
       const response = await new BaseApiService(
         "/property-owners/register"
       ).postRequestWithJsonResponse(registrationData);
-
+  
       if (response.accessToken) {
         UserSessionUtils.setUserAuthToken(response.accessToken);
         UserSessionUtils.setUserDetails({
           fullName: `${response.user.firstName} ${response.user.lastName}`,
-          username: generatedUsername,
+          userName: generatedUsername,
           email: response.user.primaryEmail,
           userId: response.user.id,
           genderId: response.user.genderId,
         });
-
-        message.success("Registration successful!");
+  
+        // Only show success and trigger onSuccess AFTER successful operations
+        message.success("Registration successful! Welcome to our platform!");
         onSuccess();
+      } else {
+        throw new Error("Failed to complete registration");
       }
+  
     } catch (error) {
-      message.error(error.message || "Registration failed. Please try again.");
+      // User-friendly error messages
+      let errorMessage = "Registration failed. Please check your information and try again.";
+      
+      // Handle specific error cases if available
+      if (error.response?.data?.message?.includes("email")) {
+        errorMessage = "This email is already registered. Please use a different email.";
+      } else if (error.response?.status === 400) {
+        errorMessage = "Invalid registration details. Please check your inputs.";
+      }
+  
+      message.error(errorMessage);
     } finally {
+      // Always reset loading state
       setLoading(false);
     }
-    // onSuccess();
   };
 
   // Added empty dependency array to ensure this runs only once on mount
@@ -286,9 +300,9 @@ const LandlordDetails = ({ onSuccess }) => {
                           }
                           disabled={isLoading || error}
                         >
-                          {Gender.map((gender) => (
-                            <Option key={gender.id} value={gender.id}>
-                              {gender.name}
+                          {Gender.map((g) => (
+                            <Option key={g.id} value={g.id}>
+                              {g.name}
                             </Option>
                           ))}
                         </Select>
@@ -353,7 +367,7 @@ const LandlordDetails = ({ onSuccess }) => {
                   <Row gutter={16}>
                     <Col span={24}>
                       <h2 style={{ color: "#8e8e8e", textAlign: "left" }}>
-                        Account Credientials
+                        Create Password
                       </h2>
                     </Col>
 

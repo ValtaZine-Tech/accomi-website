@@ -78,10 +78,13 @@ const PropertyDetailPage = () => {
         const response = await new BaseApiService(
           `/properties/${id}`
         ).getRequestWithJsonResponse();
-        console.log("Property images:", response?.images);
+        console.log("Property images:", response.images);
         console.log("Property Detail: ", response);
 
-        setPropertyDetail(response);
+        setPropertyDetail({
+          ...response,
+          images: response?.images || [] // Fallback to empty array
+        });
       } catch (error) {
         setError(error.message);
       } finally {

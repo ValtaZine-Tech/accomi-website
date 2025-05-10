@@ -331,6 +331,7 @@ const PropertyListings = () => {
                         <Link
                           to={`${property.id}`}
                           onClick={() => window.scroll(0, 0)}
+                          state={{ name: property.PropertyName }}
                         >
                           <h3>{property.propertyName}</h3>
                         </Link>

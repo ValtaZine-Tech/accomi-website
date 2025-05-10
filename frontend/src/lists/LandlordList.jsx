@@ -30,6 +30,7 @@ const LandlordList = () => {
 
             const response = await new BaseApiService("/property-owners")
                 .getRequestWithJsonResponse({ offset: 0, limit: 100 });
+                // console.log('Raw API Response:', response);
 
             // Convert object response to array and transform data
             const landlordsArray = Object.values(response).map(owner => ({
@@ -46,6 +47,7 @@ const LandlordList = () => {
             }));
 
             setLandlords(landlordsArray);
+            // console.log('Fetched landlords:', landlords);
 
         } catch (error) {
             setError(error.message || 'Failed to fetch property owners');

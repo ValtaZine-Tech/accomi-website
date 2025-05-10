@@ -1,5 +1,6 @@
 import { Button, Col, ConfigProvider, Form, Input, message, Row } from "antd";
 import "./styles.css";
+import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
 import { BaseApiService } from "../../utils/BaseApiService";
 import { UserSessionUtils } from "../../utils/UserSessionUtils";
 import { useState } from "react";
@@ -132,6 +133,9 @@ const LandlordLogin = ({ onSuccess }) => {
                             display: "flex",
                             alignItems: "center",
                           }}
+                          iconRender={(visible) =>
+                                          visible ? <EyeTwoTone style={{fontSize: 15, padding: 0, margin: 0, lineHeight: 0}}/> : <EyeInvisibleOutlined style={{fontSize: 15, padding: 0, margin: 0, lineHeight: 0}}/>
+                                        }
                           value={password}
                           onChange={(e) =>setPassword(e.target.value)}
                         />
