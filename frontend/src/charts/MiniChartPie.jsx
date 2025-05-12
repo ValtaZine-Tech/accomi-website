@@ -1,0 +1,81 @@
+import * as echarts from "echarts/core";
+import { BarChart, LineChart, PieChart } from "echarts/charts";
+import { GridComponent } from "echarts/components";
+import ReactECharts from "echarts-for-react";
+
+// Register necessary components
+echarts.use([BarChart, LineChart, PieChart, GridComponent]);
+
+const MiniChartPie = ({ type, data, color }) => {
+  const getMiniChartOptions = () => ({
+    tooltip: {
+      trigger: "axis",
+      axisPointer: {
+        type: "shadow",
+      },
+    },
+    legend: {
+      top: "5%",
+      left: "center",
+    },
+    xAxis: {
+      show: false,
+      type: "category",
+      data: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+    },
+    yAxis: { show: false },
+    series: [
+      {
+        type,
+        data,
+        legend: {
+          orient: "vertical",
+          left: "left",
+        },
+        avoidLabelOverlap: false,
+        padAngle: 4,
+        radius: ["60%", "80%"],
+        lineStyle: {
+          width: 2,
+          type: "solid",
+        },
+        label: {
+          show: false,
+          position: "center",
+        },
+        itemStyle: { color, borderRadius: 6 },
+        labelLine: {
+          show: false,
+        },
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 2,
+            shadowOffsetX: 0,
+            shadowColor: "rgba(0, 0, 0, 0.5)",
+          },
+        },
+      },
+    ],
+    grid: {
+      show: false,
+      left: 5,
+      top: 10,
+      right: 5,
+      bottom: 10,
+      containLabel: false,
+      backgroundColor: "rgba(0,0,0,0)",
+      borderWidth: 1,
+      borderColor: "#ccc",
+    },
+  });
+
+  return (
+    <ReactECharts
+      option={getMiniChartOptions()}
+      style={{ width: "100%", height: "100%", margin: "auto" }}
+      opts={{ renderer: "svg" }}
+    />
+  );
+};
+
+export default MiniChartPie;

@@ -2,11 +2,11 @@
   /* border: 1px solid orange; */
   position: fixed;
   top: 65px;
-  left: 315px;
+  left: 310px;
   right: 0;
   bottom: 5px;
   overflow-y: scroll;
-  width: calc(100% - 320px);
+  width: calc(100% - 315px);
   /* height: calc(100% - 65px); */
 }
 
@@ -28,17 +28,19 @@
 .top-section {
   /* border: 1px solid orange; */
   padding: 10px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-evenly;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(1, 1fr);
   margin-bottom: 10px;
 }
 
 .ov-card {
   /* border: 1px solid orange; */
-  height: 130px;
-  width: 220px;
+  min-height: 130px;
+  height: 100vh;
+  max-height: 180px;
+  width: 90%;
+  margin: auto;
   background-color: #111241;
   border-radius: 20px;
   box-shadow: 0 4px 6px rgb(0, 0, 0, 0.1);
@@ -46,42 +48,101 @@
 
 .chart-section {
   /* border: 1px solid orange; */
-  padding: 10px;
+  width: 100%;
+  padding: 0 2vw;
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: start;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.main-chart {
+  /* border: 1px solid orange; */
+  width: 100%;
+  min-height: 450px;
+  height: 100%;
+  max-height: 450px;
+  margin-bottom: 10px;
+}
+
+.mini-chart {
+  /* border: 1px solid orange; */
+  min-width: 400px;
+  width: 100%;
+  max-width: 400px;
+  min-height: 250px;
+  height: 100%;
+  max-height: 250px;
+  margin: auto;
+  /* margin-top: 10px; */
+}
+
+.chart-card-container {
+  /* border: 1px solid orange; */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  width: 100%;
+  height: 100%;
+  gap: 20px;
 }
 
 .chart-card {
-  height: 400px;
-  width: 450px;
-  padding: 5px;
-  border-radius: 20px;
-  background-color: #ffffff;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  /* Fixed RGBA syntax */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  /* Ensures no overflow from canvas */
-}
-
-.chart-card canvas {
-  max-width: 90%;
-  /* Restricts canvas size */
-  max-height: 90%;
-}
-
-.chart-card:nth-child(1) canvas {
   /* border: 1px solid orange; */
-  max-width: 90%;
-  /* Restricts canvas size */
-  max-height: 100%;
+  width: 100%;
+  min-height: 350px;
+  height: 100%;
+  max-height: 350px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 2px rgb(0, 0, 0, 0.1);
+  padding: 20px 30px;
 }
 
 
+.review-container {
+  /* border: 1px solid orange; */
+  background-color: #ffffff;
+  padding: 2rem 20px 2rem 20px;
+  margin: 20px 0 20px 0;
+  border-radius: 8px;
+}
+
+.revenue-container {
+  /* border: 1px solid orange; */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  gap: 10px;
+}
+
+.revenue-map {
+  /* border: 1px solid orange; */
+  width: 100%;
+  min-height: 500px;
+  height: 100%;
+  max-height: 500px;
+}
+
+.earnings-container {
+  /* border: 1px solid orange; */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(1, 1fr);
+  gap: 10px;
+  background-color: #ffffff;
+  padding: 3rem 20px;
+  margin-top: -10px;
+  margin-bottom: 2vh;
+  border-radius: 8px;
+}
+
+.earnings-chart,
+.user-return-chart {
+  /* border: 1px solid orange; */
+  width: 100%;
+  min-height: 400px;
+  height: 100%;
+  max-height: 400px;
+}
 
 /* Overview Section End */

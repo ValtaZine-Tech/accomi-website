@@ -20,6 +20,8 @@
     "chart.js": "^4.4.7",
     "dayjs": "^1.11.13",
     "dotenv": "^16.4.7",
+    "echarts": "^5.6.0",
+    "echarts-for-react": "^3.0.2",
     "frontend": "file:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

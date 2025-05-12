@@ -69,6 +69,7 @@ import airtel from './icons/airtel-logo.jpg'
 import grid from './icons/grid.png'
 import flutter from './icons/flutterLogo.png'
 import quickBook from './icons/quickBook.png'
+import values from './icons/lookupValues.png'
 
 
 
@@ -113,6 +114,7 @@ export const drawer = {
     setting,
     placeholder,
     comments,
+    values,
 }
 
 export const images = {

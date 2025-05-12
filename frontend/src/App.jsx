@@ -28,6 +28,7 @@ import PropertyOwnerDashboard from "./website/dashboards/PropertyOwnerDashboard"
 import Login2 from "./auth/Login2";
 import PropertyDetailPage from "./website/PropertyDetailPage";
 import PropertyListings from "./website/PropertyListings";
+import LookupValues from "./lists/LookupValues";
 // import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -67,6 +68,7 @@ function App() {
           <Route path="employee-list" element={<EmployeeList />} />
           <Route path="students" element={<StudentList />} />
           <Route path="landlords" element={<LandlordList />} />
+          <Route path="lookup-values" element={<LookupValues />} />
           <Route path="landlords/add-new" element={<LandlordForm />} />
         </Route>
       </Routes>

@@ -406,7 +406,7 @@ const Drawer = () => {
                 borderWidth: 3,
               }}
             >
-              <p style={{ color: "#fdb10e", lineHeight: 0 }}>Web Pages</p>
+              <p style={{ color: "#fdb10e", lineHeight: 0 }}>WebPages</p>
             </Divider>
           </div>
 
@@ -458,6 +458,39 @@ const Drawer = () => {
               </div>
               <div>
                 <p>Agents</p>
+              </div>
+            </div>
+          </Link>
+
+          <div>
+            <Divider
+              orientation="left"
+              orientationMargin={0}
+              style={{
+                color: "#ffffff",
+                borderColor: "#fdb10e",
+                borderWidth: 3,
+              }}
+            >
+              <p style={{ color: "#fdb10e", lineHeight: 0 }}>Others</p>
+            </Divider>
+          </div>
+
+          <Link to="lookup-values">
+            <div
+              className={`drawer-item ${
+                activeItem === "/admin-dashboard/lookup-values" ? "active" : ""
+              }`}
+            >
+              <div>
+              <img
+                  src={drawer.values}
+                  style={{ width: 20, height: 20 }}
+                  alt="drawer item icon"
+                />
+              </div>
+              <div>
+                <p>Lookup Values</p>
               </div>
             </div>
           </Link>
