@@ -1,6 +1,11 @@
+/* eslint-disable no-unused-vars */
 import { Button, Col, ConfigProvider, Form, Input, message, Row } from "antd";
 import "./styles.css";
-import { EyeInvisibleOutlined, EyeTwoTone } from "@ant-design/icons";
+import {
+  EyeInvisibleOutlined,
+  EyeTwoTone,
+  LoadingOutlined,
+} from "@ant-design/icons";
 import { BaseApiService } from "../../utils/BaseApiService";
 import { UserSessionUtils } from "../../utils/UserSessionUtils";
 import { useState } from "react";
@@ -9,38 +14,37 @@ import PropTypes from "prop-types";
 const LandlordLogin = ({ onSuccess }) => {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
     // API-based authentication
-    try {
-      const response = await new BaseApiService(
-        "/auth/login"
-      ).postRequestWithJsonResponse({
-        userName,
-        password,
-      });
-
-      if (response.accessToken) {
-        UserSessionUtils.setUserAuthToken(response.accessToken);
-
-        // Store user details from API response
-        UserSessionUtils.setUserDetails({
-          fullName: `${response.user.firstName} ${response.user.lastName}`,
-          email: response.user.primaryEmail,
-          userId: response.user.id,
-          gender: response.user.gender,
-          countryId: response.user.countryId,
-          roles: response.user.roles,
-        });
-
-        message.success("Logged in Successfully");
-        onSuccess();
-      }
-    } catch (error) {
-      message.error("Login failed");
-      console.log("Login Error", error);
-    }
-
+    // try {
+    //   setLoading(true);
+    //   const response = await new BaseApiService(
+    //     "/auth/login"
+    //   ).postRequestWithJsonResponse({
+    //     userName,
+    //     password,
+    //   });
+    //   if (response.accessToken) {
+    //     UserSessionUtils.setUserAuthToken(response.accessToken);
+    //     UserSessionUtils.setUserDetails({
+    //       fullName: `${response.user.firstName} ${response.user.lastName}`,
+    //       email: response.user.primaryEmail,
+    //       userId: response.user.id,
+    //       gender: response.user.gender,
+    //       countryId: response.user.countryId,
+    //       roles: response.user.roles,
+    //     });
+    //     message.success("Logged in Successfully");
+    //     onSuccess();
+    //   }
+    // } catch (error) {
+    //   message.error("Login failed");
+    //   console.log("Login Error", error);
+    // } finally {
+    //   setLoading(false);
+    // }
     // onSuccess();
   };
 
@@ -74,12 +78,10 @@ const LandlordLogin = ({ onSuccess }) => {
           </div>
           <div className="step-card">
             <div className="profile-container">
-              <div className="profile-login-card" >
-                <Form 
-                layout="vertical"
-                  >
+              <div className="profile-login-card">
+                <Form layout="vertical">
                   <Row gutter={16}>
-                    <Col span={24}>
+                    <Col span={20}>
                       <h2
                         style={{
                           color: "#8e8e8e",
@@ -93,17 +95,18 @@ const LandlordLogin = ({ onSuccess }) => {
                   </Row>
 
                   <Row gutter={16}>
-                    <Col span={24}>
+                    <Col span={16}>
                       <Form.Item
                         rules={[
                           {
                             required: true,
-                            message: "Please enter your email address",
+                            message:
+                              "Please enter your email address or username",
                           },
                         ]}
                       >
                         <Input
-                          placeholder="Enter your email address"
+                          placeholder="Enter your username or email address"
                           value={userName}
                           onChange={(e) => setUsername(e.target.value)}
                           style={{
@@ -117,7 +120,7 @@ const LandlordLogin = ({ onSuccess }) => {
                   </Row>
 
                   <Row gutter={16}>
-                  <Col span={24}>
+                    <Col span={16}>
                       <Form.Item
                         rules={[
                           {
@@ -132,31 +135,56 @@ const LandlordLogin = ({ onSuccess }) => {
                             height: 40,
                             display: "flex",
                             alignItems: "center",
+                            width: "100%",
                           }}
                           iconRender={(visible) =>
-                                          visible ? <EyeTwoTone style={{fontSize: 15, padding: 0, margin: 0, lineHeight: 0}}/> : <EyeInvisibleOutlined style={{fontSize: 15, padding: 0, margin: 0, lineHeight: 0}}/>
-                                        }
+                            visible ? (
+                              <EyeTwoTone
+                                style={{
+                                  fontSize: 15,
+                                  padding: 0,
+                                  margin: 0,
+                                  lineHeight: 0,
+                                }}
+                              />
+                            ) : (
+                              <EyeInvisibleOutlined
+                                style={{
+                                  fontSize: 15,
+                                  padding: 0,
+                                  margin: 0,
+                                  lineHeight: 0,
+                                }}
+                              />
+                            )
+                          }
                           value={password}
-                          onChange={(e) =>setPassword(e.target.value)}
+                          onChange={(e) => setPassword(e.target.value)}
                         />
                       </Form.Item>
                     </Col>
                   </Row>
 
                   <Row gutter={16}>
-                    <Col span={24}>
-                      <Button
-                        type="primary"
-                        onClick={handleLogin}
-                        style={{
-                          width: "100%",
-                          height: 40,
-                          background: "#fdb10e",
-                          fontSize: "1.1rem",
-                        }}
-                      >
-                        Sign in
-                      </Button>
+                    <Col span={16}>
+                      {loading ? (
+                        <Button
+                          type="primary"
+                          className="auth-btn1"
+                          style={{ color: "#fff", width: "100%", height: 40, fontSize: "1rem" }}
+                        >
+                          <LoadingOutlined spin />
+                        </Button>
+                      ) : (
+                        <Button
+                          type="primary"
+                          className="auth-btn1"
+                          onClick={handleLogin}
+                          style={{ color: "#fff", width: "100%", height: 40, fontSize: "1rem" }}
+                        >
+                          Sign in
+                        </Button>
+                      )}
                     </Col>
                   </Row>
                 </Form>

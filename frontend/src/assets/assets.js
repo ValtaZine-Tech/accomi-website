@@ -70,6 +70,7 @@ import grid from './icons/grid.png'
 import flutter from './icons/flutterLogo.png'
 import quickBook from './icons/quickBook.png'
 import values from './icons/lookupValues.png'
+import verification from './icons/emailVerification.png'
 
 
 
@@ -101,6 +102,7 @@ export const asset = {
     grid,
     flutter,
     quickBook,
+    verification,
     
 }
 

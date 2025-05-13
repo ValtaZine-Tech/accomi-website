@@ -51,10 +51,11 @@ function App() {
         <Route path="/account-creation" element={<LandlordSignup />} />
 
         <Route path="/student-dashboard" element={<StudentDashboard />} />
-        <Route path="/property-dashboard" element={<PropertyOwnerDashboard />}>
+        <Route path="/properties-dashboard" element={<PropertyOwnerDashboard />}>
           <Route path="" element={<Overview />} />
           <Route path="properties" element={<PropertyList />} />
           <Route path="properties/add-new" element={<PropertyForm />} />
+          <Route path="reviews" element={<PropertyList />} />
         </Route>
 
         <Route path="/admin-dashboard" element={<Dashboard />}>
@@ -69,6 +70,7 @@ function App() {
           <Route path="students" element={<StudentList />} />
           <Route path="landlords" element={<LandlordList />} />
           <Route path="lookup-values" element={<LookupValues />} />
+          <Route path="reviews" element={<LookupValues />} />
           <Route path="landlords/add-new" element={<LandlordForm />} />
         </Route>
       </Routes>

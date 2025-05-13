@@ -187,16 +187,16 @@ const LandingPage = () => {
                         <div className="header-btns">
                         {userDetails?.roles?.some(role => role.type === "STUDENT") ? (  
                             <Link to="/properties" onClick={() => { window.scrollTo(0, 0); }}>
-                                <Button className="header-btn">Let&apos;s Find My Home</Button>
+                                <Button type="default" className="header-btn">Let&apos;s Find My Home</Button>
                             </Link>
                         ) : (
                             <Link to="/student" onClick={() => { window.scrollTo(0, 0,); }}>
-                                <Button className="header-btn">Get Started As Student</Button>
+                                <Button type="default" className="header-btn">Get Started As Student</Button>
                             </Link>
                         )}
 
                             <Link to="/about" onClick={() => { window.scrollTo(0, 0); }}>
-                                <Button className="header-btn2"> Learn More </Button>
+                                <Button type="default" className="header-btn2"> Learn More </Button>
                             </Link>
                         </div>
                     </div>
@@ -264,7 +264,7 @@ const LandingPage = () => {
                                     </Link>
                                 ) : (
                                     <Link to="/student">
-                                        <Button className="intro-cta" onClick={()=> window.scroll(0,0)}> Get Started As Student </Button>
+                                        <Button type="default" className="intro-cta" onClick={()=> window.scroll(0,0)}> Get Started As Student </Button>
                                     </Link>
                                 )}
                                 <div className="intro-slider-wrapper">
@@ -403,7 +403,7 @@ const LandingPage = () => {
                     <div className="property-dir-container">
                         <h2>Explore <span style={{ color: '#fdb10e' }}>10+ room types</span> across properties globally.</h2>
                         <Link to="/properties">
-                            <button className="pdc-cta">Discover Now</button>
+                            <Button type="default" className="pdc-cta">Discover Now</Button>
                         </Link>
                     </div>
                 </section>

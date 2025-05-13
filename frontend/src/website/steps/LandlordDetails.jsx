@@ -1,7 +1,7 @@
+// /* eslint-disable no-unused-vars */
 import {
   Button,
   Col,
-  ConfigProvider,
   Form,
   Input,
   message,
@@ -17,7 +17,7 @@ import { GENDER_OPTIONS } from "../../constants/Constants";
 
 const { Option } = Select;
 
-const LandlordDetails = ({ onSuccess }) => {
+const LandlordDetails = ({ onSuccess, emailForward }) => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -48,8 +48,11 @@ const LandlordDetails = ({ onSuccess }) => {
       const generatedUsername = `${formData.firstName} ${formData.lastName}`
         .toLowerCase()
         .replace(/\s+/g, "_");
+
+        const generatedFullname = `${formData.firstName} ${formData.lastName}`;
   
       const registrationData = {
+        fullName: generatedFullname,
         firstName: formData.firstName,
         lastName: formData.lastName,
         userName: generatedUsername,
@@ -76,27 +79,28 @@ const LandlordDetails = ({ onSuccess }) => {
   
         // Only show success and trigger onSuccess AFTER successful operations
         message.success("Registration successful! Welcome to our platform!");
+        emailForward(formData.primaryEmail);
         onSuccess();
       } else {
         throw new Error("Failed to complete registration");
       }
   
     } catch (error) {
-      // User-friendly error messages
-      let errorMessage = "Registration failed. Please check your information and try again.";
+      // let errorMessage = "Registration failed. Please check your information and try again.";
       
-      // Handle specific error cases if available
-      if (error.response?.data?.message?.includes("email")) {
-        errorMessage = "This email is already registered. Please use a different email.";
-      } else if (error.response?.status === 400) {
-        errorMessage = "Invalid registration details. Please check your inputs.";
-      }
+      // if (error.response?.data?.message?.includes("email")) {
+      //   errorMessage = "This email is already registered. Please use a different email.";
+      // } else if (error.response?.status === 400) {
+      //   errorMessage = "Invalid registration details. Please check your inputs.";
+      // }
   
-      message.error(errorMessage);
+      // message.error(errorMessage);
+
+      console.error("Registration error:", error);
     } finally {
-      // Always reset loading state
       setLoading(false);
     }
+    // onSuccess(formData.primaryEmail);
   };
 
   // Added empty dependency array to ensure this runs only once on mount
@@ -137,31 +141,8 @@ const LandlordDetails = ({ onSuccess }) => {
 
   return (
     <>
-      <ConfigProvider
-        theme={{
-          components: {
-            Input: {
-              colorBorder: "#ffffff",
-              colorPrimary: "#fdb10e",
-              hoverBorderColor: "#fdb10e",
-              controlHeight: 40,
-            },
-            Select: {
-              colorBorder: "#ffffff",
-              colorPrimary: "#fdb10e",
-              hoverBorderColor: "#fdb10e",
-              borderRadius: 6,
-              controlHeight: 40,
-              fontSize: 15,
-              paddingInline: 10,
-              fontSizeIcon: 16,
-            },
-            Button: {
-              hoverBorderColor: "#f4f4f4",
-            },
-          },
-        }}
-      >
+      
+      
         <div className="step-container">
           <div className="step-card">
             <h1>Let&apos;s Create Your Account </h1>
@@ -467,13 +448,14 @@ const LandlordDetails = ({ onSuccess }) => {
             </div>
           </div>
         </div>
-      </ConfigProvider>
+      
     </>
   );
 };
 
 LandlordDetails.propTypes = {
   onSuccess: PropTypes.func,
+  emailForward: PropTypes.func,
 };
 
 export default LandlordDetails;

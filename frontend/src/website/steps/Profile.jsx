@@ -1,4 +1,4 @@
-import { Button, Col, ConfigProvider, Form, Input, message, Row, Select } from "antd";
+import { Button, Col, Form, Input, message, Row, Select } from "antd";
 import { useEffect, useState } from "react";
 import { BaseApiService } from "../../utils/BaseApiService";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -128,31 +128,7 @@ const Profile = ({ onSubmit }) => {
 
   return (
     <>
-      <ConfigProvider
-        theme={{
-          components: {
-            Input: {
-              colorBorder: "#ffffff",
-              colorPrimary: "#fdb10e",
-              hoverBorderColor: "#fdb10e",
-              controlHeight: 40,
-            },
-            Select: {
-              colorBorder: "#ffffff",
-              colorPrimary: "#fdb10e",
-              hoverBorderColor: "#fdb10e",
-              borderRadius: 6,
-              controlHeight: 40,
-              fontSize: 15,
-              paddingInline: 10,
-              fontSizeIcon: 16,
-            },
-            Button: {
-              hoverBorderColor: "#f4f4f4",
-            },
-          },
-        }}
-      >
+      
         <div className="step-container">
           <div className="step-card">
             <h1>Let&apos;s know more about you </h1>
@@ -421,7 +397,7 @@ const Profile = ({ onSubmit }) => {
                       {loading ? (
                         <Button
                           // className="auth-btn1"
-                          type="primary"
+                          type="default"
                           style={{
                             background: "#fdb10e",
                             color: "#ffffff",
@@ -436,7 +412,7 @@ const Profile = ({ onSubmit }) => {
                       ) : (
                         <Button
                           // className="auth-btn1"
-                          type="primary"
+                          type="default"
                           onClick={handleRegister}
                           disabled={loading}
                           style={{
@@ -458,7 +434,6 @@ const Profile = ({ onSubmit }) => {
             </div>
           </div>
         </div>
-      </ConfigProvider>
     </>
   );
 };

@@ -61,7 +61,7 @@ const Drawer = () => {
           {UserSessionUtils.getUserDetails()?.fullName || "User"}
         </p>
         <p style={{ margin: 0 }}>
-          {UserSessionUtils.getUserDetails()?.email || "Not Available"}
+          {UserSessionUtils.getUserDetails()?.primaryEmail || "Not Available"}
         </p>
       </div>
 
@@ -222,10 +222,10 @@ const Drawer = () => {
         </div>
         <div className="drawer-separator"></div>
         <div className="drawer-body">
-          <Link to="/admin-dashboard/">
+          <Link to="/admin-dashboard">
             <div
               className={`drawer-item ${
-                activeItem === "/admin-dashboard/" ? "active" : ""
+                activeItem === "/admin-dashboard" ? "active" : ""
               }`}
             >
               <div>
@@ -475,6 +475,25 @@ const Drawer = () => {
               <p style={{ color: "#fdb10e", lineHeight: 0 }}>Others</p>
             </Divider>
           </div>
+
+          <Link to="reviews">
+                      <div
+                        className={`drawer-item ${
+                          activeItem === "/admin-dashboard/reviews" ? "active" : ""
+                        }`}
+                      >
+                        <div>
+                          <img
+                            src={drawer.comments}
+                            style={{ width: 20, height: 20 }}
+                            alt="drawer item icon"
+                          />
+                        </div>
+                        <div>
+                          <p>Reviews</p>
+                        </div>
+                      </div>
+                    </Link>
 
           <Link to="lookup-values">
             <div

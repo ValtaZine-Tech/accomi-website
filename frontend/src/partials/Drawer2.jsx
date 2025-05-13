@@ -32,23 +32,24 @@ const Drawer2 = () => {
   };
 
   const popoverContent = (
-    <div style={{ minWidth: 250, maxWidth: 250 }}>
+    <div style={{ minWidth: 300, maxWidth: 300 }}>
       <div className="popover-header">
         <Avatar
           style={{
             verticalAlign: "middle",
             backgroundColor: "#ffbf00",
             color: "#fff",
+            fontSize: 30,
           }}
           size={60}
         >
           {UserSessionUtils.getUserDetails()?.fullName?.charAt(0) || "U"}
         </Avatar>
-        <p style={{ margin: 0, fontWeight: 500 }}>
+        <p style={{ margin: 0, fontWeight: 500, fontSize: 16 }}>
           {UserSessionUtils.getUserDetails()?.fullName || "User"}
         </p>
-        <p style={{ margin: 0 }}>
-          {UserSessionUtils.getUserDetails()?.email || "Not Available"}
+        <p style={{ margin: 0, fontSize: 13, color: "#888888" }}>
+          {UserSessionUtils.getUserDetails()?.primaryEmail || "Not Available"}
         </p>
       </div>
 
@@ -133,7 +134,6 @@ const Drawer2 = () => {
         </div>
       </div>
       <Divider style={{ marginTop: 8, marginBottom: 8 }}></Divider>
-
     </div>
   );
 
@@ -162,7 +162,7 @@ const Drawer2 = () => {
           <Link to="">
             <div
               className={`drawer-item ${
-                activeItem === "/property-dashboard/" ? "active" : ""
+                activeItem === "/properties-dashboard" ? "active" : ""
               }`}
             >
               <div>
@@ -194,7 +194,9 @@ const Drawer2 = () => {
           <Link to="properties">
             <div
               className={`drawer-item ${
-                activeItem === "/dashboard/properties" ? "active" : ""
+                activeItem === "/properties-dashboard/properties"
+                  ? "active"
+                  : ""
               }`}
             >
               <div>
@@ -220,14 +222,64 @@ const Drawer2 = () => {
                 borderWidth: 3,
               }}
             >
+              <p style={{ color: "#fdb10e", lineHeight: 0 }}>WebPages</p>
+            </Divider>
+          </div>
+
+          <Link to="/">
+            <div className={`drawer-item`}>
+              <div></div>
+              <div>
+                <p>Home</p>
+              </div>
+            </div>
+          </Link>
+
+          <Link to="/about">
+            <div className={`drawer-item`}>
+              <div></div>
+              <div>
+                <p>About Us</p>
+              </div>
+            </div>
+          </Link>
+
+          <Link to="/properties">
+            <div className={`drawer-item`}>
+              <div></div>
+              <div>
+                <p>Properties</p>
+              </div>
+            </div>
+          </Link>
+
+          <Link to="/landlord-agent">
+            <div className={`drawer-item`}>
+              <div></div>
+              <div>
+                <p>Agents</p>
+              </div>
+            </div>
+          </Link>
+
+          <div>
+            <Divider
+              orientation="left"
+              orientationMargin={0}
+              style={{
+                color: "#ffffff",
+                borderColor: "#fdb10e",
+                borderWidth: 3,
+              }}
+            >
               <p style={{ color: "#fdb10e", lineHeight: 0 }}>Other</p>
             </Divider>
           </div>
 
-          <Link to="properties">
+          <Link to="reviews">
             <div
               className={`drawer-item ${
-                activeItem === "/dashboard/properties" ? "active" : ""
+                activeItem === "/properties-dashboard/reviews" ? "active" : ""
               }`}
             >
               <div>
@@ -238,7 +290,7 @@ const Drawer2 = () => {
                 />
               </div>
               <div>
-                <p>Comments</p>
+                <p>Reviews</p>
               </div>
             </div>
           </Link>
@@ -267,6 +319,7 @@ const Drawer2 = () => {
                 backgroundColor: "#ffbf00",
                 color: "#fff",
                 cursor: "pointer",
+                fontSize: 20,
               }}
               size="large"
             >

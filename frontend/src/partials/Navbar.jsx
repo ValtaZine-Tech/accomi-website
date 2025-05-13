@@ -94,13 +94,14 @@ const Navbar = () => {
   }, [isAuthenticated]);
 
   const popoverContent = (
-    <div style={{ minWidth: 250, maxWidth: 250 }}>
+    <div style={{ minWidth: 320, maxWidth: 320 }}>
       <div className="popover-header">
         <Avatar
           style={{
             verticalAlign: "middle",
             backgroundColor: "#ffbf00",
             color: "#fff",
+            fontSize: "30px",
           }}
           size={60}
         >
@@ -110,7 +111,7 @@ const Navbar = () => {
           {UserSessionUtils.getUserDetails()?.fullName || "User"}
         </p>
         <p style={{ margin: 0 }}>
-          {UserSessionUtils.getUserDetails()?.email || "Not Available"}
+          {UserSessionUtils.getUserDetails()?.primaryEmail || "Not Available"}
         </p>
       </div>
 
@@ -236,6 +237,7 @@ const Navbar = () => {
                       backgroundColor: "#ffbf00",
                       color: "#fff",
                       cursor: "pointer",
+                      fontSize: "20px",
                     }}
                     size="large"
                   >

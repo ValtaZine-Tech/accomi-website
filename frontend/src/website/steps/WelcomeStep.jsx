@@ -1,34 +1,52 @@
 /* eslint-disable no-unused-vars */
 import { InboxOutlined, PlusOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./styles.css";
 import { Button } from "antd";
+import { UserSessionUtils } from "../../utils/UserSessionUtils";
 
 const WelcomeStep = () => {
   const navigate = useNavigate();
-  const [current, setCurrent] = useState(0);
-  const [showPropertyForm, setShowPropertyForm] = useState(false);
+  const [userDetails, setUserDetails] = useState(null); // Add state for user details
 
-  const [previewOpen, setPreviewOpen] = useState(false);
-  const [previewImage, setPreviewImage] = useState("");
+  useEffect(() => {
+    const details = UserSessionUtils.getUserDetails();
+    setUserDetails(details);
+  }, []);
+
+  // Get first name or fallback to 'there'
+  const firstName = userDetails?.fullName?.split(' ')[0] || 'there';
 
   return (
     <>
       <div className="welcome-step-container">
         <div className="welcome-step-card">
-          <h1 style={{ textAlign: "center" }}>
-            Your All Set And Ready To Start Listing Your Properties.
+          <h1 style={{ textAlign: "center", marginBottom: "16px" }}>
+            Welcome to Accomi! 🎉
           </h1>
+          
+          <p style={{ 
+            textAlign: "center", 
+            fontSize: "1.1rem",
+            color: "#666",
+            marginBottom: "40px",
+            lineHeight: 1.6
+          }}>
+            We&apos;re thrilled to have you on board, {firstName}!<br />
+            Your property management journey starts now - let&apos;s turn your real estate into results!
+          </p>
 
           <div className="welcome-btns-container">
             <Link to="/properties-dashboard">
               <button className="welcome-btn1">
-                Go to Dashboard
+                Launch Dashboard
               </button>
             </Link>
-            <Link to="/" >
-              <button className="welcome-btn2">Maybe Later</button>
+            <Link to="/">
+              <button className="welcome-btn2">
+                Maybe Later
+              </button>
             </Link>
           </div>
         </div>

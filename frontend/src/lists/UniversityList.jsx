@@ -280,7 +280,7 @@ const UniversityList = () => {
               placeholder="Search by value, category..."
               onSearch={onSearch}
               onChange={(e) => onSearch(e.target.value)}
-              enterButton="Search"
+              enterButton
               allowClear
               style={{ marginBottom: 30 }}
             />
@@ -322,7 +322,7 @@ const UniversityList = () => {
             {error && (
               <Alert
                 message="Data Loading Error"
-                description="We couldn't load the lookup values. Please try again later."
+                description="We couldn't load the universities. Please try again later."
                 type="error"
                 closable
                 onClose={() => setError(null)}

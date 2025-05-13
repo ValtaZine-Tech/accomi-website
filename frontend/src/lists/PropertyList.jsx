@@ -1,21 +1,20 @@
 import { useCallback, useEffect, useState } from "react";
-import { Button, Divider, Image, Modal, Space, Table, Tag } from "antd";
+import { Alert, Button, Image, Modal, Space, Table, Tag } from "antd";
 import { DeleteOutlined, EditOutlined, PlusOutlined } from "@ant-design/icons";
 import Search from "antd/es/input/Search";
 import { Link } from "react-router-dom";
 import { BaseApiService } from "../utils/BaseApiService";
 import { UserSessionUtils } from "../utils/UserSessionUtils";
 
-const onChange = (pagination, filters, sorter, extra) => {
-  console.log("params", pagination, filters, sorter, extra);
-};
-
-const onSearch = (value, _e, info) => console.log(info?.source, value);
-
 const PropertyList = () => {
   const [properties, setProperties] = useState([]);
+  const [displayedData, setDisplayedData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [total, setTotal] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
 
   const ownerDetails = UserSessionUtils.getOwnerDetails();
@@ -27,8 +26,8 @@ const PropertyList = () => {
     setError(null);
 
     const searchParameters = {
-      offset: 0,
-      limit: 10,
+      offset: (currentPage - 1) * pageSize,
+        limit: pageSize,
       ...(ownerId && { ownerId }),
     };
     new BaseApiService("/properties")
@@ -43,11 +42,36 @@ const PropertyList = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, [ownerId]);
+  }, [ownerId, currentPage, pageSize]);
 
   useEffect(() => {
     fetchProperties();
   }, [fetchProperties]);
+
+  useEffect(() => {
+    const filteredValues = properties.filter((property) => {
+      if (!searchTerm) return true;
+
+      const searchFields = [
+        property.propertyName?.toLowerCase(),
+        property.type?.toLowerCase(),
+        property.address?.toLowerCase(),
+        property.countryName?.toLowerCase(),
+        property.availabilityStatus?.toLowerCase(),
+      ];
+
+      return searchFields.some((field) =>
+        field?.includes(searchTerm.toLowerCase())
+      );
+    });
+
+    const startIndex = 0;
+    const endIndex = startIndex + pageSize;
+    setCurrentPage(1);
+
+    setDisplayedData(filteredValues.slice(startIndex, endIndex));
+    setTotal(filteredValues.length);
+  }, [properties, searchTerm, pageSize]);
 
   const handleDelete = async (propertyId) => {
     try {
@@ -188,17 +212,19 @@ const PropertyList = () => {
     },
   ];
 
+  const onSearch = (value) => {
+    setSearchTerm(value.trim().toLowerCase());
+    setCurrentPage(1);
+  };
+
   return (
     <>
       <div>
-        <Divider
-          orientation="left"
-          style={{
-            borderColor: "#fdb10e",
-          }}
-        >
-          <h2>My Property List</h2>
-        </Divider>
+        <div style={{ paddingBottom: "2rem", width: "100%" }}>
+          <h1>Properties</h1>
+          <p>Here’s where properties are recorded and listed</p>
+        </div>
+
         {error && (
           <div style={{ color: "red", marginBottom: 16 }}>Error: {error}</div>
         )}
@@ -215,6 +241,7 @@ const PropertyList = () => {
             placeholder="search property..."
             onSearch={onSearch}
             enterButton
+            allowClear
           />
           <Link to="add-new">
             <Button
@@ -233,10 +260,47 @@ const PropertyList = () => {
         </div>
         <Table
           columns={columns}
-          dataSource={properties}
+          dataSource={displayedData}
           loading={loading}
-          onChange={onChange}
+          onChange={(pagination) => {
+            setCurrentPage(pagination.current);
+            setPageSize(pagination.pageSize);
+          }}
+          pagination={{
+            current: currentPage,
+            pageSize: pageSize,
+            total: total,
+            showSizeChanger: true,
+            pageSizeOptions: ["10", "20", "50", "100"],
+            // showTotal: (total) => `Total ${total} items`,
+          }}
+          locale={{
+            emptyText: (
+              <div style={{ padding: 20 }}>
+                <p>No properties found</p>
+                {!loading && (
+                  <Button
+                    type="link"
+                    onClick={fetchProperties}
+                    style={{ paddingLeft: 0 }}
+                  >
+                    Try reloading data
+                  </Button>
+                )}
+              </div>
+            ),
+          }}
         />
+        {error && (
+          <Alert
+            message="Data Loading Error"
+            description="We couldn't load the properties. Please try again later."
+            type="error"
+            closable
+            onClose={() => setError(null)}
+            style={{ marginBottom: 16 }}
+          />
+        )}
       </div>
     </>
   );

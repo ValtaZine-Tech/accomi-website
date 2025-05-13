@@ -85,7 +85,7 @@ const Login2 = ({ onSuccess }) => {
       const redirectPath = user.roles.some((r) => r.type === "ADMIN")
         ? "/admin-dashboard"
         : user.roles.some((r) => r.type === "LANDLORD")
-        ? "/property-dashboard"
+        ? "/properties-dashboard"
         : "/";
 
       // 6. Finalize login
@@ -162,25 +162,25 @@ const Login2 = ({ onSuccess }) => {
             >
               {loading ? (
                 <Button
-                  type="primary"
+                  type="default"
                   className="auth-btn1"
-                  style={{ backgroundColor: "#111241", color: "#fff" }}
+                  style={{ color: "#fff" }}
                 >
                   <LoadingOutlined spin />
                 </Button>
               ) : (
                 <Button
-                  type="primary"
+                  type="default"
                   className="auth-btn1"
                   onClick={handleLogin}
-                  style={{ backgroundColor: "#111241", color: "#fff" }}
+                  style={{ color: "#fff" }}
                 >
                   Sign in
                 </Button>
               )}
 
               <p style={{ margin: "5px 0" }}>Or</p>
-              <Button className="auth-btn2" onClick={handleOAuth}>
+              <Button type="default" className="auth-btn2" onClick={handleOAuth}>
                 {" "}
                 <img
                   src={asset.googleIcon}

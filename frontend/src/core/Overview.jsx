@@ -236,10 +236,69 @@ const Overview = () => {
       </div>
 
       <div className="top-section">
-        <div className="ov-card"></div>
-        <div className="ov-card"></div>
-        <div className="ov-card"></div>
-        <div className="ov-card"></div>
+        <div className="top-section">
+          {/* Total Properties Card */}
+          <div className="ov-card">
+            <h3>
+              Total <br /> Properties
+            </h3>
+            <h1>{reviews.length}</h1>
+            <div className="card-icon"></div>
+            <div className="card-side-design">
+              <div className="card-side-design-inner"></div>
+            </div>
+          </div>
+
+          {/* Active Listings Card */}
+          <div className="ov-card">
+            <h3>
+              Available <br /> Properties
+            </h3>
+            <h1>{reviews.filter((p) => p.status === "Active").length}</h1>
+            <div className="card-icon"></div>
+            <div className="card-side-design">
+              <div className="card-side-design-inner"></div>
+            </div>
+          </div>
+
+          {/* Registered Landlords Card */}
+          <div className="ov-card">
+            <h3>
+              Landlord <br /> Accounts
+            </h3>
+            <h1>{new Set(reviews.map((p) => p.email)).size}</h1>
+            <div className="user-avatars">
+              {reviews.slice(0, 3).map((review, index) => (
+                <span key={index} className="avatar">
+                  {review.username[0]}
+                </span>
+              ))}
+            </div>
+            <div className="card-icon"></div>
+            <div className="card-side-design">
+              <div className="card-side-design-inner"></div>
+            </div>
+          </div>
+
+          {/* Top Country Card */}
+          <div className="ov-card">
+            <h3>
+              Top <br /> Country
+            </h3>
+            <h1>
+              {Object.entries(
+                reviews.reduce((acc, curr) => {
+                  acc[curr.countryName] = (acc[curr.countryName] || 0) + 1;
+                  return acc;
+                }, {})
+              ).reduce((a, b) => (a[1] > b[1] ? a : b), ["", 0])[0] || "N/A"}
+            </h1>
+            <div className="card-icon"></div>
+            <div className="card-side-design">
+              <div className="card-side-design-inner"></div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="chart-section">
@@ -358,11 +417,7 @@ const Overview = () => {
             </div>
 
             <div className="mini-chart">
-              <MiniChartHalfPie
-                type="pie"
-                data={[100, 250]}
-                color="#2c7be5"
-              />
+              <MiniChartHalfPie type="pie" data={[100, 250]} color="#2c7be5" />
             </div>
           </div>
         </div>
