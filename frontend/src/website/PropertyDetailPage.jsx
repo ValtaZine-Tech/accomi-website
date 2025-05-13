@@ -28,6 +28,7 @@ import { InfoCircleOutlined } from "@ant-design/icons";
 const PropertyDetailPage = () => {
   const { id, propertyName } = useParams();
   const [propertyDetail, setPropertyDetail] = useState(null); // Changed to null
+  const [propertyImages, setImages] = useState(null); // Changed to null
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [locations, setLocations] = useState([]);
@@ -82,9 +83,10 @@ const PropertyDetailPage = () => {
         console.log("Property Detail: ", response);
 
         setPropertyDetail({
-          ...response,
-          images: response?.images || [] // Fallback to empty array
+          ...response// Fallback to empty array
         });
+        
+        setImages(response.images || []); // Fallback to empty array
       } catch (error) {
         setError(error.message);
       } finally {
@@ -184,8 +186,8 @@ const PropertyDetailPage = () => {
                         effect="fade"
                         draggable
                       >
-                        {propertyDetail.images?.length > 0 ? (
-                          propertyDetail.images?.map((image, imgIndex) => (
+                        {propertyImages?.length > 0 ? (
+                          propertyImages?.map((image, imgIndex) => (
                             <div key={imgIndex}>
                               <LazyLoadImage
                                 src={`http://localhost:8080${image?.path}`}
@@ -208,7 +210,7 @@ const PropertyDetailPage = () => {
                                   style={{ color: "#ffffff" }}
                                 />
                                 <p style={{ color: "#ffffff", lineHeight: 0 }}>
-                                  {propertyDetail.images?.length || 0}
+                                  {propertyImages?.length || 0}
                                 </p>
                               </div>
                             </div>
