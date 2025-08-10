@@ -1,7 +1,7 @@
 import { asset, drawer } from "../assets/assets";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { UserOutlined } from "@ant-design/icons";
+import { DashboardOutlined, UserOutlined } from "@ant-design/icons";
 import { Avatar, Button, Divider, Drawer, Modal, Popover } from "antd";
 import LoginForm from "../auth/Login2";
 import { LazyLoadImage } from "react-lazy-load-image-component";
@@ -107,10 +107,10 @@ const Navbar = () => {
         >
           {UserSessionUtils.getUserDetails()?.fullName?.charAt(0) || "U"}
         </Avatar>
-        <p style={{ margin: 0, fontWeight: 500 }}>
+        <p style={{ margin: 0, fontWeight: 600, fontSize: 16 }}>
           {UserSessionUtils.getUserDetails()?.fullName || "User"}
         </p>
-        <p style={{ margin: 0 }}>
+        <p style={{ margin: 0, fontSize: 14 }}>
           {UserSessionUtils.getUserDetails()?.primaryEmail || "Not Available"}
         </p>
       </div>
@@ -121,6 +121,12 @@ const Navbar = () => {
         <Button type="default" className="popover-btn">
           <UserOutlined />
           View Profile
+        </Button>
+      </Link>
+      <Link to="/admin-dashboard">
+        <Button type="default" className="popover-btn">
+          <DashboardOutlined />
+          My Dashboard
         </Button>
       </Link>
 

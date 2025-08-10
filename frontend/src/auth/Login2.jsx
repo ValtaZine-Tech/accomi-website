@@ -15,7 +15,7 @@ import PropTypes from "prop-types";
 
 const Login2 = ({ onSuccess }) => {
   const navigate = useNavigate();
-  const [userName, setUsername] = useState("");
+  const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -26,12 +26,12 @@ const Login2 = ({ onSuccess }) => {
     setLoading(true);
 
     // Handle test accounts
-    if (userName === "guest" && password === "1234") {
+    if (identifier === "guest" && password === "1234") {
       message.success("Logged in Successfully");
       setLoading(false); // Stop loading
       return navigate("/");
     }
-    if (userName === "admin" && password === "admin123") {
+    if (identifier === "admin" && password === "admin123") {
       message.success("Logged in Successfully");
       setLoading(false); // Stop loading
       return navigate("/admin-dashboard");
@@ -41,7 +41,7 @@ const Login2 = ({ onSuccess }) => {
       // 1. User authentication
       const loginResponse = await new BaseApiService(
         "/auth/login"
-      ).postRequestWithJsonResponse({ userName, password });
+      ).postRequestWithJsonResponse({ identifier, password });
 
       if (!loginResponse.accessToken) {
         throw new Error("No access token received");
@@ -136,9 +136,9 @@ const Login2 = ({ onSuccess }) => {
             <Input
               type="text"
               className="inputField"
-              placeholder="Enter your Username"
-              value={userName}
-              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter your Username or email"
+              value={identifier}
+              onChange={(e) => setIdentifier(e.target.value)}
             />
             <Input.Password
               className="inputField"

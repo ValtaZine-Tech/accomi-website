@@ -2,12 +2,8 @@ import { Button, ConfigProvider, message, Steps } from "antd";
 import Navbar from "../partials/Navbar";
 import "./styles.css";
 import { useState } from "react";
-import City from "./steps/City";
 import University from "./steps/University";
-import Transfer from "./steps/Transfer";
-import Duration from "./steps/Duration";
-import Budget from "./steps/Budget";
-import HouseType from "./steps/HouseType";
+import Country from "./steps/Country";
 import Profile from "./steps/Profile";
 import { useNavigate } from "react-router-dom";
 import { BaseApiService } from "../utils/BaseApiService";
@@ -16,7 +12,11 @@ import { UserSessionUtils } from "../utils/UserSessionUtils";
 const StudentSignup = () => {
   const navigate = useNavigate();
   const [current, setCurrent] = useState(0);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({
+    country: null,
+    university: null,
+    profile: null,
+  });
 
   const next = () => {
     setCurrent((prev) => prev + 1);
@@ -25,31 +25,38 @@ const StudentSignup = () => {
     setCurrent((prev) => prev - 1);
   };
 
-  const handleStepComplete = (stepData) => {
-    setFormData((prev) => ({ ...prev, ...stepData }));
+  const handleStepComplete = (stepName, stepData) => {
+    setFormData((prev) => ({ ...prev, [stepName]: stepData }));
     next();
   };
 
   // In StudentSignup component
-const handleSubmit = async (profileData) => {
+  const handleSubmit = async (profileData) => {
     try {
       const finalData = {
-        ...formData, // Data from previous steps
-        ...profileData // Data from profile step
+        ...formData.country,
+        ...formData.university,
+        ...profileData,
       };
-  
-      const response = await new BaseApiService("/student/register")
+
+      console.log("Final submission data:", finalData);
+
+      const response = await new BaseApiService("/students/register")
         .postRequestWithJsonResponse(finalData);
-  
+
       if (response.accessToken) {
         UserSessionUtils.setUserAuthToken(response.accessToken);
         UserSessionUtils.setUserDetails({
-          fullName: `${response.user.firstName} ${response.user.lastName}`,
+          firstName: response.user.firstName,
+          lastName: response.user.lastName,
+          userName: response.user.userName,
           email: response.user.primaryEmail,
           userId: response.user.id,
           genderId: response.user.genderId,
+          countryId: response.user.countryId,
+          institutionId: response.user.institutionId
         });
-        
+
         message.success("Registration successful!");
         navigate('/');
       }
@@ -60,32 +67,28 @@ const handleSubmit = async (profileData) => {
 
   const studentSteps = [
     {
-      title: "City",
-      content: <City onSuccess={handleStepComplete} />,
+      title: "Country",
+      content: (
+        <Country onSuccess={(data) => handleStepComplete("country", data)} />
+      ),
     },
     {
       title: "University",
-      content: <University onSuccess={handleStepComplete} />,
-    },
-    {
-      title: "Move In",
-      content: <Transfer onSuccess={handleStepComplete} />,
-    },
-    {
-      title: "Duration",
-      content: <Duration onSuccess={handleStepComplete} />,
-    },
-    {
-      title: "House Type",
-      content: <HouseType onSuccess={handleStepComplete} />,
-    },
-    {
-      title: "Budget",
-      content: <Budget onSuccess={handleStepComplete} />,
+      content: (
+        <University
+          onSuccess={(data) => handleStepComplete("university", data)}
+        />
+      ),
     },
     {
       title: "Profile",
-      content: <Profile onSubmit={handleSubmit} />,
+      content: (
+        <Profile
+          onSubmit={handleSubmit}
+          countryId={formData.country?.countryId}
+          institutionId={formData.university?.institutionId}
+        />
+      ),
     },
   ];
 
@@ -96,8 +99,7 @@ const handleSubmit = async (profileData) => {
   const contentStyle = {
     lineHeight: "260px",
     textAlign: "center",
-    marginTop: 20,
-    marginBottom: 20,
+    marginBottom: 50,
   };
 
   return (

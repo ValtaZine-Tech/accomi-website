@@ -29,6 +29,7 @@ import Login2 from "./auth/Login2";
 import PropertyDetailPage from "./website/PropertyDetailPage";
 import PropertyListings from "./website/PropertyListings";
 import LookupValues from "./lists/LookupValues";
+import ProfilePageStudent from "./website/ProfilePageStudent";
 // import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
         <Route path="/account-type" element={<AccountType />} />
         <Route path="/student" element={<StudentSignup />} />
         <Route path="/account-creation" element={<LandlordSignup />} />
+        <Route path="/profile" element={<ProfilePageStudent />} />
 
         <Route path="/student-dashboard" element={<StudentDashboard />} />
         <Route path="/properties-dashboard" element={<PropertyOwnerDashboard />}>

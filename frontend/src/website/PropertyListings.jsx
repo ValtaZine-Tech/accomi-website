@@ -30,7 +30,7 @@ const PropertyListings = () => {
       const response = await new BaseApiService(
         "/properties"
       ).getRequestWithJsonResponse(searchParameters);
-      console.log("API Response:", response);
+      // console.log("API Response:", response);
       setProperties(response);
       setLoading(false);
     } catch (error) {

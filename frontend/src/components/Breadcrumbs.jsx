@@ -10,7 +10,7 @@ const Breadcrumbs = () => {
   };
 
   return (
-    <nav aria-label="breadcrumb" style={{ marginBottom: ".5rem", marginTop: "6rem", marginLeft: '5rem' }}>
+    <nav aria-label="breadcrumb" style={{ marginBottom: ".5rem", marginTop: "6.5rem", marginLeft: '5rem' }}>
       <ol style={{ display: "flex", listStyle: "none", padding: 0 }}>
         <li>
           <Link to="/">Home</Link>

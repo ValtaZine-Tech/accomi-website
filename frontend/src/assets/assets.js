@@ -71,6 +71,9 @@ import flutter from './icons/flutterLogo.png'
 import quickBook from './icons/quickBook.png'
 import values from './icons/lookupValues.png'
 import verification from './icons/emailVerification.png'
+import bed from './icons/bedrooms.png'
+import bath from './icons/bathrooms.png'
+
 
 
 
@@ -103,6 +106,8 @@ export const asset = {
     flutter,
     quickBook,
     verification,
+    bed,
+    bath,
     
 }
 

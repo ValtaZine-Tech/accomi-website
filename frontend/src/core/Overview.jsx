@@ -314,9 +314,15 @@ const Overview = () => {
             <h2>Total Transactions</h2>
             <p>Payment received across all channels</p>
           </div>
-          <Select style={{ width: "300px", height: "40px" }}>
-            <Select.Option value="last30days">Last 30 days</Select.Option>
-            <Select.Option value="last60days">Last 60 days</Select.Option>
+          <Select
+            style={{ width: "300px", height: "40px" }}
+            placeholder="Select a Timeframe (years)"
+          >
+            <Select.Option value="2025">2025</Select.Option>
+            <Select.Option value="2024">2024</Select.Option>
+            <Select.Option value="2022">2022</Select.Option>
+            <Select.Option value="2021">2021</Select.Option>
+            <Select.Option value="2020">2020</Select.Option>
           </Select>
         </div>
 
@@ -483,6 +489,11 @@ const Overview = () => {
               <h2>Projection vs actual</h2>
               <p>Projected earnings vs actual earnings</p>
             </div>
+            <MiniChartBar
+              type="bar"
+              data={[[25, 30, 20, 35, 22, 38, 26],[25, 30, 20, 35, 22, 38, 26]]}
+              color="#2c7be5"
+            />
           </div>
 
           <div className="user-return-chart">

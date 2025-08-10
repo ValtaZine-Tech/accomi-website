@@ -23,8 +23,8 @@ const LandlordDetails = ({ onSuccess, emailForward }) => {
     lastName: "",
     userName: "",
     gender: "",
-    primaryEmail: "",
-    primaryPhone: "",
+    primaryEmailAddress: "",
+    primaryPhoneNumber: "",
     password: "",
     confirmPassword: "",
     countryId: null,
@@ -58,7 +58,7 @@ const LandlordDetails = ({ onSuccess, emailForward }) => {
         userName: generatedUsername,
         primaryEmail: formData.primaryEmail,
         password: formData.password,
-        primaryPhone: formData.primaryPhone,
+        primaryPhoneNumber: formData.primaryPhoneNumber,
         countryId: formData.countryId,
         genderId: formData.genderId,
       };
@@ -238,11 +238,11 @@ const LandlordDetails = ({ onSuccess, emailForward }) => {
                         <Input
                           placeholder="Enter your phone number"
                           maxLength={10}
-                          value={formData.primaryPhone}
+                          value={formData.primaryPhoneNumber}
                           onChange={(e) =>
                             setFormData({
                               ...formData,
-                              primaryPhone: e.target.value,
+                              primaryPhoneNumber: e.target.value,
                             })
                           }
                         />

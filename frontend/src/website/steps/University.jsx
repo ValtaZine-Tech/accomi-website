@@ -1,52 +1,58 @@
-import { Select, Alert } from 'antd';
-import { useState } from 'react';
+import { Select, Alert } from "antd";
+import { useState } from "react";
 import { images } from "../../assets/assets";
-import PropTypes from 'prop-types';
-import './styles.css'
+import PropTypes from "prop-types";
+import "./styles.css";
 
 const universities = {
   "Central Region": [
-    { name: 'Makerere', image: images.university1 },
-    { name: 'Kyambogo', image: images.university2 },
-    { name: 'UCU', image: images.university3 },
+    { id: 0, name: "Makerere", image: images.university1 },
+    { id: 1, name: "Kyambogo", image: images.university2 },
+    { id: 2, name: "UCU", image: images.university3 },
   ],
   "Western Region": [
-    { name: 'MUST', image: images.university4 },
-    { name: 'Kabale Uni', image: images.university5 },
+    { id: 3, name: "MUST", image: images.university4 },
+    { id: 4, name: "Kabale Uni", image: images.university5 },
   ],
   "Eastern Region": [
-    { name: 'Busitema', image: images.university6 },
-    { name: 'Soroti Uni', image: images.university7 },
+    { id: 5, name: "Busitema", image: images.university6 },
+    { id: 6, name: "Soroti Uni", image: images.university7 },
   ],
   "Northern Region": [
-    { name: 'Gulu Uni', image: images.university8 },
-    { name: 'Lira Uni', image: images.university9 },
+    { id: 7, name: "Gulu Uni", image: images.university8 },
+    { id: 8, name: "Lira Uni", image: images.university9 },
   ],
 };
 
 const popularUniversities = Object.values(universities).flat().slice(0, 6);
 
-const University = ({onSuccess}) => {
+
+const University = ({ onSuccess }) => {
   const [selectedUniversity, setSelectedUniversity] = useState(null);
 
-  const handleUniversityChange = (value) => {
-    setSelectedUniversity(value);
-    onSuccess();
+  const handleCardClick = (id) => {
+    const data = { institutionId: id };
+    setSelectedUniversity(id);
+    onSuccess(data);
   };
 
-  const handleCardClick = (universityName) => {
-    setSelectedUniversity(universityName);
-    onSuccess();
+  const handleUniversityChange = (id) => {
+    const data = { institutionId: id };
+    setSelectedUniversity(id);
+    onSuccess(data);
   };
 
-  const universityOptions = Object.entries(universities).map(([region, universities]) => ({
-    label: <span>{region}</span>,
-    title: region,
-    options: universities.map((university) => ({
-      label: <span>{university.name}</span>,
-      value: university.name,
-    })),
-  }));
+  const universityOptions = Object.entries(universities).map(
+    ([region, universities]) => ({
+      label: <span>{region}</span>,
+      title: region,
+      options: universities.map((university) => ({
+        label: <span>{university.name}</span>,
+        value: university.id,
+      })),
+    })
+  );
+
 
   return (
     <>
@@ -57,10 +63,12 @@ const University = ({onSuccess}) => {
         <div className="step-card">
           <div className="university-container">
             {popularUniversities.map((university) => (
-              <div 
-                className={`university-card ${selectedUniversity === university.name ? 'selected' : ''}`} 
-                key={university.name} 
-                onClick={() => handleCardClick(university.name)}
+              <div
+                className={`university-card ${
+                  selectedUniversity === university.name ? "selected" : ""
+                }`}
+                key={university.name}
+                onClick={() => handleCardClick(university.id)}
               >
                 <div>
                   <img src={university.image} alt="" />
@@ -71,15 +79,20 @@ const University = ({onSuccess}) => {
               </div>
             ))}
           </div>
-          
+
           <div className="step-card-select">
             <Select
-             style={{ width: '100%', height: '40px', fontSize: '16px', textAlign: 'left' }}
+              style={{
+                width: "100%",
+                height: "40px",
+                fontSize: "16px",
+                textAlign: "left",
+              }}
               placeholder="Select a university"
               onChange={handleUniversityChange}
               options={universityOptions}
             />
-          </div> 
+          </div>
           {selectedUniversity && (
             <Alert
               message={`Selected University: ${selectedUniversity}`}

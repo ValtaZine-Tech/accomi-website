@@ -561,7 +561,6 @@ const PropertyForm = () => {
                 {loading ? (
                   <Button
                     type="default"
-                    htmlType="submit"
                     block
                     style={{
                       height: 40,
@@ -574,7 +573,8 @@ const PropertyForm = () => {
                 ) : (
                   <Button
                     type="default"
-                    htmlType="submit"
+                    // htmlType="submit"
+                    onClick={onFinish}
                     block
                     style={{
                       height: 40,
